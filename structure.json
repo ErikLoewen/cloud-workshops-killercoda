@@ -1,0 +1,9 @@
+{
+  "title": "Cloud Workshops – Von Linux zu Kubernetes",
+  "description": "Praxisnahe Einführung in Linux-Server, Docker, Netzwerke, Storage, Load Balancing und Kubernetes.",
+  "items": [
+    {
+      "path": "kapitel-01-linux-grundlagen"
+    }
+  ]
+}

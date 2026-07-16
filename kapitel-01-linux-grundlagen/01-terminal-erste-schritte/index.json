@@ -1,0 +1,44 @@
+{
+  "title": "Workshop 1 – Das Terminal sicher bedienen",
+  "description": "Absolute Terminalanfänger führen einfache Befehle aus, lesen Ausgaben und Fehlermeldungen, wiederholen eine Eingabe und beenden einen Vordergrundprozess.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Terminal, Shell und Prompt",
+        "text": "step1-orientierung.md"
+      },
+      {
+        "title": "Den ersten Befehl ausführen",
+        "text": "step2-erster-befehl.md"
+      },
+      {
+        "title": "Befehl und Argument unterscheiden",
+        "text": "step3-befehl-und-argument.md"
+      },
+      {
+        "title": "Eine Fehlermeldung lesen und korrigieren",
+        "text": "step4-fehler-korrigieren.md"
+      },
+      {
+        "title": "Einen Vordergrundprozess unterbrechen",
+        "text": "step5-prozess-unterbrechen.md"
+      },
+      {
+        "title": "Abschlussaufgabe und technische Teilprüfung",
+        "text": "challenge.md",
+        "background": "setup.sh",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}

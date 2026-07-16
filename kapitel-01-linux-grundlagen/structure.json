@@ -1,0 +1,9 @@
+{
+  "title": "Kapitel 1 – Linux-Grundlagen",
+  "description": "Einführung in Terminalbedienung, Dateisystem, Serverressourcen, Prozesse, Dienste, Netzwerke und Ports.",
+  "items": [
+    {
+      "path": "01-terminal-sicher-bedienen"
+    }
+  ]
+}
