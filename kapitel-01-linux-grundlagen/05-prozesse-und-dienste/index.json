@@ -1,0 +1,84 @@
+{
+  "title": "Prozesse und Dienste kontrollieren",
+  "description": "Einen isolierten Übungsprozess im Hintergrund starten, gezielt beenden und einen vorbereiteten Demo-Dienst stoppen und wieder starten.",
+  "details": {
+    "assets": {
+      "host01": [
+        {
+          "file": "assets/lab-worker",
+          "target": "/opt/labforge-workshop-05-assets",
+          "chmod": "+x"
+        },
+        {
+          "file": "assets/lab-worker.py",
+          "target": "/opt/labforge-workshop-05-assets",
+          "chmod": "+x"
+        },
+        {
+          "file": "assets/lab-demo-runner.py",
+          "target": "/opt/labforge-workshop-05-assets",
+          "chmod": "+x"
+        },
+        {
+          "file": "assets/lab-demo-event.py",
+          "target": "/opt/labforge-workshop-05-assets",
+          "chmod": "+x"
+        },
+        {
+          "file": "assets/lab-demo.service",
+          "target": "/opt/labforge-workshop-05-assets"
+        },
+        {
+          "file": "assets/systemctl-no-pager-wrapper",
+          "target": "/opt/labforge-workshop-05-assets",
+          "chmod": "+x"
+        }
+      ]
+    },
+    "intro": {
+      "title": "Workshop vorbereiten",
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "1. Orientierung und Vorwissen",
+        "text": "step1-orientierung.md"
+      },
+      {
+        "title": "2. Einen Prozess im Hintergrund starten",
+        "text": "step2-hintergrundprozess.md"
+      },
+      {
+        "title": "3. Prozess finden und beenden",
+        "text": "step3-prozess-finden-und-beenden.md",
+        "verify": "verify-process.sh"
+      },
+      {
+        "title": "4. Prozess und Dienst unterscheiden",
+        "text": "step4-prozess-und-dienst.md"
+      },
+      {
+        "title": "5. Dienststatus untersuchen",
+        "text": "step5-dienststatus.md"
+      },
+      {
+        "title": "6. Dienst stoppen",
+        "text": "step6-dienst-stoppen.md",
+        "verify": "verify-service-inactive.sh"
+      },
+      {
+        "title": "Abschlussaufgabe",
+        "text": "challenge.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "title": "Abschluss",
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}

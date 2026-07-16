@@ -1,0 +1,45 @@
+{
+  "title": "Ports prüfen und einen HTTP-Server bereitstellen",
+  "description": "Lokale TCP-Ports untersuchen, eine HTTP-Antwort prüfen und einen einfachen Python-HTTP-Server auf Loopback bereitstellen.",
+  "details": {
+    "intro": {
+      "title": "Workshop 7",
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Netzwerkendpunkt verstehen",
+        "text": "step1-endpunktmodell.md"
+      },
+      {
+        "title": "Vorbereiteten Demo-Server untersuchen",
+        "text": "step2-demo-server.md"
+      },
+      {
+        "title": "Lauschenden TCP-Port prüfen",
+        "text": "step3-port-pruefen.md"
+      },
+      {
+        "title": "Lokale HTTP-Anfrage senden",
+        "text": "step4-http-anfrage.md"
+      },
+      {
+        "title": "Python-Serverbefehl zerlegen",
+        "text": "step5-python-server-und-arbeitsverzeichnis.md"
+      },
+      {
+        "title": "Abschlussserver selbstständig bereitstellen",
+        "text": "challenge.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "title": "Workshop und Kapitel abschließen",
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
