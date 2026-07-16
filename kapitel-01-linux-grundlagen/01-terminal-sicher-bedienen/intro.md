@@ -8,15 +8,10 @@ In diesem Workshop führst du deine ersten Linux-Befehle aus. Du liest normale A
 - einen Befehl mit **Enter** ausführen,
 - Befehl und Argument unterscheiden,
 - eine frühere Eingabe mit der **Pfeiltaste nach oben** zurückholen,
-- einen Vordergrundprozess mit **Ctrl+C** beenden,
+- einen Vordergrundprozess mit **Strg+C** beenden (auf manchen Tastaturen steht **Ctrl** statt **Strg** auf der Taste),
 - eine Meldung wie `command not found` als Hinweis nutzen.
 
-## Zeitrahmen
-
-Der Kernpfad ist für geübte Teilnehmende auf etwa 30 bis 35 Minuten und für absolute Anfänger auf ungefähr 40 bis 46 Minuten ausgelegt. Du musst die 60 Minuten nicht vollständig ausfüllen.
 
 ## Wichtig
 
 Nur der erste Demonstrationsbefehl ist anklickbar. Danach tippst du selbst. So übst du die Bedienhandlungen, die später vorausgesetzt werden.
-
-Der CHECK am Ende ist nur eine **technische Teilprüfung**. Er kann deine Tastendrücke und dein Begriffsverständnis nicht zuverlässig erkennen.

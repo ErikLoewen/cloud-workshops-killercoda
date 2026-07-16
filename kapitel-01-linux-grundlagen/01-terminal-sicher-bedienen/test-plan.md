@@ -77,14 +77,14 @@ Ohne `sleep 30` den CHECK auslösen.
 ### Vorgehen
 
 1. `sleep 30` starten.
-2. Mit Ctrl+C beenden.
+2. Mit Strg+C beenden.
 3. CHECK auslösen.
 
 ### Erwartung
 
 - Exit-Code 0;
 - Erfolgsmeldung bezeichnet das Ergebnis als technische Teilprüfung;
-- keine Behauptung, Ctrl+C sei technisch erkannt worden.
+- keine Behauptung, Strg+C sei technisch erkannt worden.
 
 ## 6. `sleep 30` endet regulär
 
@@ -98,7 +98,7 @@ Ohne `sleep 30` den CHECK auslösen.
 
 - Exit-Code 0 ist technisch möglich und zulässig;
 - Erfolgsmeldung behauptet keine vorzeitige Unterbrechung;
-- Trainerleitfaden verlangt weiterhin menschliche Prüfung von Ctrl+C.
+- Trainerleitfaden verlangt weiterhin menschliche Prüfung von Strg+C.
 
 ## 7. Fremder `sleep`-Prozess läuft
 
@@ -156,7 +156,7 @@ Erfolgstext von `verify.sh` prüfen.
 
 ### Erwartung
 
-Der Text behauptet nicht, Enter, Pfeiltaste nach oben oder Ctrl+C erkannt zu haben. Er behauptet auch nicht, `echo terminal-bereit` oder Begriffsverständnis geprüft zu haben.
+Der Text behauptet nicht, Enter, Pfeiltaste nach oben oder Strg+C erkannt zu haben. Er behauptet auch nicht, `echo terminal-bereit` oder Begriffsverständnis geprüft zu haben.
 
 ## 12. Realer Ablauf in Killercoda
 
@@ -167,7 +167,7 @@ Der Text behauptet nicht, Enter, Pfeiltaste nach oben oder Ctrl+C erkannt zu hab
 3. Jeden Schritt in Reihenfolge bearbeiten.
 4. Anklickbarkeit ausschließlich bei `whoami` prüfen.
 5. Eingabe, Ausgabe und Fehlermeldung visuell prüfen.
-6. Pfeiltaste nach oben und Ctrl+C im Browserterminal testen.
+6. Pfeiltaste nach oben und Strg+C im Browserterminal testen.
 7. CHECK bewusst fehlschlagen lassen.
 8. Aufgabe korrekt durchführen.
 9. CHECK erneut auslösen.
@@ -198,7 +198,7 @@ Zusätzlich erfassen:
 - Fokusprobleme,
 - Fehler bei Enter,
 - Erfolg der Pfeiltasten-Korrektur,
-- Erfolg von Ctrl+C,
+- Erfolg von Strg+C,
 - Verständnis der Abschlussfragen,
 - technische Verzögerungen.
 
@@ -212,5 +212,5 @@ Vor Veröffentlichung müssen erfüllt sein:
 - reale Killercoda-Tests für Start, Darstellung, Setup, Prozessbeobachtung und CHECK bestanden;
 - keine fremden Prozesse erfasst oder verändert;
 - mindestens vier von fünf Anfängern innerhalb von 46 Minuten;
-- mindestens vier von fünf mit höchstens Hinweisstufe 2 bei Pfeiltaste und Ctrl+C;
+- mindestens vier von fünf mit höchstens Hinweisstufe 2 bei Pfeiltaste und Strg+C;
 - Grenzen des CHECKs in Challenge, Finish, Lösung und Trainerleitfaden konsistent.

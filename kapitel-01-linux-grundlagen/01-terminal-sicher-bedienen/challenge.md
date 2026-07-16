@@ -19,7 +19,7 @@ Bearbeite die Aufgabe ohne anklickbare Befehle.
 
 ## Technische Teilprüfung
 
-Der CHECK beobachtet nur einen begrenzten technischen Zustand der `sleep 30`-Übung. Er erkennt nicht zuverlässig, ob du Enter, die Pfeiltaste nach oben oder `Ctrl+C` verwendet hast. Er prüft auch nicht die `echo`-Ausgabe oder dein Begriffsverständnis.
+Der CHECK beobachtet nur einen begrenzten technischen Zustand der `sleep 30`-Übung. Er erkennt nicht zuverlässig, ob du Enter, die Pfeiltaste nach oben oder `Strg+C` verwendet hast. Er prüft auch nicht die `echo`-Ausgabe oder dein Begriffsverständnis.
 
 Nutze Hinweise erst nach einem eigenen Versuch.
 
@@ -33,7 +33,7 @@ Für den Text benötigst du den bereits verwendeten Ausgabebefehl. Eine frühere
 <details>
 <summary>Hinweis 2 – Passendes Werkzeug</summary>
 
-Der Ausgabebefehl heißt `echo`. Die Pfeiltaste nach oben holt die vorherige Eingabe zurück. Die Warteübung verwendet `sleep`. Die Unterbrechung erfolgt mit `Ctrl+C`.
+Der Ausgabebefehl heißt `echo`. Die Pfeiltaste nach oben holt die vorherige Eingabe zurück. Die Warteübung verwendet `sleep`. Die Unterbrechung erfolgt mit `Strg+C`.
 
 </details>
 
@@ -51,6 +51,6 @@ Gib zuerst `echo terminal-bereit` ein und drücke Enter. `echo` ist der Befehl; 
 
 Drücke danach die Pfeiltaste nach oben und Enter. So führst du dieselbe Eingabe erneut aus, ohne sie vollständig neu zu tippen.
 
-Gib anschließend `sleep 30` ein und drücke Enter. Halte dann Ctrl gedrückt und drücke C. Der zurückkehrende Prompt zeigt, dass die Shell wieder bereit ist.
+Gib anschließend `sleep 30` ein und drücke Enter. Halte dann Strg gedrückt und drücke C. Der zurückkehrende Prompt zeigt, dass die Shell wieder bereit ist.
 
 </details>

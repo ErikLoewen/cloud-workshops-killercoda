@@ -21,10 +21,10 @@ Beobachte beziehungsweise erfrage, ob die lernende Person:
 1. Terminal, Shell und Prompt am konkreten Bildschirm unterscheiden kann;
 2. Eingabe, Ausgabe und Fehlermeldung korrekt zuordnet;
 3. einen Befehl mit Enter ausführt;
-4. in `echo Hallo` Befehl und Argument unterscheidet;
+4. in `echo "Hallo Welt"` Befehl und Argument unterscheidet;
 5. `whoam` mit der Pfeiltaste nach oben zurückholt und korrigiert;
 6. `sleep 30` als Vordergrundprozess erkennt;
-7. den Vordergrundprozess mit Ctrl+C beendet;
+7. den Vordergrundprozess mit Strg+C beendet;
 8. die Rückkehr des Prompts als Bereitschaftssignal erklärt;
 9. `command not found` als Hinweis und nicht als Systemschaden einordnet.
 
@@ -50,15 +50,15 @@ Erfüllt, wenn die Person:
 
 Der technische CHECK erkennt die Pfeiltaste nicht zuverlässig.
 
-### Ctrl+C
+### Strg+C
 
 Erfüllt, wenn die Person:
 
-- bei laufendem `sleep 30` Ctrl gedrückt hält und C drückt;
-- nicht die Zeichenfolge `Ctrl+C` eintippt;
+- bei laufendem `sleep 30` Strg gedrückt hält und C drückt;
+- nicht die Zeichenfolge `Strg+C` eintippt;
 - anschließend die Rückkehr des Prompts beobachtet.
 
-Das Ende des Prozesses beweist nicht, dass Ctrl+C verwendet wurde. Direkte Beobachtung ist erforderlich.
+Das Ende des Prozesses beweist nicht, dass Strg+C verwendet wurde. Direkte Beobachtung ist erforderlich.
 
 ## Typische Anfängerfehler
 
@@ -68,8 +68,8 @@ Das Ende des Prozesses beweist nicht, dass Ctrl+C verwendet wurde. Direkte Beoba
 - Das Leerzeichen zwischen `echo` und Argument fehlt.
 - Die Fehlermeldung wird übersprungen oder als Schaden interpretiert.
 - Die Pfeiltaste wird gedrückt, während der Browser statt des Terminals fokussiert ist.
-- `Ctrl` und `C` werden nacheinander statt gleichzeitig verwendet.
-- Die Zeichenfolge `Ctrl+C` wird eingetippt.
+- `Strg` und `C` werden nacheinander statt gleichzeitig verwendet.
+- Die Zeichenfolge `Strg+C` wird eingetippt.
 - Die fehlende Ausgabe bei `sleep` wird als Absturz interpretiert.
 - Der CHECK wird gestartet, bevor der Prompt zurückgekehrt ist.
 
@@ -78,7 +78,7 @@ Das Ende des Prozesses beweist nicht, dass Ctrl+C verwendet wurde. Direkte Beoba
 - Wo beginnt deine Eingabe?
 - Woran erkennst du, dass die Shell bereit ist?
 - Welche Zeile ist Eingabe und welche ist Ausgabe?
-- Welcher Teil von `echo Hallo` legt die Handlung fest?
+- Welcher Teil von `echo "Hallo Welt"` legt die Handlung fest?
 - Welcher Teil liefert den auszugebenden Text?
 - Welchen Namen nennt die Fehlermeldung?
 - Was unterscheidet `whoam` von `whoami`?
@@ -91,7 +91,7 @@ Das Ende des Prozesses beweist nicht, dass Ctrl+C verwendet wurde. Direkte Beoba
 Direkte Bedienhilfe ist angemessen, wenn:
 
 - die Person den Terminalfokus nach zwei Hinweisen nicht herstellen kann;
-- die Tastenkombination Ctrl+C trotz Erklärung und Hinweisstufe 2 nicht gelingt;
+- die Tastenkombination Strg+C trotz Erklärung und Hinweisstufe 2 nicht gelingt;
 - ein blockierender Prozess den weiteren Ablauf verhindert;
 - motorische oder technische Einschränkungen die geforderte Bedienhandlung verhindern;
 - eine Plattformstörung statt eines Lernfehlers vorliegt.
@@ -110,7 +110,7 @@ Erfasse getrennt:
 - Start bis Ende der Orientierung,
 - Dauer bis zur ersten selbst eingegebenen erfolgreichen Ausgabe,
 - Dauer der Fehlerkorrektur,
-- Dauer der ersten erfolgreichen Ctrl+C-Handlung,
+- Dauer der ersten erfolgreichen Strg+C-Handlung,
 - Dauer der Abschlussaufgabe,
 - Gesamtzeit bis zum Ende der Abruffragen.
 

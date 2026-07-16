@@ -31,19 +31,19 @@ Danach erscheint der Prompt erneut.
 ### 3. `echo` selbst eingeben
 
 ```text
-echo Hallo
+echo "Hallo Welt"
 ```
 
 Erwartete Ausgabe:
 
 ```text
-Hallo
+Hallo Welt
 ```
 
 Erklärung:
 
 - `echo` ist der Befehl.
-- `Hallo` ist das Argument.
+- `"Hallo Welt"` ist das Argument. Die Anführungszeichen halten die beiden Wörter zusammen.
 - Das Argument liefert den Text, den `echo` ausgibt.
 
 Weitere Übungen:
@@ -106,7 +106,7 @@ Erwartete Beobachtung:
 - kein neuer Prompt,
 - die Shell wartet auf den Vordergrundprozess.
 
-Dann Ctrl gedrückt halten und C drücken.
+Dann Strg gedrückt halten und C drücken.
 
 Häufig sichtbar:
 
@@ -135,7 +135,7 @@ Anschließend:
 sleep 30
 ```
 
-Den Prozess mit Ctrl+C unterbrechen und erst nach Rückkehr des Prompts den CHECK starten.
+Den Prozess mit Strg+C unterbrechen und erst nach Rückkehr des Prompts den CHECK starten.
 
 ## Grenzen des technischen CHECKs
 
@@ -148,7 +148,7 @@ Der CHECK weist nicht nach:
 
 - dass Enter verwendet wurde,
 - dass die Pfeiltaste nach oben verwendet wurde,
-- dass Ctrl+C verwendet wurde,
+- dass Strg+C verwendet wurde,
 - dass der Prozess vorzeitig statt regulär endete,
 - dass `echo terminal-bereit` ausgeführt wurde,
 - dass die Ausgabe zweimal erzeugt wurde,

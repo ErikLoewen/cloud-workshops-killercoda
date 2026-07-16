@@ -36,5 +36,5 @@ if [[ "${process_is_same}" == "true" ]]; then
 fi
 
 echo "Die technische Teilprüfung ist bestanden: Der zugeordnete Übungsprozess läuft nicht mehr."
-echo "Die Verwendung von Enter, Pfeiltaste nach oben und Ctrl+C sowie dein Begriffsverständnis werden durch die Abschlussfragen und die Beobachtung deiner Arbeit geprüft."
+echo "Die Verwendung von Enter, Pfeiltaste nach oben und Strg+C sowie dein Begriffsverständnis werden durch die Abschlussfragen und die Beobachtung deiner Arbeit geprüft."
 exit 0

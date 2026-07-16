@@ -9,7 +9,7 @@ Beantworte die Fragen in eigenen Worten:
 1. Was ist der Unterschied zwischen Terminal und Shell?
 2. Was zeigt der Prompt an?
 3. Welche Taste führt eine fertige Eingabe aus?
-4. Was ist in `echo Hallo` der Befehl und was ist das Argument?
+4. Was ist in `echo "Hallo Welt"` der Befehl und was ist das Argument?
 5. Welche Taste holt die vorherige Eingabe zurück?
 6. Was bedeutet `command not found` in der Fehlerübung?
 7. Woran erkennst du, dass `sleep` im Vordergrund läuft?

@@ -38,7 +38,7 @@ Was wird während der Wartezeit fehlen: die ganze Terminaloberfläche oder nur d
 4. Beobachte zwei bis drei Sekunden lang:
    - Es erscheint keine normale Ausgabe.
    - Es erscheint noch kein neuer Prompt.
-5. Halte **Ctrl** gedrückt und drücke einmal **C**.
+5. Halte **Strg** gedrückt und drücke einmal **C**.
 
 Häufig erscheint kurz:
 
@@ -54,4 +54,4 @@ Woran erkennst du, dass der Vordergrundprozess beendet ist und die Shell wieder 
 
 ## Typischer Fehler
 
-Tippe nicht die Buchstaben `Ctrl+C` in das Terminal. Halte die Taste **Ctrl** gedrückt und drücke währenddessen **C**.
+Tippe nicht die Buchstaben `Strg+C` in das Terminal. Halte die Taste **Strg** gedrückt und drücke währenddessen **C**. Auf manchen Tastaturen ist **Strg** mit **Ctrl** beschriftet.

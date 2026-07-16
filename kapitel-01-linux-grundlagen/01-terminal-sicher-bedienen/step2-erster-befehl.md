@@ -49,13 +49,15 @@ Der angegebene Text erscheint in einer neuen Zeile.
 ## Jetzt selbst eingeben
 
 1. Klicke in das Terminal.
-2. Tippe genau `echo Hallo`{{}}.
+2. Tippe genau `echo "Hallo Welt"`{{}}.
 3. Drücke **Enter**.
+
+Die Anführungszeichen zeigen der Shell, dass die beiden Wörter zusammengehören. Tippe sie deshalb mit ein.
 
 ## Erwartete Ausgabe
 
 ```text
-Hallo
+Hallo Welt
 ```
 
 ## Beobachtungsfrage
