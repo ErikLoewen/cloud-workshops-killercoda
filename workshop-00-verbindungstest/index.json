@@ -1,0 +1,22 @@
+{
+  "title": "Workshop 00 – Verbindungstest",
+  "description": "Prüft die Verbindung zwischen GitHub und Killercoda sowie Markdown-Aktionen und die automatische Aufgabenprüfung.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Umgebung und Prüfung testen",
+        "text": "step1.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
