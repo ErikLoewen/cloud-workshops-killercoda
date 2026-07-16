@@ -1,0 +1,43 @@
+{
+  "title": "Dateien und Verzeichnisse erstellen",
+  "description": "Verzeichnisse und kleine Textdateien erstellen, Inhalte prüfen und Objekte mit mv umbenennen oder verschieben.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Orientierung im Dateilabor",
+        "text": "step1-orientierung.md"
+      },
+      {
+        "title": "Ein Verzeichnis erstellen",
+        "text": "step2-verzeichnis-erstellen.md"
+      },
+      {
+        "title": "Eine Datei erzeugen und prüfen",
+        "text": "step3-datei-erzeugen-pruefen.md"
+      },
+      {
+        "title": "Eine Datei verschieben und umbenennen",
+        "text": "step4-umbenennen.md"
+      },
+      {
+        "title": "Bekannte Handlungen verbinden",
+        "text": "step5-gestuetzte-anwendung.md"
+      },
+      {
+        "title": "Abschlussaufgabe",
+        "text": "challenge.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}

@@ -4,6 +4,8 @@ In diesem Schritt wird `sleep` erstmals vollständig eingeführt.
 
 ## Der Befehl `sleep`
 
+Das englische Wort **„sleep“** bedeutet **„schlafen“**. Der Befehl wartet für die angegebene Zeit, bevor er endet.
+
 ### Was macht er?
 
 `sleep` wartet für die Zahl von Sekunden, die als Argument angegeben wird.

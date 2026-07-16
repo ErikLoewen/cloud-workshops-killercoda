@@ -4,6 +4,8 @@ Du hast mit `pwd` deinen Standort angezeigt und mit `ls` ein mögliches Ziel gef
 
 ## `cd`: den aktuellen Standort ändern
 
+`cd` steht für **„change directory“**. Das bedeutet **„Verzeichnis wechseln“**.
+
 ### Was macht `cd`?
 
 `cd` ändert das aktuelle Verzeichnis der laufenden Shell.

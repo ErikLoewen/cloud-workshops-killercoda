@@ -767,6 +767,7 @@ Bei kleinen Änderungen kann direkt auf `main` gearbeitet werden. Größere Umba
 - Befehle einzeln ausführbar,
 - keine unnötigen Abkürzungen,
 - Fachbegriffe beim ersten Auftreten erklären,
+- bei jedem neuen Befehl die englische Langform oder Wortbedeutung beim ersten Auftreten nennen,
 - erwartete Ergebnisse beschreiben,
 - Fehlerfälle nicht verschweigen,
 - Aufgaben und Musterlösung sauber trennen.

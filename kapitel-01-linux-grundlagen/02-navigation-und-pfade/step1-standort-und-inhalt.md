@@ -8,6 +8,8 @@ Welche Information müsste ein Befehl liefern, damit du deinen aktuellen Standor
 
 ## `pwd`: den aktuellen Standort anzeigen
 
+`pwd` steht für **„print working directory“**. Das bedeutet sinngemäß: **„Zeige das aktuelle Arbeitsverzeichnis an.“**
+
 ### Was macht `pwd`?
 
 `pwd` zeigt den vollständigen Pfad des aktuellen Verzeichnisses.
@@ -37,6 +39,8 @@ Die Zeile mit `pwd` war die Eingabe. `/root` ist die Ausgabe.
 > Falls die Ausgabe im realen Lab von `/root` abweicht, beende nicht vorschnell die Übung. Der Startpfad muss im Killercoda-Pilot technisch bestätigt werden.
 
 ## `ls`: Verzeichnisinhalte untersuchen
+
+`ls` kommt vom englischen Wort **„list“**, also **„auflisten“**.
 
 ### Was macht `ls`?
 

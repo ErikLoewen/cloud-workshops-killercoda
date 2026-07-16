@@ -2,6 +2,8 @@
 
 ## Der Befehl `whoami`
 
+Der Name kommt von der englischen Frage **„Who am I?“** – auf Deutsch: **„Wer bin ich?“**
+
 ### Was macht er?
 
 `whoami` zeigt den Namen des Benutzers, als der die Shell gerade arbeitet.
@@ -33,6 +35,8 @@ root
 Danach erscheint erneut der Prompt. Das zeigt: Der Befehl ist beendet und die Shell ist wieder bereit.
 
 ## Der Befehl `echo`
+
+Das englische Wort **„echo“** bedeutet **„Echo“** oder **„Widerhall“**. Der Befehl gibt den Text wieder aus, den du ihm mitgibst.
 
 ### Was macht er?
 
