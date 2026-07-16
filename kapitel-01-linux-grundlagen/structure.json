@@ -12,16 +12,25 @@
       "path": "03-dateien-und-verzeichnisse"
     },
     {
-      "path": "04-serverressourcen-untersuchen"
+      "path": "04-dateien-kopieren-und-sicher-loeschen"
     },
     {
-      "path": "05-prozesse-und-dienste"
+      "path": "05-dateirechte-und-ausfuehrbarkeit"
     },
     {
-      "path": "06-netzwerkschnittstellen-und-ip-adressen"
+      "path": "06-serverressourcen-untersuchen"
     },
     {
-      "path": "07-ports-und-http-server"
+      "path": "07-prozesse-und-dienste"
+    },
+    {
+      "path": "08-netzwerkschnittstellen-und-ip-adressen"
+    },
+    {
+      "path": "09-ports-und-http-server"
+    },
+    {
+      "path": "10-linux-grundlagen-praxistransfer"
     }
   ]
 }

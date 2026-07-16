@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-set -Eeuo pipefail
-# LabForge Workshop 5 no-pager wrapper
-
-exec /usr/bin/systemctl --no-pager "$@"

@@ -1,0 +1,35 @@
+{
+  "title": "Linux-Grundlagen praktisch anwenden",
+  "description": "Integrativer und formativer Praxistransfer zu Pfaden, Dateien, Rechten, Systeminformationen, Netzwerk, Prozessen, Ports und HTTP.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Auftrag und Zielzustand",
+        "text": "step1-auftrag-und-zielzustand.md"
+      },
+      {
+        "title": "Lösungsplan und Schutzgrenzen",
+        "text": "step2-loesungsplan-und-schutzgrenzen.md"
+      },
+      {
+        "title": "Eigene Prüfreihenfolge",
+        "text": "step3-pruefplan.md"
+      },
+      {
+        "title": "Praxistransfer",
+        "text": "challenge.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}

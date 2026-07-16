@@ -41,7 +41,7 @@
     "assets": {
       "host01": [
         {
-          "file": "ziel-bestaetigen",
+          "file": "assets/ziel-bestaetigen",
           "target": "/tmp/labforge-navigation-assets",
           "chmod": "+x"
         }

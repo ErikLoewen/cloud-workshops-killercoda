@@ -1,0 +1,45 @@
+{
+  "title": "Dateien kopieren und sicher löschen",
+  "description": "Dateien kopieren, freigegebene Laborobjekte kontrolliert entfernen und einen Schutzbereich unverändert lassen.",
+  "details": {
+    "intro": {
+      "title": "Sicher im Dateilabor arbeiten",
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Kopieren und Verschieben unterscheiden",
+        "text": "step1-kopieren-und-verschieben.md"
+      },
+      {
+        "title": "Eine einzelne Datei sicher entfernen",
+        "text": "step2-datei-sicher-entfernen.md"
+      },
+      {
+        "title": "Ein leeres Verzeichnis entfernen",
+        "text": "step3-leeres-verzeichnis-entfernen.md"
+      },
+      {
+        "title": "Kontrolliertes Scheitern mit rmdir",
+        "text": "step4-rmdir-schutzwirkung.md"
+      },
+      {
+        "title": "Rekursives Löschen vorbereiten",
+        "text": "step5-rekursiv-und-schutzbereich.md"
+      },
+      {
+        "title": "Abschlussauftrag",
+        "text": "challenge.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "title": "Prüfen und reflektieren",
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}

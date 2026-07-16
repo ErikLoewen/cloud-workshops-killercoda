@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+# LabForge Workshop 7 lab-worker launcher
+
+exec /usr/bin/python3 /usr/local/lib/labforge/lab-worker.py

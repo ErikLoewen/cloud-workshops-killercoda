@@ -1,0 +1,39 @@
+{
+  "title": "Dateirechte und Ausführbarkeit verstehen",
+  "description": "Grundlegende Dateirechte lesen, das Besitzer-Ausführungsrecht gezielt ändern und einen Schutzbereich unverändert lassen.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Rechteanzeige lesen",
+        "text": "step1-rechteanzeige-lesen.md"
+      },
+      {
+        "title": "Ausführbarkeit beobachten",
+        "text": "step2-ausfuehrbarkeit-beobachten.md"
+      },
+      {
+        "title": "Ausführungsrecht hinzufügen",
+        "text": "step3-ausfuehrungsrecht-hinzufuegen.md"
+      },
+      {
+        "title": "Ausführungsrecht entfernen",
+        "text": "step4-ausfuehrungsrecht-entfernen.md"
+      },
+      {
+        "title": "Abschlussaufgabe",
+        "text": "challenge.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
