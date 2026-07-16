@@ -27,7 +27,3 @@ Als Linux-Lernbefehle verwendest du ausschließlich:
 In der Abschlussaufgabe kommt einmal eine **bereitgestellte technische Prüfaktion** hinzu. Sie ist kein neuer Linux-Lernbefehl.
 
 Du erstellst, veränderst oder löschst in diesem Workshop keine Dateien oder Verzeichnisse.
-
-## Zeitrahmen
-
-Der Kernpfad ist für ungefähr 31–38 Minuten bei geübten Teilnehmenden und 42–48 Minuten bei absoluten Anfängern geplant. Die Sitzung wird nicht künstlich auf 60 Minuten verlängert.

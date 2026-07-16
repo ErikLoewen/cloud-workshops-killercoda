@@ -5,6 +5,7 @@ In diesem Workshop führst du deine ersten Linux-Befehle aus. Du liest normale A
 ## Am Ende kannst du
 
 - Terminal, Shell und Prompt an der Oberfläche unterscheiden,
+- Text im Terminal mit **Strg+Umschalt+C** kopieren und mit **Strg+Umschalt+V** einfügen,
 - einen Befehl mit **Enter** ausführen,
 - Befehl und Argument unterscheiden,
 - eine frühere Eingabe mit der **Pfeiltaste nach oben** zurückholen,

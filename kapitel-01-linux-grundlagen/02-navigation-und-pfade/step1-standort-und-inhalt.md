@@ -32,6 +32,8 @@ Führe nur diesen ersten Aufruf anklickbar aus:
 
 Die Zeile mit `pwd` war die Eingabe. `/root` ist die Ausgabe.
 
+> **Erinnerung zum Kopieren:** Einen Pfad kannst du mit der Maus markieren und mit **Strg+Umschalt+C** kopieren. Mit **Strg+Umschalt+V** fügst du ihn hinter dem Prompt ein. Auf anders beschrifteten Tastaturen heißen diese Tasten **Ctrl+Shift+C** und **Ctrl+Shift+V**. Prüfe den eingefügten Text, bevor du **Enter** drückst.
+
 > Falls die Ausgabe im realen Lab von `/root` abweicht, beende nicht vorschnell die Übung. Der Startpfad muss im Killercoda-Pilot technisch bestätigt werden.
 
 ## `ls`: Verzeichnisinhalte untersuchen

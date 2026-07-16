@@ -26,3 +26,7 @@ install -m 0755 -- "$asset_source" "$action_target"
 
 [[ -x "$action_target" ]] || fail "Die Lab-Aktion konnte nicht ausführbar installiert werden."
 [[ ! -e "$marker" ]] || fail "Der alte Erfolgsmarker konnte nicht entfernt werden."
+
+# Die Ausgaben des Vordergrund-Setups sollen für die Teilnehmenden nicht im
+# Terminal stehen bleiben. Der Workshop beginnt mit einer sauberen Ansicht.
+clear 2>/dev/null || printf '\033[2J\033[H'

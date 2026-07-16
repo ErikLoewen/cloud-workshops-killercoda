@@ -20,6 +20,7 @@ Diese Datei ist intern. Sie beschreibt geplante Prüfungen und enthält keine Te
 - Kontrollieren, dass der Baum vorhanden ist.
 - Kontrollieren, dass kein Erfolgsmarker vorhanden ist.
 - Kontrollieren, dass die Lab-Aktion ausführbar installiert wurde.
+- Kontrollieren, dass das Terminal nach Abschluss des Setups geleert ist.
 
 ### T02 – Setup zweimal ausführen
 

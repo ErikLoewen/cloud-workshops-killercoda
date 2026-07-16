@@ -4,13 +4,11 @@ Jetzt passt du die bekannten Navigationsmuster an. Die Befehle sind bekannt; ein
 
 ## Aufgabe 1: einen relativen Pfad vervollständigen
 
-Dein Ausgangsort soll sein:
+Klicke auf den folgenden Befehl, um direkt zum Ausgangsort zu wechseln:
 
-```text
-/root/navigation-labor/uebungszone/nordfluegel/kartenraum
-```
+`cd /root/navigation-labor/uebungszone/nordfluegel/kartenraum`{{exec}}
 
-Prüfe ihn bei Bedarf mit `pwd`.
+Prüfe den Ausgangsort anschließend mit `pwd`.
 
 Das Ziel ist der `ruheraum` im `suedfluegel`.
 

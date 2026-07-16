@@ -20,13 +20,14 @@ Beobachte beziehungsweise erfrage, ob die lernende Person:
 
 1. Terminal, Shell und Prompt am konkreten Bildschirm unterscheiden kann;
 2. Eingabe, Ausgabe und Fehlermeldung korrekt zuordnet;
-3. einen Befehl mit Enter ausführt;
-4. in `echo "Hallo Welt"` Befehl und Argument unterscheidet;
-5. `whoam` mit der Pfeiltaste nach oben zurückholt und korrigiert;
-6. `sleep 30` als Vordergrundprozess erkennt;
-7. den Vordergrundprozess mit Strg+C beendet;
-8. die Rückkehr des Prompts als Bereitschaftssignal erklärt;
-9. `command not found` als Hinweis und nicht als Systemschaden einordnet.
+3. Text mit Strg+Umschalt+C kopiert und mit Strg+Umschalt+V einfügt;
+4. einen Befehl mit Enter ausführt;
+5. in `echo "Hallo Welt"` Befehl und Argument unterscheidet;
+6. `whoam` mit der Pfeiltaste nach oben zurückholt und korrigiert;
+7. `sleep 30` als Vordergrundprozess erkennt;
+8. den Vordergrundprozess mit Strg+C beendet;
+9. die Rückkehr des Prompts als Bereitschaftssignal erklärt;
+10. `command not found` als Hinweis und nicht als Systemschaden einordnet.
 
 ## Beobachtungskriterien
 

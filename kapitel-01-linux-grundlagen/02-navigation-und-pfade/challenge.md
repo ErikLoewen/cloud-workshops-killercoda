@@ -1,6 +1,10 @@
 # Abschlussaufgabe: den Freigaberaum finden
 
-Du befindest dich zu Beginn der Aufgabe im vorbereiteten `startpunkt`.
+Wechsle zuerst mit diesem anklickbaren Befehl zum vorbereiteten `startpunkt`:
+
+`cd /root/navigation-labor/startpunkt`{{exec}}
+
+Von dort beginnt die Abschlussaufgabe.
 
 ## Dein Ziel
 
