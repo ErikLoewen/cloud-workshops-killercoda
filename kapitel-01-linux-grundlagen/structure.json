@@ -4,6 +4,9 @@
   "items": [
     {
       "path": "01-terminal-sicher-bedienen"
+    },
+    {
+      "path": "02-navigation-und-pfade"
     }
   ]
 }

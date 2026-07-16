@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly expected_dir="/root/navigation-labor/abschlussgebiet/kontrollzentrum/freigaberaum"
+readonly marker_dir="/tmp/labforge-navigation-und-pfade"
+readonly marker="${marker_dir}/erfolgreich"
+readonly marker_content="navigation-und-pfade:v1"
+
+if (( $# != 0 )); then
+  printf '%s\n' "Diese bereitgestellte technische Lab-Aktion wird ohne Argument aufgerufen." >&2
+  exit 2
+fi
+
+current_dir="$(pwd -P)"
+
+if [[ "$current_dir" != "$expected_dir" ]]; then
+  printf '%s\n' "Der Zielort ist noch nicht erreicht." >&2
+  printf '%s\n' "Prüfe deinen Standort mit pwd und untersuche den Verzeichnisbaum mit ls." >&2
+  exit 1
+fi
+
+if [[ ! -d "$marker_dir" ]]; then
+  printf '%s\n' "Die technische Prüfvorbereitung fehlt. Starte das Szenario neu." >&2
+  exit 3
+fi
+
+tmp_marker="$(mktemp "${marker}.tmp.XXXXXX")"
+cleanup() {
+  rm -f -- "$tmp_marker"
+}
+trap cleanup EXIT
+
+printf '%s' "$marker_content" > "$tmp_marker"
+chmod 0644 "$tmp_marker"
+mv -f -- "$tmp_marker" "$marker"
+trap - EXIT
+
+printf '%s\n' "Zielort bestätigt. Du kannst jetzt den CHECK ausführen."

@@ -1,0 +1,54 @@
+{
+  "title": "Workshop 2 – Navigieren und Pfade lesen",
+  "description": "Mit pwd, ls und cd im Linux-Verzeichnisbaum navigieren und absolute sowie relative Pfade verwenden.",
+  "details": {
+    "intro": {
+      "title": "Orientierung im Verzeichnisbaum",
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Standort und Inhalt untersuchen",
+        "text": "step1-standort-und-inhalt.md"
+      },
+      {
+        "title": "Das Verzeichnis wechseln",
+        "text": "step2-verzeichnis-wechseln.md"
+      },
+      {
+        "title": "Wurzel, Home und absolute Pfade",
+        "text": "step3-wurzel-home-und-absolute-pfade.md"
+      },
+      {
+        "title": "Relative Pfade und Tab-Vervollständigung",
+        "text": "step4-relative-pfade-und-tab.md"
+      },
+      {
+        "title": "Bekannte Wege übertragen",
+        "text": "step5-transferuebung.md"
+      },
+      {
+        "title": "Abschlussaufgabe",
+        "text": "challenge.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "title": "Abschluss und Rückblick",
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "ziel-bestaetigen",
+          "target": "/tmp/labforge-navigation-assets",
+          "chmod": "+x"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
