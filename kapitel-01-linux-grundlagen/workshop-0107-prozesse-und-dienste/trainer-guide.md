@@ -4,7 +4,7 @@
 
 - Titel: Prozesse und Dienste kontrollieren
 - Slug: `prozesse-und-dienste`
-- Ordner: `07-prozesse-und-dienste`
+- Ordner: `workshop-0107-prozesse-und-dienste`
 - geübte Teilnehmende: 34–40 Minuten
 - absolute Anfänger: 43–49 Minuten
 - Mindestpuffer: 11 Minuten

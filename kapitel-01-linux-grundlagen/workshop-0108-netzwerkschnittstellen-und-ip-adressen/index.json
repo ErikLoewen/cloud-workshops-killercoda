@@ -1,9 +1,9 @@
 {
-  "title": "Workshop 8 – Netzwerkschnittstellen und IP-Adressen untersuchen",
+  "title": "Workshop 01.08 – Netzwerkschnittstellen und IP-Adressen untersuchen",
   "description": "Lokale Netzwerkschnittstellen, Loopback, IPv4-Adressen und die primäre Schnittstelle anhand der Standardroute untersuchen.",
   "details": {
     "intro": {
-      "title": "Workshop 8: Orientierung",
+      "title": "Workshop 01.08: Orientierung",
       "text": "intro.md",
       "foreground": "setup.sh"
     },

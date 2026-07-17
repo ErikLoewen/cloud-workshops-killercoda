@@ -1,36 +1,36 @@
 {
-  "title": "Kapitel 1 – Linux-Grundlagen",
+  "title": "Kapitel 01 – Linux-Grundlagen",
   "description": "Einführung in Terminalbedienung, Dateisystem, Serverressourcen, Prozesse, Dienste, Netzwerke und Ports.",
   "items": [
     {
-      "path": "01-terminal-sicher-bedienen"
+      "path": "workshop-0101-terminal-sicher-bedienen"
     },
     {
-      "path": "02-navigation-und-pfade"
+      "path": "workshop-0102-navigation-und-pfade"
     },
     {
-      "path": "03-dateien-und-verzeichnisse"
+      "path": "workshop-0103-dateien-und-verzeichnisse"
     },
     {
-      "path": "04-dateien-kopieren-und-sicher-loeschen"
+      "path": "workshop-0104-dateien-kopieren-und-sicher-loeschen"
     },
     {
-      "path": "05-dateirechte-und-ausfuehrbarkeit"
+      "path": "workshop-0105-dateirechte-und-ausfuehrbarkeit"
     },
     {
-      "path": "06-serverressourcen-untersuchen"
+      "path": "workshop-0106-serverressourcen-untersuchen"
     },
     {
-      "path": "07-prozesse-und-dienste"
+      "path": "workshop-0107-prozesse-und-dienste"
     },
     {
-      "path": "08-netzwerkschnittstellen-und-ip-adressen"
+      "path": "workshop-0108-netzwerkschnittstellen-und-ip-adressen"
     },
     {
-      "path": "09-ports-und-http-server"
+      "path": "workshop-0109-ports-und-http-server"
     },
     {
-      "path": "10-linux-grundlagen-praxistransfer"
+      "path": "workshop-0110-linux-grundlagen-praxistransfer"
     }
   ]
 }

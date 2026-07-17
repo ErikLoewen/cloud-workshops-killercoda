@@ -4,7 +4,7 @@
 
 - Titel: Ports prüfen und einen HTTP-Server bereitstellen
 - Slug: `ports-und-http-server`
-- Ordner: `09-ports-und-http-server`
+- Ordner: `workshop-0109-ports-und-http-server`
 - Voraussetzungen: Workshops 3, 5 und 6
 - Zielzeit geübt: 35–40 Minuten
 - Zielzeit absolute Anfänger: 44–50 Minuten

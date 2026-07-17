@@ -1,9 +1,9 @@
 {
-  "title": "Workshop 9 – Ports prüfen und einen HTTP-Server bereitstellen",
+  "title": "Workshop 01.09 – Ports prüfen und einen HTTP-Server bereitstellen",
   "description": "Lokale TCP-Ports untersuchen, eine HTTP-Antwort prüfen und einen einfachen Python-HTTP-Server auf Loopback bereitstellen.",
   "details": {
     "intro": {
-      "title": "Workshop 9",
+      "title": "Workshop 01.09",
       "text": "intro.md",
       "foreground": "setup.sh"
     },
