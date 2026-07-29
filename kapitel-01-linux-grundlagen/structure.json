@@ -1,6 +1,6 @@
 {
-  "title": "Kapitel 01 – Linux-Grundlagen",
-  "description": "Einführung in Terminalbedienung, Dateisystem, Serverressourcen, Prozesse, Dienste, Netzwerke und Ports.",
+  "title": "Kapitel 01 – Moin Linux!",
+  "description": "Keine Panik vorm Terminal: Die wichtigsten Handgriffe für Terminal, Dateien, Rechte, Ressourcen und Prozesse",
   "items": [
     {
       "path": "workshop-0101-terminal-sicher-bedienen"
@@ -24,13 +24,7 @@
       "path": "workshop-0107-prozesse-und-dienste"
     },
     {
-      "path": "workshop-0108-netzwerkschnittstellen-und-ip-adressen"
-    },
-    {
-      "path": "workshop-0109-ports-und-http-server"
-    },
-    {
-      "path": "workshop-0110-linux-grundlagen-praxistransfer"
+      "path": "workshop-0108-linux-grundlagen-praxistransfer"
     }
   ]
 }
