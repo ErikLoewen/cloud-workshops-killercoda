@@ -1,6 +1,6 @@
 {
-  "title": "01.01 – Moin Terminal",
-  "description": "Absolute Terminalanfänger führen einfache Befehle aus, lesen Ausgaben und Fehlermeldungen, wiederholen eine Eingabe und beenden einen Vordergrundprozess.",
+  "title": "01.01 – Moin Terminal: Nachtschicht im Leuchtturm",
+  "description": "Absolute Terminalanfänger orientieren sich auf einem Ubuntu-System, führen einfache Befehle aus, lesen Rückmeldungen und behalten mit Strg+C die Kontrolle.",
   "details": {
     "intro": {
       "text": "intro.md",
@@ -8,27 +8,31 @@
     },
     "steps": [
       {
-        "title": "Terminal, Shell und Prompt",
-        "text": "step1-orientierung.md"
+        "title": "Was läuft hier eigentlich? Linux-Grundlagen",
+        "text": "step1-linux-grundlagen.md"
       },
       {
-        "title": "Den ersten Befehl ausführen",
-        "text": "step2-erster-befehl.md"
+        "title": "Das blinkende Signal: Prompt und Terminal",
+        "text": "step2-prompt-und-terminal.md"
       },
       {
-        "title": "Befehl und Argument unterscheiden",
-        "text": "step3-befehl-und-argument.md"
+        "title": "Erste Meldung vom System: whoami und echo",
+        "text": "step3-erste-befehle.md"
       },
       {
-        "title": "Eine Fehlermeldung lesen und korrigieren",
-        "text": "step4-fehler-korrigieren.md"
+        "title": "Klare Anweisung: Befehl und Argument",
+        "text": "step4-befehl-und-argument.md"
       },
       {
-        "title": "Einen Vordergrundprozess unterbrechen",
-        "text": "step5-prozess-unterbrechen.md"
+        "title": "Kein Grund zur Panik: Tippfehler korrigieren",
+        "text": "step5-fehler-korrigieren.md"
       },
       {
-        "title": "Abschlussaufgabe und technische Teilprüfung",
+        "title": "Die Kontrolle behalten: sleep abbrechen",
+        "text": "step6-prozess-unterbrechen.md"
+      },
+      {
+        "title": "Klar Schiff: Abschlussaufgabe",
         "text": "challenge.md",
         "background": "setup.sh",
         "verify": "verify.sh"

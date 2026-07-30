@@ -1,8 +1,10 @@
-# Schritt 4: Eine Fehlermeldung lesen und korrigieren
+# Schritt 5: Kein Grund zur Panik – einen Tippfehler korrigieren
 
-Fehlermeldungen sind verwertbare Rückmeldungen. Sie zeigen, was die Shell mit deiner Eingabe nicht tun konnte.
+Auch im Leuchtturm vertippt man sich. Fehlermeldungen sind normale,
+verwertbare Rückmeldungen. Sie zeigen, was die Shell mit deiner Eingabe nicht
+tun konnte.
 
-## Absichtlicher Tippfehler
+## Ein absichtlicher Tippfehler
 
 1. Klicke in das Terminal.
 2. Tippe `whoam`{{}}.
@@ -16,7 +18,8 @@ Die genaue Darstellung kann leicht abweichen. Sie enthält sinngemäß:
 bash: whoam: command not found
 ```
 
-`command not found` bedeutet: Die Shell hat keinen Befehl mit dem eingegebenen Namen gefunden.
+`command not found` bedeutet: Die Shell hat keinen Befehl mit dem eingegebenen
+Namen gefunden. Das System ist deshalb nicht beschädigt.
 
 ## Diagnose
 
@@ -43,4 +46,5 @@ Welcher Teil der Fehlermeldung half dir, die fehlerhafte Eingabe zu finden?
 
 ## Merksatz
 
-Eine einfache Fehlermeldung ist kein Beweis für einen Schaden. Lies zuerst, welche Eingabe nicht verarbeitet werden konnte.
+**Keine Panik vorm Terminal:** Lies zuerst, welche Eingabe nicht verarbeitet
+werden konnte. Meist gibt dir die Meldung bereits einen Hinweis.

@@ -1,6 +1,9 @@
-# Festgemacht!
+# Sicher im Hafen
 
-Du hast Befehle selbst eingegeben, eine Ausgabe gelesen, einen Tippfehler korrigiert und einen Vordergrundprozess beendet.
+Der Sturm ist noch da, und das Verschwinden des Leuchtturmwärters bleibt
+ungeklärt. Aber am Deichserver kannst du dich nun sicher bewegen: Du hast
+Befehle eingegeben, Ausgaben gelesen, einen Tippfehler korrigiert und einen
+laufenden Befehl abgebrochen.
 
 ## Abruf ohne Nachlesen
 

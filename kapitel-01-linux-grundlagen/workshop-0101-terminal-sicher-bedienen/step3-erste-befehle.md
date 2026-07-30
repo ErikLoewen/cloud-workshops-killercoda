@@ -1,8 +1,9 @@
-# Schritt 2: Den ersten Befehl ausführen
+# Schritt 3: Erste Meldung vom System – `whoami` und `echo`
 
 ## Der Befehl `whoami`
 
-Der Name kommt von der englischen Frage **„Who am I?“** – auf Deutsch: **„Wer bin ich?“**
+Der Name kommt von der englischen Frage **„Who am I?“** – auf Deutsch:
+**„Wer bin ich?“**
 
 ### Was macht er?
 
@@ -20,10 +21,10 @@ Eine einzelne Zeile mit einem Benutzernamen. In dieser Umgebung ist das meist `r
 
 Erwartest du eine Textausgabe oder eine dauerhafte Veränderung?
 
-## Erste praktische Handlung
+## Ersten Befehl ausführen
 
-Dann schauen wir mal, wer wir auf diesem System eigentlich sind. Klicke auf
-den Befehl:
+Dann schauen wir, unter welchem Benutzernamen du am Deichserver arbeitest.
+Klicke auf den Befehl:
 
 `whoami`{{exec}}
 
@@ -33,7 +34,8 @@ den Befehl:
 root
 ```
 
-Danach erscheint erneut der Prompt. Das zeigt: Der Befehl ist beendet und die Shell ist wieder bereit.
+Danach erscheint erneut der Prompt. Der Befehl ist beendet und die Shell ist
+wieder bereit.
 
 ## Der Befehl `echo`
 
@@ -51,7 +53,7 @@ Mit `echo` kannst du Eingabe und Ausgabe besonders leicht vergleichen.
 
 Der angegebene Text erscheint in einer neuen Zeile.
 
-## Erste Demonstration mit `echo`
+## Ein Echo im Leuchtturm
 
 Klicke den neuen Befehl bei diesem ersten Kontakt an:
 
@@ -69,7 +71,8 @@ Moin Terminal
 2. Tippe selbst `echo "Hallo Welt"`{{}}.
 3. Drücke **Enter**.
 
-Die Anführungszeichen zeigen der Shell, dass die beiden Wörter zusammengehören. Tippe sie deshalb mit ein.
+Die Anführungszeichen zeigen der Shell, dass die beiden Wörter
+zusammengehören. Tippe sie deshalb mit ein.
 
 ## Erwartete Ausgabe
 
@@ -79,4 +82,5 @@ Hallo Welt
 
 ## Beobachtungsfrage
 
-Welche Zeile war deine Eingabe, welche Zeile ist die Ausgabe und woran erkennst du danach die Bereitschaft für den nächsten Befehl?
+Welche Zeile war deine Eingabe? Welche war die Ausgabe? Woran erkennst du,
+dass die Shell für den nächsten Befehl bereit ist?

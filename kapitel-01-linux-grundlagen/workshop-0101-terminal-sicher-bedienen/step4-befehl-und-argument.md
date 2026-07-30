@@ -1,6 +1,6 @@
-# Schritt 3: Befehl und Argument unterscheiden
+# Schritt 4: Klare Anweisung – Befehl und Argument
 
-## Ziel
+## Das Ziel
 
 Du zerlegst eine einfache Eingabe in Befehl und Argument.
 
@@ -45,3 +45,11 @@ Startklar
 ## Erklärungsfrage
 
 Warum ist `echo` der Befehl und `Startklar` das Argument?
+
+<details>
+<summary>Antwort anzeigen</summary>
+
+`echo` legt fest, **was** geschehen soll: Text ausgeben. `Startklar` liefert
+die zusätzliche Information, **welcher** Text ausgegeben werden soll.
+
+</details>

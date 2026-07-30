@@ -1,13 +1,15 @@
-# Abschlussaufgabe
+# Klar Schiff: Abschlussaufgabe
 
-Bearbeite die Aufgabe ohne anklickbare Befehle.
+Der Prompt blinkt wieder ruhig. Prüfe nun ohne anklickbare Befehle, ob du am
+Deichserver sicher handeln kannst.
 
 ## Ziel
 
-1. Gib den Text `terminal-bereit` mit dem bekannten Ausgabebefehl aus.
+1. Gib die Meldung `terminal-bereit` mit dem bekannten Ausgabebefehl aus.
 2. Hole dieselbe Eingabe mit der **Pfeiltaste nach oben** zurück und führe sie erneut aus.
 3. Starte die bereits eingeführte Warteübung für 30 Sekunden.
-4. Beende den Vordergrundprozess vorzeitig.
+4. Hole dir mit der bekannten Tastenkombination vorzeitig die Kontrolle
+   zurück.
 5. Starte den CHECK erst, wenn der Prompt wieder sichtbar ist.
 
 ## Sichtbare Erfolgskriterien
@@ -21,7 +23,9 @@ Bearbeite die Aufgabe ohne anklickbare Befehle.
 
 Der CHECK beobachtet nur einen begrenzten technischen Zustand der `sleep 30`-Übung. Er erkennt nicht zuverlässig, ob du Enter, die Pfeiltaste nach oben oder `Strg+C` verwendet hast. Er prüft auch nicht die `echo`-Ausgabe oder dein Begriffsverständnis.
 
-Nutze Hinweise erst nach einem eigenen Versuch.
+Nutze Hinweise erst nach einem eigenen Versuch. Wenn etwas nicht klappt, ist
+das kein Schaden: Lies die Rückmeldung, prüfe den Prompt und versuche es in
+Ruhe erneut.
 
 <details>
 <summary>Hinweis 1 – Konzept</summary>
