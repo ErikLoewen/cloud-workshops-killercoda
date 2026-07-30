@@ -1,6 +1,6 @@
 {
   "title": "Kapitel 01 – Moin Linux!",
-  "description": "Keine Panik vorm Terminal: Die wichtigsten Handgriffe für Terminal, Dateien, Rechte, Ressourcen und Prozesse",
+  "description": "Terminal bedienen, Pfade lesen, Dateien verwalten und Prozesse im Blick behalten.",
   "items": [
     {
       "path": "workshop-0101-terminal-sicher-bedienen"

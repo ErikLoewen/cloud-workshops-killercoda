@@ -1,5 +1,5 @@
 {
-  "title": "Workshop 01.02 – Navigieren und Pfade lesen",
+  "title": "01.02 – Wo bin ich hier?",
   "description": "Mit pwd, ls und cd im Linux-Verzeichnisbaum navigieren und absolute sowie relative Pfade verwenden.",
   "details": {
     "intro": {

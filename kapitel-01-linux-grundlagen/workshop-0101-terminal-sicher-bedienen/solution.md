@@ -1,13 +1,17 @@
-# Musterlösung: Das Terminal sicher bedienen
+# Musterlösung: Moin Terminal
 
 Diese Datei ist für Wartung, Pilot und Betreuung gedacht. Sie wird nicht in `index.json` referenziert.
 
 ## Vollständiger Musterablauf
 
-### 1. Oberfläche zuordnen
+### 1. System und Oberfläche zuordnen
 
+- Linux ist streng genommen der Kernel und im Alltag oft die Bezeichnung für
+  das gesamte Linux-System.
+- Eine Distribution kombiniert Kernel, Programme, Werkzeuge und
+  Paketverwaltung. Das Lab verwendet Ubuntu.
 - Das **Terminal** ist die sichtbare Ein- und Ausgabefläche.
-- Die **Shell** verarbeitet die eingegebenen Befehle.
+- Die **Shell** verarbeitet die eingegebenen Befehle; hier wird Bash verwendet.
 - Der **Prompt** zeigt, dass die Shell auf eine neue Eingabe wartet.
 - **Eingabe** ist der Text, den die lernende Person vor dem Ausführen tippt.
 - **Ausgabe** ist die Antwort, die nach der Ausführung erscheint.
@@ -28,7 +32,21 @@ root
 
 Danach erscheint der Prompt erneut.
 
-### 3. `echo` selbst eingeben
+### 3. `echo` kennenlernen und selbst eingeben
+
+Anklickbare Demonstration:
+
+```text
+echo "Moin Terminal"
+```
+
+Erwartete Ausgabe:
+
+```text
+Moin Terminal
+```
+
+Danach selbst eingeben:
 
 ```text
 echo "Hallo Welt"
@@ -96,9 +114,7 @@ Die Fehlermeldung zeigt, welchen Namen die Shell nicht gefunden hat. Sie ist ein
 
 ### 5. Vordergrundprozess unterbrechen
 
-```text
-sleep 30
-```
+Die anklickbare Demonstration `sleep 30` starten.
 
 Erwartete Beobachtung:
 

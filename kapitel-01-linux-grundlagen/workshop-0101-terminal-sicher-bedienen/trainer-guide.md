@@ -1,4 +1,4 @@
-# Dozentenleitfaden: Das Terminal sicher bedienen
+# Dozentenleitfaden: Moin Terminal
 
 Diese Datei ist nicht in `index.json` referenziert.
 
@@ -18,7 +18,8 @@ Der Workshop soll nicht künstlich verlängert werden.
 
 Beobachte beziehungsweise erfrage, ob die lernende Person:
 
-1. Terminal, Shell und Prompt am konkreten Bildschirm unterscheiden kann;
+1. Linux, Distribution, Terminal, Shell und Bash auf einfachem
+   Orientierungsniveau unterscheiden kann;
 2. Eingabe, Ausgabe und Fehlermeldung korrekt zuordnet;
 3. Text mit Strg+Umschalt+C kopiert und mit Strg+Umschalt+V einfügt;
 4. einen Befehl mit Enter ausführt;
@@ -77,6 +78,7 @@ Das Ende des Prozesses beweist nicht, dass Strg+C verwendet wurde. Direkte Beoba
 ## Geeignete Rückfragen
 
 - Wo beginnt deine Eingabe?
+- Welche Distribution wird im Lab verwendet?
 - Woran erkennst du, dass die Shell bereit ist?
 - Welche Zeile ist Eingabe und welche ist Ausgabe?
 - Welcher Teil von `echo "Hallo Welt"` legt die Handlung fest?

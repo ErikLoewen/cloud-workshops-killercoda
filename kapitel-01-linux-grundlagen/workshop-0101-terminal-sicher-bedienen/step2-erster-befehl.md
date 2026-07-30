@@ -20,9 +20,10 @@ Eine einzelne Zeile mit einem Benutzernamen. In dieser Umgebung ist das meist `r
 
 Erwartest du eine Textausgabe oder eine dauerhafte Veränderung?
 
-## Demonstration
+## Erste praktische Handlung
 
-Führe den ersten und einzigen anklickbaren Demonstrationsbefehl aus:
+Dann schauen wir mal, wer wir auf diesem System eigentlich sind. Klicke auf
+den Befehl:
 
 `whoami`{{exec}}
 
@@ -50,10 +51,22 @@ Mit `echo` kannst du Eingabe und Ausgabe besonders leicht vergleichen.
 
 Der angegebene Text erscheint in einer neuen Zeile.
 
+## Erste Demonstration mit `echo`
+
+Klicke den neuen Befehl bei diesem ersten Kontakt an:
+
+`echo "Moin Terminal"`{{exec}}
+
+Erwartete Ausgabe:
+
+```text
+Moin Terminal
+```
+
 ## Jetzt selbst eingeben
 
 1. Klicke in das Terminal.
-2. Tippe genau `echo "Hallo Welt"`{{}}.
+2. Tippe selbst `echo "Hallo Welt"`{{}}.
 3. Drücke **Enter**.
 
 Die Anführungszeichen zeigen der Shell, dass die beiden Wörter zusammengehören. Tippe sie deshalb mit ein.

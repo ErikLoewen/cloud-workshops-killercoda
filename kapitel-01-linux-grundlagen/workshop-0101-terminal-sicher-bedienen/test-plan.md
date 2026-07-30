@@ -1,4 +1,4 @@
-# Testplan: Das Terminal sicher bedienen
+# Testplan: Moin Terminal
 
 ## Teststatus
 
@@ -165,13 +165,16 @@ Der Text behauptet nicht, Enter, Pfeiltaste nach oben oder Strg+C erkannt zu hab
 1. Repository mit genau diesem Szenario verbinden.
 2. Szenario frisch starten.
 3. Jeden Schritt in Reihenfolge bearbeiten.
-4. Anklickbarkeit ausschließlich bei `whoami` prüfen.
-5. Eingabe, Ausgabe und Fehlermeldung visuell prüfen.
-6. Pfeiltaste nach oben und Strg+C im Browserterminal testen.
-7. CHECK bewusst fehlschlagen lassen.
-8. Aufgabe korrekt durchführen.
-9. CHECK erneut auslösen.
-10. Browser und Sitzung vollständig neu starten.
+4. Anklickbarkeit bei der ersten Einführung von `whoami`, `echo "Moin Terminal"`
+   und `sleep 30` prüfen.
+5. Prüfen, dass die folgenden `echo`-Übungen und die Abschlussaufgabe keine
+   anklickbaren vollständigen Befehle enthalten.
+6. Eingabe, Ausgabe und Fehlermeldung visuell prüfen.
+7. Pfeiltaste nach oben und Strg+C im Browserterminal testen.
+8. CHECK bewusst fehlschlagen lassen.
+9. Aufgabe korrekt durchführen.
+10. CHECK erneut auslösen.
+11. Browser und Sitzung vollständig neu starten.
 
 ### Erwartung
 

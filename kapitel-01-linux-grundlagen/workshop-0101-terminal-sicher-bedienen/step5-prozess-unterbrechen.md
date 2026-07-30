@@ -18,11 +18,7 @@ Der Befehl erzeugt ungefährlich einen laufenden **Vordergrundprozess**. Solange
 
 Nach dem Start erscheint zunächst keine normale Textausgabe und kein neuer Prompt.
 
-Betrachte die Eingabe:
-
-```text
-sleep 30
-```
+Betrachte die Eingabe `sleep 30`:
 
 - `sleep` ist der Befehl.
 - `30` ist das Argument.
@@ -32,15 +28,16 @@ sleep 30
 
 Was wird während der Wartezeit fehlen: die ganze Terminaloberfläche oder nur der neue Prompt?
 
-## Übung
+## Anklickbare Demonstration
 
-1. Klicke in das Terminal.
-2. Tippe `sleep 30`{{}}.
-3. Drücke **Enter**.
-4. Beobachte zwei bis drei Sekunden lang:
+Starte den neuen Befehl beim ersten Kontakt durch Anklicken:
+
+`sleep 30`{{exec}}
+
+1. Beobachte zwei bis drei Sekunden lang:
    - Es erscheint keine normale Ausgabe.
    - Es erscheint noch kein neuer Prompt.
-5. Halte **Strg** gedrückt und drücke einmal **C**.
+2. Halte **Strg** gedrückt und drücke einmal **C**.
 
 Häufig erscheint kurz:
 
@@ -49,6 +46,9 @@ Häufig erscheint kurz:
 ```
 
 Danach sollte der Prompt zurückkehren.
+
+In der Abschlussaufgabe startest du dieselbe Warteübung ohne anklickbaren
+Befehl.
 
 ## Beobachtungsfrage
 

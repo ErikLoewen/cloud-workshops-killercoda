@@ -1,18 +1,17 @@
-# Das Terminal sicher bedienen
+# Moin Terminal!
 
-In diesem Workshop führst du deine ersten Linux-Befehle aus. Du liest normale Ausgaben und eine einfache Fehlermeldung, holst eine frühere Eingabe zurück und beendest einen wartenden Befehl kontrolliert.
+Das Terminal sieht zunächst nüchtern aus, ist aber ziemlich gesprächig, wenn
+man die richtigen Fragen stellt. In diesem Workshop führst du deine ersten
+Linux-Befehle aus, liest die Antworten und korrigierst einen kleinen Fehler.
+Keine Sorge, hier wird noch nichts versenkt.
 
 ## Am Ende kannst du
 
-- Terminal, Shell und Prompt an der Oberfläche unterscheiden,
-- Text im Terminal mit **Strg+Umschalt+C** kopieren und mit **Strg+Umschalt+V** einfügen,
+- Terminal, Shell und Prompt unterscheiden,
 - einen Befehl mit **Enter** ausführen,
-- Befehl und Argument unterscheiden,
-- eine frühere Eingabe mit der **Pfeiltaste nach oben** zurückholen,
-- einen Vordergrundprozess mit **Strg+C** beenden (auf manchen Tastaturen steht **Ctrl** statt **Strg** auf der Taste),
-- eine Meldung wie `command not found` als Hinweis nutzen.
+- Eingaben, Ausgaben und einfache Fehlermeldungen lesen,
+- eine frühere Eingabe zurückholen,
+- einen laufenden Vordergrundprozess mit **Strg+C** beenden.
 
-
-## Wichtig
-
-Nur der erste Demonstrationsbefehl ist anklickbar. Danach tippst du selbst. So übst du die Bedienhandlungen, die später vorausgesetzt werden.
+Neue Befehle kannst du beim ersten Kennenlernen anklicken. Danach übernimmst
+du selbst das Ruder und tippst oder ergänzt sie.

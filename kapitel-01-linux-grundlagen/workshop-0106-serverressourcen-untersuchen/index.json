@@ -1,5 +1,5 @@
 {
-  "title": "Workshop 01.06 – Linux-Serverressourcen untersuchen",
+  "title": "01.06 – Was macht der Server eigentlich?",
   "description": "CPU, Arbeitsspeicher und den Speicherplatz des Root-Dateisystems mit einfachen Linux-Befehlen untersuchen.",
   "details": {
     "intro": {
