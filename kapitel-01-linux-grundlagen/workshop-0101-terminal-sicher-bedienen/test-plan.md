@@ -9,7 +9,17 @@
 
 ## Technische Prüflogik
 
-`setup.sh` startet einen externen Beobachter. Der Beobachter bevorzugt die Zuordnung über das ermittelte interaktive Bash-Terminal. In technischen Testumgebungen ohne sichtbare TTY-Zuordnung verwendet er als begrenzten Rückfall den direkten Kindprozess der ermittelten interaktiven Bash-Shell. In beiden Fällen werden nur Prozesse mit exakt zwei Befehlsbestandteilen berücksichtigt: `sleep` und `30`.
+`setup.sh` richtet den Benutzer `waerter`, den Hostnamen `leuchtturm`, den
+Login-Prompt und die passwortlose sudo-Berechtigung ein. Erst danach setzt es
+ein Ready-Signal. `foreground.sh` wartet begrenzt auf dieses Signal und
+ersetzt die sichtbare Root-Shell durch eine Login-Shell von `waerter`.
+
+Das Setup startet außerdem einen externen Beobachter. Der Beobachter wählt
+gezielt eine Bash mit der UID von `waerter`. Er bevorzugt die Zuordnung über
+das interaktive Terminal und verwendet in technischen Testumgebungen ohne
+sichtbare TTY-Zuordnung als begrenzten Rückfall eine Bash desselben Benutzers.
+In beiden Fällen werden nur Prozesse mit exakt zwei Befehlsbestandteilen
+berücksichtigt: `sleep` und `30`.
 
 Er speichert Prozess-ID und Linux-Startzeit. `verify.sh` liest diese Daten und prüft nur, ob genau dieser Prozess noch existiert.
 
@@ -23,10 +33,26 @@ Die Skripte überschreiben weder `echo` noch `sleep`. Der CHECK beendet keinen P
 2. Prüfen, dass Intro und Terminal erscheinen.
 3. Prüfen, dass keine Erfolgsmeldung oder sichtbare Musterlösung vorab erzeugt wurde.
 4. Prüfen, dass `echo` und `sleep` normales Shell-Verhalten zeigen.
+5. Folgende Befehle im sichtbaren Terminal ausführen:
+
+   ```text
+   whoami
+   hostname
+   echo "$HOME"
+   pwd
+   id
+   sudo whoami
+   ```
 
 ### Erwartung
 
 - definierte Ausgangslage,
+- Prompt `waerter@leuchtturm:~$`,
+- `whoami` liefert `waerter`,
+- `hostname` liefert `leuchtturm`,
+- `echo "$HOME"` und `pwd` liefern `/home/waerter`,
+- `id` zeigt `waerter` mit einer UID ungleich 0,
+- `sudo whoami` liefert ohne Passwortabfrage `root`,
 - Beobachter läuft im Hintergrund,
 - kein Startmarker für die Übung,
 - kein Übungsprozess.
@@ -43,6 +69,7 @@ Die Skripte überschreiben weder `echo` noch `sleep`. Der CHECK beendet keinen P
 - kein fremder Prozess wird verändert;
 - alte Prüfdaten werden entfernt;
 - genau ein neuer Beobachter wird gestartet;
+- Benutzer, Home, Shell, Hostname, Prompt und sudoers-Datei bleiben korrekt;
 - erneuter Aufruf bleibt fehlerfrei.
 
 ## 3. CHECK direkt nach Start
@@ -180,7 +207,9 @@ Der Text behauptet nicht, Enter, Pfeiltaste nach oben oder Strg+C erkannt zu hab
 
 - alle Markdown-Dateien werden korrekt dargestellt;
 - `setup.sh` startet zuverlässig über `background`;
-- der Beobachter erkennt das tatsächliche Teilnehmerterminal;
+- `foreground.sh` wartet auf das Ready-Signal und startet die sichtbare
+  Login-Shell von `waerter`;
+- der Beobachter erkennt gezielt das Teilnehmerterminal von `waerter`;
 - `sleep 30` bleibt ein normaler Vordergrundprozess;
 - alle CHECK-Rückmeldungen sind sichtbar und handlungsfähig;
 - keine Plattformfunktion wurde nur aufgrund statischer Annahmen als getestet bezeichnet.

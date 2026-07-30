@@ -4,11 +4,13 @@ Der Bildschirm im Wärterraum ist nicht eingefroren. Vor der Eingabestelle
 steht der **Prompt**. Er kann etwa so aussehen:
 
 ```text
-root@host:~#
+waerter@leuchtturm:~$
 ```
 
-Die genaue Darstellung kann bei dir etwas anders sein. Du musst diese Zeichen
-weder verstehen noch mittippen.
+Dabei ist `waerter` dein Benutzername, `leuchtturm` der Name des Rechners und
+`~` die Kurzform für dein persönliches Verzeichnis. Das `$` zeigt hier: Du
+arbeitest als normaler Benutzer. Ein `#` würde typischerweise auf den
+Administrator **Root** hinweisen. Du musst den Prompt nicht mittippen.
 
 ## Woran erkennst du die Bereitschaft?
 

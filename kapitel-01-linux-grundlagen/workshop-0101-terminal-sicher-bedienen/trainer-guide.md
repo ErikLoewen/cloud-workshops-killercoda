@@ -29,6 +29,8 @@ Beobachte beziehungsweise erfrage, ob die lernende Person:
 8. den Vordergrundprozess mit Strg+C beendet;
 9. die Rückkehr des Prompts als Bereitschaftssignal erklärt;
 10. `command not found` als Hinweis und nicht als Systemschaden einordnet.
+11. den normalen Benutzer `waerter` am `$` vom typischen Root-Prompt mit `#`
+    unterscheidet.
 
 ## Beobachtungskriterien
 
@@ -66,6 +68,7 @@ Das Ende des Prozesses beweist nicht, dass Strg+C verwendet wurde. Direkte Beoba
 
 - Das Terminal ist nicht fokussiert.
 - Promptzeichen werden als Teil des Befehls mitgetippt.
+- `$` wird mit Root verwechselt; Root verwendet typischerweise `#`.
 - Nach dem Tippen wird Enter vergessen.
 - Das Leerzeichen zwischen `echo` und Argument fehlt.
 - Die Fehlermeldung wird übersprungen oder als Schaden interpretiert.

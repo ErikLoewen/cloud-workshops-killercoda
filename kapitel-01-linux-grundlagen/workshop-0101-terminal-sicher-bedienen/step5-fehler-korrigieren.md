@@ -37,7 +37,7 @@ Welches Zeichen fehlt?
 ## Erwartete Ausgabe
 
 ```text
-root
+waerter
 ```
 
 ## Beobachtungsfrage

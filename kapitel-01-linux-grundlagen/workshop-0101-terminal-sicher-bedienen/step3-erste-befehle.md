@@ -15,7 +15,8 @@ Der Befehl ist kurz und liefert sofort eine gut erkennbare Ausgabe.
 
 ### Was erwarten wir?
 
-Eine einzelne Zeile mit einem Benutzernamen. In dieser Umgebung ist das meist `root`.
+Eine einzelne Zeile mit einem Benutzernamen. In dieser Umgebung ist das
+`waerter`.
 
 ## Vorhersage
 
@@ -31,7 +32,7 @@ Klicke auf den Befehl:
 ## Erwartete Ausgabe
 
 ```text
-root
+waerter
 ```
 
 Danach erscheint erneut der Prompt. Der Befehl ist beendet und die Shell ist

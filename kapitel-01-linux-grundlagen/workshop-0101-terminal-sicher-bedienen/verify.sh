@@ -11,7 +11,7 @@ if [[ ! -f "${started_file}" || ! -f "${process_file}" ]]; then
   exit 1
 fi
 
-read -r recorded_pid recorded_start_time recorded_tty <"${process_file}"
+read -r recorded_pid recorded_start_time recorded_mode recorded_tty <"${process_file}"
 
 if [[ ! "${recorded_pid}" =~ ^[0-9]+$ || ! "${recorded_start_time}" =~ ^[0-9]+$ ]]; then
   echo "Die technischen Prüfdaten sind unvollständig."

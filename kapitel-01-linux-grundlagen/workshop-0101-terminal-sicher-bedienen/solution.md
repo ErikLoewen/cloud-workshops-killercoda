@@ -4,6 +4,21 @@ Diese Datei ist für Wartung, Pilot und Betreuung gedacht. Sie wird nicht in `in
 
 ## Vollständiger Musterablauf
 
+### Technischer Startzustand
+
+Die sichtbare Login-Shell läuft als normaler Benutzer `waerter`. Für die
+technische Kontrolle gelten:
+
+```text
+whoami        → waerter
+hostname      → leuchtturm
+echo "$HOME"  → /home/waerter
+pwd           → /home/waerter
+sudo whoami   → root
+```
+
+`id` zeigt für `waerter` eine UID ungleich 0.
+
 ### 1. System und Oberfläche zuordnen
 
 - Linux ist streng genommen der Kernel und im Alltag oft die Bezeichnung für
@@ -13,6 +28,9 @@ Diese Datei ist für Wartung, Pilot und Betreuung gedacht. Sie wird nicht in `in
 - Das **Terminal** ist die sichtbare Ein- und Ausgabefläche.
 - Die **Shell** verarbeitet die eingegebenen Befehle; hier wird Bash verwendet.
 - Der **Prompt** zeigt, dass die Shell auf eine neue Eingabe wartet.
+- Der Prompt `waerter@leuchtturm:~$` zeigt Benutzer, Rechnername und aktuelles
+  Verzeichnis. Das `$` kennzeichnet hier einen normalen Benutzer; `#` würde
+  typischerweise auf Root hinweisen.
 - **Eingabe** ist der Text, den die lernende Person vor dem Ausführen tippt.
 - **Ausgabe** ist die Antwort, die nach der Ausführung erscheint.
 
@@ -27,7 +45,7 @@ whoami
 Erwartete Beobachtung:
 
 ```text
-root
+waerter
 ```
 
 Danach erscheint der Prompt erneut.
@@ -107,7 +125,7 @@ whoami
 Erwartete Ausgabe:
 
 ```text
-root
+waerter
 ```
 
 Die Fehlermeldung zeigt, welchen Namen die Shell nicht gefunden hat. Sie ist eine verwertbare Rückmeldung und kein Beweis für eine Beschädigung.
@@ -157,7 +175,10 @@ Den Prozess mit Strg+C unterbrechen und erst nach Rückkehr des Prompts den CHEC
 
 Der CHECK kann nur eine eng begrenzte technische Teilprüfung durchführen:
 
-- Der externe Beobachter registriert einen exakt als `sleep 30` gestarteten Vordergrundprozess. Er bevorzugt die Zuordnung über das interaktive Bash-Terminal und nutzt nur in Umgebungen ohne sichtbare TTY-Zuordnung eine engere Zuordnung als direkter Kindprozess der ermittelten interaktiven Shell.
+- Der externe Beobachter registriert einen exakt als `sleep 30` gestarteten
+  Vordergrundprozess. Er ordnet die Ziel-Shell gezielt der UID von `waerter`
+  zu, bevorzugt die TTY-Zuordnung und nutzt in technischen Umgebungen ohne
+  sichtbare TTY als Rückfall eine Bash dieses Benutzers.
 - Der CHECK prüft, ob genau der registrierte Prozess zum Prüfzeitpunkt nicht mehr existiert.
 
 Der CHECK weist nicht nach:
