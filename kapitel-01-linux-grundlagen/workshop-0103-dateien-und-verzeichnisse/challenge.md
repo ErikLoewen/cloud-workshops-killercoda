@@ -1,120 +1,73 @@
-# Abschlussaufgabe: Eine Projektstruktur herstellen
+# Abschluss: die erste Spur sichern
 
-## Ausgangslage
+Das Logbuch liegt noch im Archiv. Im Kartenraum lassen sich die verwischten
+Zeilen vielleicht besser lesen.
 
-Wechsle zuerst in den gemeinsamen Ausgangsbereich:
+## Dein Auftrag
 
-```bash
-cd /root/dateilabor
-```
+Verschiebe `letzter_eintrag.txt` aus dem Archiv direkt in den Kartenraum und
+benenne die Datei dabei in `erste-spur.txt` um.
 
-Prüfe bei Bedarf deinen Standort mit `pwd`.
+Erfolgskriterien:
 
-Vorbereitet ist die Datei:
+- `erste-spur.txt` liegt direkt im Kartenraum;
+- `letzter_eintrag.txt` liegt nicht mehr im Archiv;
+- es wurde die vorbereitete Logbuchdatei verschoben, keine neue Datei
+  gleichen Namens angelegt;
+- die gefundene Flag wurde anschließend eingereicht.
 
-```text
-/root/dateilabor/eingang/entwurf.txt
-```
+Nutze `pwd`, `ls`, `mv` und `cat`. Führe zuerst einen eigenen Versuch aus.
 
-Sie enthält exakt:
+Wenn das Licht flackert und das Terminal dich auf neue Zeilen hinweist, lies
+`erste-spur.txt` noch einmal mit `cat`.
 
-```text
-vorlage
-```
-
-Das Hauptverzeichnis `projekt` ist noch nicht vorhanden.
-
-## Auftrag
-
-Stelle selbstständig diesen Zustand her:
+Gib die gefundene Flag danach so ab:
 
 ```text
-/root/dateilabor/
-├── eingang/
-│   └── entwurf.txt ist nicht mehr vorhanden
-└── projekt/
-    ├── hinweis.txt
-    └── texte/
-        └── status.txt
+flag-einreichen 'GEFUNDENE_FLAG'
 ```
 
-Dabei gelten diese Erfolgskriterien:
+Ersetze `GEFUNDENE_FLAG` durch den vollständigen Text aus der Datei. Starte
+nach der erfolgreichen Abgabe den CHECK.
 
-1. `projekt` ist ein Verzeichnis.
-2. `projekt/texte` ist ein Verzeichnis.
-3. `projekt/texte/status.txt` ist eine reguläre Datei.
-4. `status.txt` enthält exakt eine Zeile `bereit`.
-5. Die vorbereitete Datei `eingang/entwurf.txt` liegt danach unter `projekt/hinweis.txt`.
-6. Der Inhalt von `hinweis.txt` bleibt exakt `vorlage`.
-7. Der alte Quellpfad `eingang/entwurf.txt` existiert danach nicht mehr.
-
-Du darfst relative oder absolute Pfade verwenden. Die genaue Befehlsreihenfolge ist nicht vorgegeben. Kontrolliere Struktur und Inhalte bei Bedarf mit den bekannten Befehlen.
-
-Versuche die Aufgabe zuerst ohne die vollständige Lösung.
+## Hinweise
 
 <details>
-<summary>Hinweis 1 – konzeptionelle Reihenfolge</summary>
+<summary>Hinweis 1 – das Prinzip</summary>
 
-Erstelle zuerst das Hauptverzeichnis und danach das Unterverzeichnis.
-
-Erzeuge anschließend den vorgegebenen Text und leite ihn an den Zielpfad um.
-
-Zum Schluss übernimmst du die vorbereitete Datei mit einem Quellpfad und einem neuen Zielpfad.
+Du brauchst genau eine Dateioperation. Das vorhandene Logbuch ist die
+Quelle; der gewünschte Ort mit neuem Namen ist das Ziel.
 
 </details>
 
 <details>
-<summary>Hinweis 2 – passende Werkzeuge</summary>
+<summary>Hinweis 2 – das Werkzeug</summary>
 
-- Verzeichnisse: `mkdir`
-- Textausgabe und Datei: `echo` mit `>`
-- vorbereitete Datei verschieben und umbenennen: `mv`
-- Kontrolle: `pwd`, `ls` und `cat`
+Das Muster lautet `mv QUELLE ZIEL`. Beide Pfade dürfen vollständig
+ausgeschrieben sein.
 
 </details>
 
 <details>
-<summary>Hinweis 3 – nahezu vollständige Befehlsstruktur</summary>
+<summary>Hinweis 3 – die beiden Wege</summary>
+
+Die Quelle liegt unter
+`/home/waerter/leuchtturm/untergeschoss/lagerraum/archiv/`.
+Das Ziel liegt unter
+`/home/waerter/leuchtturm/obergeschoss/kartenraum/` und heißt
+`erste-spur.txt`.
+
+</details>
+
+<details>
+<summary>Hinweis 4 – vollständiger Verschiebebefehl</summary>
 
 ```text
-cd /root/dateilabor
-mkdir projekt
-mkdir projekt/texte
-echo bereit > projekt/texte/________
-mv eingang/entwurf.txt projekt/________
+mv /home/waerter/leuchtturm/untergeschoss/lagerraum/archiv/letzter_eintrag.txt /home/waerter/leuchtturm/obergeschoss/kartenraum/erste-spur.txt
 ```
 
-Die beiden fehlenden Dateinamen stehen im Zielbaum.
+Der erste Pfad bezeichnet die vorhandene Quelle. Der zweite Pfad legt Ort
+und neuen Namen fest. Lies danach `erste-spur.txt` im Kartenraum erneut mit
+`cat` und reiche den gefundenen Text mit `flag-einreichen` ein.
 
 </details>
-
-<details>
-<summary>Hinweis 4 – vollständige Musterlösung mit Erklärung</summary>
-
-```bash
-cd /root/dateilabor
-mkdir projekt
-mkdir projekt/texte
-echo bereit > projekt/texte/status.txt
-mv eingang/entwurf.txt projekt/hinweis.txt
-cat projekt/texte/status.txt
-cat projekt/hinweis.txt
-ls eingang
-ls projekt
-```
-
-Die ersten beiden verändernden Befehle erstellen Haupt- und Unterverzeichnis.
-
-`echo` erzeugt den Text `bereit`. Die Shell leitet diese Ausgabe mit `>` in `projekt/texte/status.txt` um.
-
-Bei `mv` ist `eingang/entwurf.txt` die Quelle und `projekt/hinweis.txt` das Ziel. Die Datei wird verschoben und gleichzeitig umbenannt. Sie wird nicht kopiert.
-
-Die letzten vier Befehle kontrollieren nur Inhalte und Struktur.
-
-</details>
-
-## Technischen Endzustand prüfen
-
-Starte jetzt den Killercoda-CHECK.
-
-Der CHECK prüft ausschließlich den Dateisystem-Endzustand. Er erkennt weder deine konkrete Befehlsfolge noch dein Verständnis. Bei einem Fehler nennt er den mangelhaften Teilzustand, damit du gezielt nachbessern und erneut prüfen kannst.

@@ -1,76 +1,36 @@
-# Schritt 1: Im Dateilabor orientieren
+# Der letzte Eintrag
 
-## Ziel
+Rufe zuerst deine bekannten Orientierungsbefehle ab.
 
-Du rufst bekannte Navigationshandlungen ab und untersuchst den vorbereiteten Ausgangszustand.
+Welche Ausgabe erwartest du von `pwd`? Führe den Befehl aus:
 
-## Vorhersage
-
-Welche Elemente des Zielbildes sind Verzeichnisse? Welche Elemente sind Dateien?
-
-## Standort prüfen
-
-Tippe den bekannten Befehl selbst ein:
-
-```bash
-pwd
-```
-
-**Erwartete Ausgabe bei der angenommenen Killercoda-Startlage:**
-
-```text
-/root
-```
-
-Falls ein anderer Pfad erscheint, ist das zunächst kein Fehler. Der nächste Wechsel verwendet einen absoluten Pfad.
-
-## Vorbereiteten Bereich ansehen
-
-Tippe:
-
-```bash
-ls
-```
-
-Wechsle danach in den leeren Übungsbereich:
-
-```bash
-cd /root/dateilabor/uebung
-```
-
-Prüfe deinen neuen Standort:
-
-```bash
-pwd
-```
+`pwd`{{exec}}
 
 **Erwartete Ausgabe:**
 
 ```text
-/root/dateilabor/uebung
+/home/waerter/leuchtturm/untergeschoss/lagerraum/archiv
 ```
 
-Untersuche den Inhalt:
-
-```bash
-ls
-```
-
-**Erwartete Beobachtung:**
-
-Es werden keine Datei- oder Verzeichnisnamen angezeigt. Das Verzeichnis `uebung` ist zu Beginn leer.
-
-## Pfadfrage
-
-Angenommen, dein aktueller Standort ist `/root/dateilabor/uebung`: An welchem vollständigen Pfad würde ein Objekt mit dem relativen Namen `notiz.txt` liegen?
-
-<details>
-<summary>Antwort prüfen</summary>
+Gib anschließend selbst `ls` ein. Du siehst:
 
 ```text
-/root/dateilabor/uebung/notiz.txt
+letzter_eintrag.txt
 ```
 
-Ein relativer Pfad wird vom aktuellen Arbeitsverzeichnis aus ausgewertet.
+## `cat`: eine kleine Textdatei lesen
 
-</details>
+`cat` zeigt den Inhalt einer Textdatei im Terminal. Der Befehl verändert die
+Datei nicht.
+
+Gib ein:
+
+```text
+cat letzter_eintrag.txt
+```
+
+Lies den Eintrag aufmerksam. Eine Flag ist darin noch nicht zu sehen. Der
+Hinweis führt in den Kartenraum.
+
+Falls `No such file or directory` erscheint, ist nichts kaputt. Prüfe mit
+`pwd` deinen Standort und mit `ls` die genaue Schreibweise.

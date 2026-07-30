@@ -23,6 +23,7 @@ du den neuen Standort sichtbar.
 ## Übergang
 
 Im Archiv hast du `letzter_eintrag.txt` entdeckt, aber absichtlich weder
-geöffnet noch verändert. Im nächsten Workshop lernst du, Dateien und Ordner
-anzulegen, Inhalte zu prüfen und Dateien umzubenennen oder zu verschieben.
-Dann wird der letzte Eintrag zur ersten wirklichen Spur.
+geöffnet noch verändert. Im nächsten Workshop **„01.03 – Dateien, Ordner
+und die erste Spur“** lernst du, Dateien und Ordner anzulegen, Inhalte zu
+prüfen und das Logbuch mit `mv` in den Kartenraum zu bringen. Dort wird der
+letzte Eintrag zur ersten wirklichen Spur.

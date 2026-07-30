@@ -1,40 +1,52 @@
 {
   "title": "01.03 – Dateien, Ordner und die erste Spur",
-  "description": "Verzeichnisse und kleine Textdateien erstellen, Inhalte prüfen und Objekte mit mv umbenennen oder verschieben.",
+  "description": "Im Leuchtturm Verzeichnisse und Textdateien erstellen, Inhalte prüfen und den letzten Eintrag mit mv in den Kartenraum bringen.",
   "details": {
     "intro": {
+      "title": "Das Logbuch im Archiv",
       "text": "intro.md",
-      "foreground": "setup.sh"
+      "foreground": "setup.sh",
+      "background": "reveal-first-flag.sh"
     },
     "steps": [
       {
-        "title": "Orientierung im Dateilabor",
+        "title": "Der letzte Eintrag",
         "text": "step1-orientierung.md"
       },
       {
-        "title": "Ein Verzeichnis erstellen",
+        "title": "Ein Platz für Notizen",
         "text": "step2-verzeichnis-erstellen.md"
       },
       {
-        "title": "Eine Datei erzeugen und prüfen",
+        "title": "Eine Arbeitsnotiz schreiben",
         "text": "step3-datei-erzeugen-pruefen.md"
       },
       {
-        "title": "Eine Datei verschieben und umbenennen",
+        "title": "Mit mv Namen und Orte ändern",
         "text": "step4-umbenennen.md"
       },
       {
-        "title": "Bekannte Handlungen verbinden",
+        "title": "Quelle, Ziel und sichere Namen",
         "text": "step5-gestuetzte-anwendung.md"
       },
       {
-        "title": "Abschlussaufgabe",
+        "title": "Abschluss: die erste Spur sichern",
         "text": "challenge.md",
         "verify": "verify.sh"
       }
     ],
     "finish": {
+      "title": "Die erste Spur ist sichtbar",
       "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "flag-einreichen",
+          "target": "/tmp/workshop-0103-assets",
+          "chmod": "+x"
+        }
+      ]
     }
   },
   "backend": {

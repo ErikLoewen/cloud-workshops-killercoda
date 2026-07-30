@@ -1,122 +1,51 @@
-# Musterlösung – Dateien und Verzeichnisse erstellen
+# Musterlösung – Dateien, Ordner und die erste Spur
 
-Diese interne Datei wird nicht in der Teilnehmeroberfläche referenziert.
+Diese interne Datei wird nicht in `index.json` angezeigt.
 
-## Ausgangszustand
-
-```text
-/root/dateilabor/
-├── eingang/
-│   └── entwurf.txt
-└── uebung/
-```
-
-`entwurf.txt` enthält bytegenau:
+## Startzustand
 
 ```text
-vorlage
+whoami   → waerter
+hostname → leuchtturm
+pwd      → /home/waerter/leuchtturm/untergeschoss/lagerraum/archiv
 ```
 
-mit einem abschließenden Zeilenumbruch.
+Der vollständige Leuchtturmbaum aus Workshop 01.02 wird neu hergestellt.
+`letzter_eintrag.txt` liegt ausschließlich im Archiv und enthält zunächst
+keine Flag.
 
-## Referenzlösung mit relativen Pfaden
+## Lernweg
 
-```bash
-cd /root/dateilabor
-mkdir projekt
-mkdir projekt/texte
-echo bereit > projekt/texte/status.txt
-mv eingang/entwurf.txt projekt/hinweis.txt
-```
-
-Die vier verändernden Teilnehmerbefehle nach dem Standortwechsel sind:
-
-1. `mkdir projekt`
-2. `mkdir projekt/texte`
-3. `echo bereit > projekt/texte/status.txt`
-4. `mv eingang/entwurf.txt projekt/hinweis.txt`
-
-Kontrollbefehle verändern den Abschlusszustand nicht:
-
-```bash
+```text
 pwd
 ls
-ls projekt
-ls projekt/texte
-cat projekt/texte/status.txt
-cat projekt/hinweis.txt
-ls eingang
+cat letzter_eintrag.txt
+cd /home/waerter/leuchtturm/obergeschoss/kartenraum
+mkdir notizen
+echo Logbuch im Archiv gefunden. > notizen/arbeitsnotiz.txt
+cat notizen/arbeitsnotiz.txt
+mv notizen/arbeitsnotiz.txt notizen/fundnotiz.txt
+mv notizen/fundnotiz.txt .
+mv fundnotiz.txt notizen/arbeitsnotiz.txt
 ```
 
-## Alternative gültige Lösung mit absoluten Pfaden
+`mkdir` erstellt den Notizordner. Die Shell leitet die Ausgabe von `echo`
+mit `>` in die Arbeitsnotiz. Ein einzelnes `>` ersetzt vorhandenen Inhalt.
+Bei `mv` steht der vorhandene Quellpfad zuerst und der Zielpfad danach.
 
-```bash
-mkdir /root/dateilabor/projekt
-mkdir /root/dateilabor/projekt/texte
-echo bereit > /root/dateilabor/projekt/texte/status.txt
-mv /root/dateilabor/eingang/entwurf.txt /root/dateilabor/projekt/hinweis.txt
-```
+## Abschlussaufgabe
 
-Diese Lösung ist ebenfalls gültig. Der technische CHECK verlangt kein bestimmtes Arbeitsverzeichnis und keine bestimmte Befehlsreihenfolge, solange alle Elternverzeichnisse rechtzeitig vorhanden sind und der Endzustand stimmt.
+Quelle ist die vorbereitete Datei im Archiv. Ziel ist
+`erste-spur.txt` direkt im Kartenraum. Ein vollständiger `mv`-Aufruf
+verschiebt die Quelle und ändert gleichzeitig ihren Namen. Danach wird die
+Datei mit `cat` gelesen und die dort gefundene Flag mit
+`flag-einreichen 'GEFUNDENE_FLAG'` abgegeben.
 
-## Erwarteter Abschlussbaum
+Die konkrete Flag steht absichtlich nicht in dieser Musterlösung.
 
-```text
-/root/dateilabor/
-├── eingang/
-│   └── entwurf.txt ist nicht mehr vorhanden
-├── projekt/
-│   ├── hinweis.txt
-│   └── texte/
-│       └── status.txt
-└── uebung/
-```
+## Technische Besonderheit
 
-Zusätzliche fachlich nicht störende Dateien sind zulässig.
-
-## Erwartete Dateiinhalte
-
-`/root/dateilabor/projekt/texte/status.txt`:
-
-```text
-bereit
-```
-
-`/root/dateilabor/projekt/hinweis.txt`:
-
-```text
-vorlage
-```
-
-Beide Dateien besitzen jeweils einen abschließenden Zeilenumbruch.
-
-## Erklärung der Umleitung
-
-`echo bereit` erzeugt die Textausgabe `bereit`.
-
-Die Shell verarbeitet `>` und schreibt die Ausgabe links des Zeichens in den Zielpfad rechts davon. Deshalb erscheint der Text normalerweise nicht zusätzlich im Terminal. Eine fehlende Datei wird erzeugt. Ein bereits vorhandener Inhalt kann ersetzt werden.
-
-## Quelle und Ziel bei `mv`
-
-Im Befehl
-
-```text
-mv eingang/entwurf.txt projekt/hinweis.txt
-```
-
-ist `eingang/entwurf.txt` die Quelle und `projekt/hinweis.txt` das Ziel.
-
-Die Datei wird an den Zielpfad verschoben und erhält dabei den neuen Namen `hinweis.txt`. Sie wird nicht kopiert. Nach erfolgreichem Abschluss existiert der alte Quellpfad nicht mehr.
-
-## Grenzen des technischen CHECKs
-
-Der CHECK kann nur den Dateisystem-Endzustand prüfen. Er kann nicht beweisen:
-
-- dass `mkdir` verwendet wurde,
-- dass `echo` und `>` verwendet wurden,
-- dass `mv` verwendet wurde,
-- dass relative Pfade bewusst eingesetzt wurden,
-- dass die Teilnehmenden Datei, Inhalt und Pfad erklären können,
-- dass Quelle und Ziel verstanden wurden.
-
-Diese Aspekte werden durch Aufgabenbeobachtung und Fragen geprüft.
+Erst nach dem echten Verschieben erkennt das Hintergrundskript die
+vorbereitete Datei anhand von Gerät und Inode sowie ihres ursprünglichen
+Hashes. Es ersetzt den Inhalt atomar und erzeugt einen Enthüllungsmarker.
+Der technische CHECK verlangt zusätzlich die erfolgreiche Flag-Abgabe.

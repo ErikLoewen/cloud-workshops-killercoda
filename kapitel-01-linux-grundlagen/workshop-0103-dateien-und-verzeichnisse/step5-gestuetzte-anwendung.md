@@ -1,48 +1,37 @@
-# Schritt 5: Bekannte Handlungen verbinden
+# Quelle, Ziel und sichere Namen
 
-Du arbeitest weiterhin im Verzeichnis `/root/dateilabor/uebung`.
+Für die gefundene Spur gelten zwei feste Pfade:
 
-## Aufgabe
+- **Quelle:** das vorhandene Logbuch im Archiv;
+- **Ziel:** `erste-spur.txt` direkt im Kartenraum.
 
-Erzeuge im bereits vorhandenen Verzeichnis `sammlung` eine Datei `merkzettel.txt` mit dem Inhalt `ok`.
+Bei `mv QUELLE ZIEL` steht immer zuerst das vorhandene Objekt. Das Ziel legt
+den neuen Ort und bei Bedarf zugleich den neuen Namen fest.
 
-Diesmal ist die Hilfe kürzer. Ergänze gedanklich den fehlenden Dateinamen:
+## Dateinamen ruhig und eindeutig wählen
 
-```text
-echo ok > sammlung/________
-```
-
-Tippe anschließend den vollständigen Befehl selbst ein.
-
-## Inhalt prüfen
-
-Zeige danach genau diese eine Datei mit `cat` an.
-
-**Erwartete Ausgabe:**
+Der Zielname lautet exakt:
 
 ```text
-ok
+erste-spur.txt
 ```
 
-## Relativen und vollständigen Pfad verbinden
+Bindestriche sind in einfachen Dateinamen angenehm, weil kein Leerzeichen
+entsteht. Achte außerdem auf:
 
-Der verwendete relative Pfad lautet:
+- die genaue Groß- und Kleinschreibung;
+- den Punkt vor `txt`;
+- keine versehentlichen Leerzeichen.
 
-```text
-sammlung/merkzettel.txt
-```
+Die Varianten `erste_spur.txt` und `erste Spur.txt` sind andere Namen.
 
-Welcher vollständige Pfad ergibt sich aus deinem aktuellen Standort?
+## Bereite die Abschlussaufgabe vor
 
-<details>
-<summary>Antwort prüfen</summary>
+Prüfe mit `pwd`, dass du noch im Kartenraum bist. Überlege dann:
 
-```text
-/root/dateilabor/uebung/sammlung/merkzettel.txt
-```
+1. Welcher vollständige Pfad ist die Quelle?
+2. Welcher vollständige Pfad ist das Ziel?
+3. Woran kannst du nach `mv` erkennen, dass das Logbuch nicht kopiert,
+   sondern verschoben wurde?
 
-</details>
-
-## Beobachtung
-
-Der gleiche relative Pfad würde von einem anderen aktuellen Arbeitsverzeichnis aus auf einen anderen Ort verweisen oder dort nicht existieren. Prüfe deshalb vor unsicheren relativen Dateioperationen deinen Standort mit `pwd`.
+Noch nichts ausführen: Im nächsten Schritt setzt du beides selbst zusammen.

@@ -16,7 +16,7 @@ Szenarien sind im Repository enthalten und in der Kapitelstruktur verlinkt:
    Fehlermeldungen lesen sowie Vordergrundprozesse beenden
 2. [**01.02 – Navigation im Nebel: Wo bin ich hier?**](kapitel-01-linux-grundlagen/workshop-0102-navigation-und-pfade/) – mit `pwd`, `ls` und `cd` durch den
    Leuchtturm navigieren sowie absolute und relative Pfade unterscheiden
-3. [**01.03 – Dateien, Ordner und die erste Spur**](kapitel-01-linux-grundlagen/workshop-0103-dateien-und-verzeichnisse/) – Verzeichnisse und Textdateien
+3. [**01.03 – Dateien, Ordner und die erste Spur**](kapitel-01-linux-grundlagen/workshop-0103-dateien-und-verzeichnisse/) – Im Leuchtturm Ordner und Textdateien erstellen und das Logbuch in den Kartenraum verschieben
    anlegen, Inhalte prüfen und Objekte umbenennen oder verschieben
 4. [**01.04 – Kopieren, aufräumen, nichts versenken**](kapitel-01-linux-grundlagen/workshop-0104-dateien-kopieren-und-sicher-loeschen/) – mit `cp`, `rm`,
    `rmdir` und kontrolliertem `rm -r` arbeiten; `rm -rf` wird ausschließlich

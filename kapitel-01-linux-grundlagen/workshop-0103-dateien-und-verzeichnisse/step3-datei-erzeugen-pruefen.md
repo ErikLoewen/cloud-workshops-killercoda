@@ -1,105 +1,43 @@
-# Schritt 3: Eine Datei erzeugen und prüfen
+# Eine Arbeitsnotiz schreiben
 
-## `echo` kurz abrufen
+`echo` kennst du bereits: Der Befehl erzeugt Textausgabe. Das Zeichen `>`
+wird von der Shell verarbeitet und leitet diese Ausgabe in eine Datei um.
 
-`echo` ist bereits bekannt. Der Befehl erzeugt Textausgabe.
+```text
+echo TEXT > DATEIPFAD
+```
 
-Tippe:
+- Links von `>` entsteht Text.
+- Rechts davon steht die Zieldatei.
+- Fehlt die Datei, wird sie angelegt.
+- Existiert sie bereits, wird ihr bisheriger Inhalt ersetzt.
 
-```bash
-echo start
+## Notiz anlegen
+
+Sage voraus: Erscheint der Text nach dem nächsten Befehl im Terminal oder in
+der Datei?
+
+Gib selbst ein:
+
+```text
+echo Logbuch im Archiv gefunden. > notizen/arbeitsnotiz.txt
+```
+
+Der Prompt kehrt ohne Textausgabe zurück. Prüfe die Datei:
+
+```text
+cat notizen/arbeitsnotiz.txt
 ```
 
 **Erwartete Ausgabe:**
 
 ```text
-start
+Logbuch im Archiv gefunden.
 ```
 
-## Neue Shell-Syntax: `>`
+## Überschreiben bewusst erkennen
 
-Das Zeichen `>` wird von der Shell verarbeitet. Es ist kein Bestandteil des Befehls `echo`.
+Ein einzelnes `>` ersetzt vorhandenen Inhalt. Führe denselben
+`echo`-Befehl noch einmal aus und lies die Datei erneut mit `cat`.
 
-- Links von `>` entsteht eine Ausgabe.
-- Rechts von `>` steht der Zielpfad oder Dateiname.
-- Die Shell schreibt die Ausgabe in die Datei.
-- Der Text erscheint normalerweise nicht zusätzlich im Terminal.
-- Existiert die Datei noch nicht, wird sie erzeugt.
-- Existiert sie bereits, kann ihr bisheriger Inhalt ersetzt werden.
-
-Wir arbeiten deshalb nur im isolierten Übungsbereich. In diesem Workshop verwendest du ausschließlich ein einzelnes `>`.
-
-## Vorhersage
-
-Wo erwartest du das Wort `start` nach der nächsten Eingabe: im Terminal, in einer Datei oder an beiden Stellen?
-
-## Datei erzeugen
-
-Tippe selbst:
-
-```bash
-echo start > notiz.txt
-```
-
-**Erwartete Terminalausgabe:**
-
-Normalerweise erscheint kein eigener Text. Der Prompt kehrt zurück.
-
-**Erwartete Zustandsänderung:**
-
-Die Datei `/root/dateilabor/uebung/notiz.txt` wurde erzeugt.
-
-## Der neue Befehl `cat`
-
-`cat` ist die Kurzform von **„concatenate“**, also **„aneinanderhängen“**. Der Befehl kann Dateiinhalte verbinden; hier verwenden wir ihn nur, um den Inhalt einer einzelnen Datei anzuzeigen.
-
-`cat` zeigt hier den Inhalt einer kleinen Textdatei im Terminal an.
-
-Wir benötigen den Befehl, um zu kontrollieren, ob die Datei den erwarteten Text enthält. Es werden keine Optionen verwendet, und es wird immer nur eine Datei angezeigt.
-
-Tippe:
-
-```bash
-cat notiz.txt
-```
-
-**Erwartete Ausgabe:**
-
-```text
-start
-```
-
-Falls `No such file or directory` erscheint, prüfe deinen Standort, den Dateinamen und die Groß- und Kleinschreibung.
-
-## Vorhandenen Inhalt ersetzen
-
-Sage zuerst voraus, was mit `start` geschieht. Tippe danach:
-
-```bash
-echo fertig > notiz.txt
-```
-
-Prüfe den Inhalt:
-
-```bash
-cat notiz.txt
-```
-
-**Erwartete Ausgabe:**
-
-```text
-fertig
-```
-
-Der vorherige Inhalt wurde ersetzt.
-
-## Name, Inhalt und Pfad unterscheiden
-
-Für dieses Objekt gilt:
-
-- **Dateiname:** `notiz.txt`
-- **Dateiinhalt:** `fertig`
-- **relativer Dateipfad:** `notiz.txt`
-- **vollständiger Dateipfad:** `/root/dateilabor/uebung/notiz.txt`
-
-Diese Begriffe bezeichnen unterschiedliche Eigenschaften derselben Datei.
+Warum steht der Satz weiterhin nur einmal in der Datei?

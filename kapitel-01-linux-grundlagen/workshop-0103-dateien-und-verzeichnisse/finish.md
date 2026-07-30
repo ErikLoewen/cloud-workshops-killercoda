@@ -1,43 +1,33 @@
-# Workshop abgeschlossen
+# Die erste Spur ist sichtbar
 
-Du hast eine kleine Datei- und Verzeichnisstruktur hergestellt und technisch prüfen lassen.
+Du hast den letzten Eintrag aus dem Archiv in den Kartenraum verschoben,
+dabei umbenannt, erneut gelesen und die gefundene Flag eingereicht.
 
-## Technische Prüfung und Verständnis sind verschieden
+![Im Kartenraum liegt das Logbuch geöffnet auf einem Tisch. Zwischen den alten Zeilen ist die erste Spur sichtbar geworden.](./assets/0103-nachher-logbuch-offen-im-kartenraum.png)
 
-Ein erfolgreicher CHECK bestätigt ausschließlich:
+## Was wirklich geschehen ist
 
-- die geforderten Verzeichnisse sind vorhanden,
-- die Dateien liegen an den erwarteten Pfaden,
-- die beiden Dateiinhalte stimmen,
-- die vorbereitete Quelldatei liegt nicht mehr am alten Ort.
+`mv` hat die Datei verschoben und umbenannt. **Normalerweise verändert `mv`
+keinen Dateiinhalt.** Die neuen Zeilen waren eine vorbereitete Inszenierung
+dieses Workshops: Ein Hintergrundskript erkannte die echte verschobene
+Logbuchdatei am richtigen Ziel und ersetzte ihren Inhalt genau einmal.
 
-Der CHECK bestätigt nicht, welche Befehle oder Pfadarten du verwendet hast. Er bestätigt auch nicht automatisch, dass du die Konzepte erklären kannst.
+Eine **Flag** ist eine eindeutige Zeichenfolge, die in sogenannten
+Capture-the-Flag-Aufgaben einen erfolgreichen Fund belegt. Der Befehl
+`flag-einreichen` hat deine Eingabe mit der erwarteten Flag verglichen.
 
-## Abruffragen
+## Rufe das Wichtigste ab
 
-Beantworte die Fragen möglichst ohne zurückzublättern:
+1. Was erstellt `mkdir`?
+2. Was bewirkt ein einzelnes `>` bei einer vorhandenen Datei?
+3. Wozu hast du `cat` verwendet?
+4. Welcher Pfad steht bei `mv QUELLE ZIEL` zuerst?
+5. Woran erkennst du, dass eine Datei verschoben und nicht kopiert wurde?
+6. Warum waren die neuen Zeilen keine normale Wirkung von `mv`?
 
-1. Worin unterscheiden sich eine Datei und ein Verzeichnis?
-2. Was ist bei `status.txt` der Dateiname?
-3. Was ist bei dieser Datei der Inhalt?
-4. Wie lautet ihr vollständiger Pfad?
-5. Was bewirkt `>`?
-6. Warum erscheint der umgeleitete Text normalerweise nicht zusätzlich im Terminal?
-7. Welcher Pfad steht bei `mv QUELLE ZIEL` zuerst?
-8. Warum existiert das verschobene Objekt danach nicht mehr am alten Ort?
-9. Warum sind `pwd` und `ls` nach einem Befehl ohne eigene Ausgabe hilfreich?
+## Ausblick
 
-## Rückblick
-
-Du kannst jetzt:
-
-- Verzeichnisse erstellen,
-- Textausgabe in eine Datei schreiben,
-- kleine Textdateien anzeigen,
-- Objekte umbenennen oder verschieben,
-- Namen, Inhalte und Pfade unterscheiden,
-- eine kleine Zielstruktur selbstständig herstellen.
-
-## Übergang zu Workshop 4
-
-Im nächsten Workshop untersuchst du Linux-Serverressourcen. Dabei verwendest du deine bekannten Datei- und Pfadkenntnisse erneut, um Ergebnisse einzuordnen und zu dokumentieren.
+Im nächsten Workshop **„01.04 – Kopieren, aufräumen, nichts versenken“**
+lernst du, Kopieren und Verschieben zu unterscheiden und ausdrücklich
+freigegebene Dateien und Verzeichnisse kontrolliert zu entfernen. Die erste
+Spur bleibt dabei sicher im Kartenraum.

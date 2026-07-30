@@ -1,73 +1,49 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-base="/root/dateilabor"
-project="$base/projekt"
-texts="$project/texte"
-status_file="$texts/status.txt"
-target_file="$project/hinweis.txt"
-source_file="$base/eingang/entwurf.txt"
+readonly source="/home/waerter/leuchtturm/untergeschoss/lagerraum/archiv/letzter_eintrag.txt"
+readonly target="/home/waerter/leuchtturm/obergeschoss/kartenraum/erste-spur.txt"
+readonly state_dir="/tmp/workshop-0103"
+readonly revealed="${state_dir}/flag-revealed"
+readonly submitted="${state_dir}/flag-submitted"
+readonly expected_flag="FLAG{erste_spur_im_kartenraum}"
 
-if [[ ! -d "$project" ]]; then
-  echo "Das Hauptverzeichnis /root/dateilabor/projekt fehlt."
-  echo "Prüfe deinen Standort und die vorhandenen Einträge mit pwd und ls."
+if [[ -e "${source}" ]]; then
+  printf '%s\n' "Das Logbuch liegt noch im Archiv."
+  printf '%s\n' "Prüfe bei mv die Reihenfolge von Quelle und Ziel."
   exit 1
 fi
 
-if [[ ! -d "$texts" ]]; then
-  echo "Das Unterverzeichnis /root/dateilabor/projekt/texte fehlt."
-  echo "Prüfe mit ls den Inhalt des Verzeichnisses projekt."
+if [[ ! -f "${target}" ]]; then
+  printf '%s\n' "erste-spur.txt wurde nicht direkt im Kartenraum gefunden."
+  printf '%s\n' "Prüfe den Zielpfad und die genaue Schreibweise mit ls."
   exit 1
 fi
 
-if [[ -e "$status_file" && ! -f "$status_file" ]]; then
-  echo "Der Pfad /root/dateilabor/projekt/texte/status.txt existiert, ist aber keine reguläre Datei."
+if [[ "$(stat -c '%U:%G' "${target}" 2>/dev/null)" != "waerter:waerter" ]]; then
+  printf '%s\n' "Die Spur gehört nicht dem Workshop-Benutzer waerter."
+  printf '%s\n' "Starte das Szenario neu und verschiebe die vorbereitete Datei erneut."
   exit 1
 fi
 
-if [[ ! -f "$status_file" ]]; then
-  mapfile -t misplaced_status_files < <(
-    find "$base" -type f -name 'status.txt' ! -path "$status_file" -print 2>/dev/null | sort
-  )
-
-  if (( ${#misplaced_status_files[@]} > 0 )); then
-    echo "Die Statusdatei liegt am falschen Ort: ${misplaced_status_files[0]}"
-    echo "Gefordert ist /root/dateilabor/projekt/texte/status.txt."
-  else
-    echo "Die Statusdatei /root/dateilabor/projekt/texte/status.txt fehlt."
-    echo "Prüfe den Zielpfad und den Inhalt des Verzeichnisses texte."
-  fi
+if [[ ! -f "${revealed}" ]]; then
+  printf '%s\n' "Die vorbereitete Logbuchdatei wurde am Ziel noch nicht erkannt."
+  printf '%s\n' "Eine neu angelegte oder kopierte Datei gleichen Namens genügt nicht."
   exit 1
 fi
 
-if ! cmp -s "$status_file" <(printf 'bereit\n'); then
-  echo "Der Inhalt von /root/dateilabor/projekt/texte/status.txt stimmt nicht."
-  echo "Gefordert ist exakt die Zeile bereit mit abschließendem Zeilenumbruch."
+flag_count="$(grep -Fxc -- "${expected_flag}" "${target}" || true)"
+if [[ "${flag_count}" != "1" ]]; then
+  printf '%s\n' "Die erste Spur ist nicht genau einmal im Logbuch enthalten."
+  printf '%s\n' "Lies die Datei mit cat und prüfe, ob der vorgesehene Ablauf vollständig war."
   exit 1
 fi
 
-if [[ -e "$target_file" && ! -f "$target_file" ]]; then
-  echo "Der Pfad /root/dateilabor/projekt/hinweis.txt existiert, ist aber keine reguläre Datei."
+if [[ ! -f "${submitted}" ]]; then
+  printf '%s\n' "Die gefundene Flag wurde noch nicht erfolgreich eingereicht."
+  printf '%s\n' "Lies erste-spur.txt mit cat und nutze danach flag-einreichen."
   exit 1
 fi
 
-if [[ ! -f "$target_file" ]]; then
-  echo "Das Verschiebe- und Umbenennungsziel /root/dateilabor/projekt/hinweis.txt fehlt."
-  echo "Prüfe Quelle und Ziel deiner Dateioperation."
-  exit 1
-fi
-
-if ! cmp -s "$target_file" <(printf 'vorlage\n'); then
-  echo "Der Inhalt von /root/dateilabor/projekt/hinweis.txt stimmt nicht mehr."
-  echo "Die verschobene Datei muss weiterhin exakt die Zeile vorlage enthalten."
-  exit 1
-fi
-
-if [[ -e "$source_file" ]]; then
-  echo "Der alte Quellpfad /root/dateilabor/eingang/entwurf.txt existiert noch."
-  echo "Das Objekt muss sich nach dem Verschieben nur am Zielort befinden."
-  exit 1
-fi
-
-echo "Technischer Endzustand korrekt: Verzeichnisse, Zielpfade und Dateiinhalte stimmen."
-echo "Diese Prüfung bewertet weder die verwendete Befehlsfolge noch das Verständnis."
+printf '%s\n' "CHECK erfolgreich: Die echte Logbuchdatei liegt als erste-spur.txt im Kartenraum."
+printf '%s\n' "Die enthüllte Flag wurde korrekt eingereicht."

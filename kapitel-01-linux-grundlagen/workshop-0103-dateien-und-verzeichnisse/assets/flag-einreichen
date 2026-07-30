@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly expected_flag="FLAG{erste_spur_im_kartenraum}"
+readonly state_dir="/tmp/workshop-0103"
+readonly revealed="${state_dir}/flag-revealed"
+readonly submitted="${state_dir}/flag-submitted"
+
+if (( $# != 1 )); then
+  printf '%s\n' "Aufruf: flag-einreichen 'GEFUNDENE_FLAG'" >&2
+  exit 2
+fi
+
+if [[ ! -f "${revealed}" ]]; then
+  printf '%s\n' "Die erste Spur wurde noch nicht vollständig sichtbar." >&2
+  printf '%s\n' "Prüfe Ort und Inhalt der verschobenen Datei." >&2
+  exit 1
+fi
+
+if [[ "$1" != "${expected_flag}" ]]; then
+  printf '%s\n' "Diese Flag passt nicht zur ersten Spur." >&2
+  printf '%s\n' "Lies die Datei im Kartenraum noch einmal genau mit cat." >&2
+  exit 1
+fi
+
+marker_tmp="$(mktemp "${state_dir}/flag-submitted.XXXXXX")"
+printf '%s\n' "first-flag-submitted" >"${marker_tmp}"
+chown waerter:waerter "${marker_tmp}"
+chmod 0644 "${marker_tmp}"
+mv -f -- "${marker_tmp}" "${submitted}"
+
+printf '%s\n' "Flag angenommen. Du kannst jetzt den CHECK ausführen."
