@@ -1,184 +1,119 @@
-# Testplan – Workshop 2
+# Testplan – Navigation im Nebel
 
-Diese Datei ist intern. Sie beschreibt geplante Prüfungen und enthält keine Testergebnisse.
+Diese Datei beschreibt geplante Prüfungen. Tatsächliche Ergebnisse stehen
+ausschließlich in `test-results.md`.
 
-## Voraussetzungen
+## T01 – Frischer Szenariostart
 
-- Test in einer isolierten Umgebung mit ausreichenden Rechten für `/root`, `/usr/local/bin` und `/tmp`
-- Für den Realtest: frische Killercoda-Umgebung mit Backend `ubuntu`
-- Ergebnisse werden ausschließlich in `test-results.md` protokolliert
+- Background-Setup und Foreground-Warteprozess starten gemeinsam.
+- Das Ready-Signal verhindert eine Race Condition.
+- Der sichtbare Prompt lautet `waerter@leuchtturm:~$`.
+- Das Terminal enthält keine sichtbaren Setup-Zeilen.
 
-## Testfälle
+Erwartete Kommandowerte:
 
-### T01 – Frischer Szenariostart
+```text
+whoami   → waerter
+hostname → leuchtturm
+pwd      → /home/waerter
+```
 
-**Ziel:** Setup läuft vor der ersten Teilnehmerhandlung.
+`id` muss eine UID ungleich 0 zeigen.
 
-**Prüfung:**
+## T02 – Idempotentes Setup
 
-- Szenario frisch starten.
-- Kontrollieren, dass der Baum vorhanden ist.
-- Kontrollieren, dass kein Erfolgsmarker vorhanden ist.
-- Kontrollieren, dass die Lab-Aktion ausführbar installiert wurde.
-- Kontrollieren, dass das Terminal nach Abschluss des Setups geleert ist.
+- `setup.sh` zweimal als Root ausführen.
+- Beide Läufe enden mit Exit-Code 0.
+- Benutzer, Gruppe, Home, Bash-Shell und Hostname bleiben korrekt.
+- Der Verzeichnisbaum wird reproduzierbar hergestellt.
+- Ein alter Erfolgsmarker wird entfernt.
 
-### T02 – Setup zweimal ausführen
+## T03 – Verzeichnisbaum und Rechte
 
-**Ziel:** `setup.sh` ist reproduzierbar und möglichst idempotent.
+Sollstruktur und Iststruktur vollständig vergleichen:
 
-**Prüfung:**
+```text
+/home/waerter/leuchtturm
+├── eingang
+├── obergeschoss
+│   ├── funkraum
+│   └── kartenraum
+├── technik
+│   ├── kontrollraum
+│   └── maschinenraum
+└── untergeschoss
+    ├── lagerraum
+    │   └── archiv
+    │       └── letzter_eintrag.txt
+    └── vorratsraum
+```
 
-- `setup.sh` zweimal nacheinander ausführen.
-- Beide Ausführungen müssen mit Exit-Code 0 enden.
-- Danach muss die definierte Ausgangslage bestehen.
-- Ein zuvor angelegter Erfolgsmarker muss entfernt sein.
+Alle vorbereiteten Einträge müssen `waerter` gehören. Navigation und Lesen
+der Namen müssen ohne Root-Rechte funktionieren.
 
-### T03 – Vollständiger Verzeichnisbaum
+## T04 – Tab-Vervollständigung
 
-**Ziel:** Alle geforderten Verzeichnisse existieren und keine ungeplanten Einträge liegen im Laborbaum.
+Im realen Browserterminal prüfen:
 
-**Prüfung:** Sollstruktur und Iststruktur vollständig vergleichen.
+- `t` ergänzt eindeutig `technik/`,
+- dort ergänzt `k` eindeutig `kontrollraum/`,
+- `u` ergänzt eindeutig `untergeschoss/`,
+- dort ergänzt `v` eindeutig `vorratsraum/`,
+- Tab führt keinen Befehl aus.
 
-### T04 – Ausführungsrechte der Lab-Aktion
+## T05 – Prüfaktion: Argument
 
-**Ziel:** Die installierte Aktion ist unter dem vorgesehenen Namen ausführbar.
+`eintrag-bestaetigen test` muss mit Exit-Code ungleich 0 enden und darf
+keinen Marker erzeugen.
 
-**Prüfung:**
+## T06 – Prüfaktion am falschen Ort
 
-- Asset besitzt Ausführungsrecht.
-- Installierte Datei besitzt Ausführungsrecht.
-- Aufruf ohne Argument ist möglich.
+Aus dem `eingang` ohne Argument aufrufen. Erwartet:
 
-### T05 – Lab-Aktion aus falschem Verzeichnis
+- Exit-Code ungleich 0,
+- kein Marker,
+- kein vollständiger Lösungspfad in der Rückmeldung.
 
-**Ziel:** Kein falscher positiver Marker.
+## T07 – Prüfaktion ohne letzten Eintrag
 
-**Prüfung:**
+In einer isolierten Testumgebung die Zieldatei vorübergehend entfernen und
+die Aktion am korrekten Ort aufrufen. Erwartet:
 
-- Aus `/root/navigation-labor/startpunkt` aufrufen.
-- Exit-Code muss ungleich 0 sein.
-- Marker darf nicht existieren.
-- Rückmeldung darf den vollständigen Lösungspfad nicht verraten.
+- Exit-Code ungleich 0,
+- kein Marker.
 
-### T06 – Lab-Aktion aus richtigem Verzeichnis
+Danach den definierten Ausgangszustand wiederherstellen.
 
-**Ziel:** Korrekter Endzustand.
+## T08 – Erfolgreiche Prüfaktion
 
-**Prüfung:**
+Im Archiv vor und nach dem Aufruf Hash, Inhalt und Metadaten von
+`letzter_eintrag.txt` vergleichen. Erwartet:
 
-- In den exakten Zielpfad wechseln.
-- Aktion ohne Argument ausführen.
-- Exit-Code muss 0 sein.
-- Marker muss reguläre Datei sein.
-- Inhalt muss exakt `navigation-und-pfade:v1` ohne zusätzliche Bytes sein.
+- Aufruf ohne Argument endet mit Exit-Code 0,
+- neutraler Marker enthält exakt `navigation-im-nebel:v1`,
+- die gefundene Datei bleibt unverändert.
 
-### T07 – CHECK vor der Lab-Aktion
+## T09 – CHECK
 
-**Ziel:** Fehlender Marker wird erkannt.
-
-**Prüfung:**
-
-- Setup frisch ausführen.
-- `verify.sh` starten.
-- Exit-Code muss ungleich 0 sein.
-- Rückmeldung muss auf `pwd`, `ls`, `freigaberaum` und die bereitgestellte technische Lab-Aktion verweisen.
-
-### T08 – CHECK nach erfolgreicher Lab-Aktion
-
-**Ziel:** Korrekter Marker wird akzeptiert.
-
-**Prüfung:**
-
-- T06 durchführen.
-- `verify.sh` starten.
-- Exit-Code muss 0 sein.
-
-### T09 – CHECK wiederholt ausführen
-
-**Ziel:** Verify verändert den Lernzustand nicht.
-
-**Prüfung:**
-
-- Hash und Metadaten des Markers vor dem ersten CHECK erfassen.
-- CHECK zweimal ausführen.
-- Hash und Inhalt müssen unverändert sein.
-
-### T10 – Marker mit falschem Inhalt
-
-**Ziel:** Falscher Inhalt wird erkannt.
-
-**Prüfung:**
-
-- Marker mit abweichendem Inhalt vorbereiten.
-- `verify.sh` starten.
-- Exit-Code muss ungleich 0 sein.
-- Marker darf durch Verify nicht verändert werden.
-
-### T11 – CHECK aus unterschiedlichen Arbeitsverzeichnissen
-
-**Ziel:** Verify ist unabhängig vom Arbeitsverzeichnis seiner eigenen Shell.
-
-**Prüfung:**
-
-- Korrekten Marker herstellen.
-- `verify.sh` aus mindestens drei unterschiedlichen Verzeichnissen starten.
-- Ergebnis muss jeweils erfolgreich sein.
-
-### T12 – Szenario vollständig neu starten
-
-**Ziel:** Neustart stellt eine frische definierte Ausgangslage her.
-
-**Prüfung:**
-
-- Workshop erfolgreich abschließen.
-- Szenario neu starten.
-- Marker muss fehlen.
-- Baum und installierte Aktion müssen erneut korrekt vorhanden sein.
-
-### T13 – Tab im realen Killercoda-Browserterminal
-
-**Ziel:** Neue Bedienhandlung funktioniert in der tatsächlichen Oberfläche.
-
-**Prüfung:**
-
-- Terminal fokussieren.
-- Die in Schritt 4 beschriebenen Präfixe eingeben.
-- Tab muss jeweils den erwarteten eindeutigen Namen ergänzen.
-- Enter darf erst danach ausführen.
-- Browserfokus darf nicht unerwartet wechseln.
-
-### T14 – Zeitmessung geübter Teilnehmender
-
-**Zielkorridor:** ungefähr 31–38 Minuten.
-
-**Erfassung:**
-
-- reine Bearbeitungszeit;
-- technische Verzögerungen getrennt;
-- höchste Hinweisstufe;
-- Erfolg der Abschlussaufgabe.
-
-### T15 – Zeitmessung absoluter Anfänger
-
-**Zielkorridor:** ungefähr 42–48 Minuten; spätestens etwa 50 Minuten.
-
-**Erfassung:**
-
-- reine Bearbeitungszeit;
-- Fehlerarten;
-- höchste Hinweisstufe;
-- beobachtete Tab-Nutzung;
-- Antworten zu absolut/relativ sowie `.` und `..`.
-
-## Zusätzliche statische Prüfungen
-
-- JSON syntaktisch gültig;
-- alle `index.json`-Referenzen vorhanden;
-- Bash-Syntax aller Shell-Dateien gültig;
-- Ausführungsrechte gesetzt;
-- keine `structure.json`;
-- keine internen Citation-Tokens;
-- nur der erste `pwd`-Aufruf besitzt `{{exec}}`;
-- Teilnehmertexte verlangen keine anderen Lernbefehle;
-- keine Dateioperation wird als Teilnehmerhandlung verlangt;
-- `test-results.md` enthält keine Resultate.
+- Ohne Marker schlägt `verify.sh` mit einem handlungsfähigen Hinweis fehl.
+- Mit falschem Markerinhalt schlägt es fehl und verändert nichts.
+- Nach T08 ist der CHECK erfolgreich.
+- Wiederholte CHECKs verändern weder Marker noch Zieldatei.
+
+## T10 – Statische Qualität
+
+- `index.json` ist gültig.
+- Alle Text-, Background-, Foreground-, Verify- und VM-Asset-Referenzen
+  existieren.
+- Das PNG liegt unter `assets/`, wird mit `./assets/...` eingebunden und
+  steht nicht in `details.assets`.
+- Bash-Syntax aller Skripte ist gültig; Skripte sind ausführbar.
+- Teilnehmertexte führen nur `pwd`, `ls` und `cd` als Linux-Lernbefehle ein.
+- Alte Pfade und Begriffe sind vollständig entfernt.
+
+## T11 – Zeit und Didaktik
+
+- mindestens zwei geübte Durchläufe,
+- mindestens fünf Durchläufe mit absoluten Anfängern,
+- Zielkorridor ungefähr 30 Minuten,
+- benötigte Hinweisstufe und technische Verzögerungen getrennt erfassen.

@@ -1,112 +1,123 @@
-# Musterlösung – Workshop 2
+# Musterlösung – Navigation im Nebel
 
 Diese Datei ist eine interne Referenz und wird nicht in `index.json` angezeigt.
 
-## Ausgangspunkt
-
-Für die Abschlussaufgabe wird folgender Ausgangspunkt erwartet:
+## Technischer Startzustand
 
 ```text
-/root/navigation-labor/startpunkt
+whoami   → waerter
+hostname → leuchtturm
+pwd      → /home/waerter
 ```
 
-Prüfung:
+Die sichtbare Shell ist eine echte Login-Shell des normalen Benutzers
+`waerter`.
+
+## Lernweg
+
+### Standort und Wechsel
 
 ```text
 pwd
-```
-
-Erwartete Ausgabe:
-
-```text
-/root/navigation-labor/startpunkt
-```
-
-## Gültiger relativer Navigationsweg
-
-```text
-cd ../abschlussgebiet/kontrollzentrum/freigaberaum
+ls
+cd leuchtturm
 pwd
-ziel-bestaetigen
+ls
+cd eingang
+pwd
 ```
 
-Erwartete `pwd`-Ausgabe:
+### Wurzel, Home und absoluter Pfad
 
 ```text
-/root/navigation-labor/abschlussgebiet/kontrollzentrum/freigaberaum
+cd /
+pwd
+cd ~
+pwd
+cd /home/waerter/leuchtturm/obergeschoss/kartenraum
+pwd
+cd ~/leuchtturm/eingang
 ```
 
-## Alternative schrittweise Route
+`/` ist die oberste Ebene. `~` steht für `/home/waerter`. Der ausgeschriebene
+Weg zum Kartenraum beginnt mit `/` und ist daher absolut.
+
+### Relative Pfade und Tab
+
+```text
+cd .
+pwd
+cd ..
+pwd
+cd ./eingang
+cd ../obergeschoss/./kartenraum
+pwd
+cd ~/leuchtturm
+```
+
+Für die Tab-Übung wird `cd technik/kontrollraum/` aus den eindeutigen
+Präfixen `t` und `k` ergänzt. Tab ergänzt nur; Enter führt aus.
+
+### Transfer
+
+Vom Kontrollraum:
+
+```text
+cd ../../obergeschoss/funkraum
+pwd
+```
+
+Zwei `..` führen vom Kontrollraum zunächst nach `technik` und dann in den
+Hauptbereich des Leuchtturms.
+
+## Abschlussaufgabe
+
+Ausgangspunkt:
+
+```text
+/home/waerter/leuchtturm/eingang
+```
+
+Schrittweise Lösung:
 
 ```text
 cd ..
+ls
+cd untergeschoss
+ls
+cd lagerraum
+ls
+cd archiv
 pwd
 ls
-cd abschlussgebiet
-pwd
-ls
-cd kontrollzentrum
-pwd
-ls
-cd freigaberaum
-pwd
-ziel-bestaetigen
+eintrag-bestaetigen
 ```
 
-Erwartete `pwd`-Ausgaben in Reihenfolge:
+Erwarteter Fundort:
 
 ```text
-/root/navigation-labor
-/root/navigation-labor/abschlussgebiet
-/root/navigation-labor/abschlussgebiet/kontrollzentrum
-/root/navigation-labor/abschlussgebiet/kontrollzentrum/freigaberaum
+/home/waerter/leuchtturm/untergeschoss/lagerraum/archiv
 ```
 
-## Alternative absolute Route
+`ls` zeigt dort `letzter_eintrag.txt`. Die Datei wird in diesem Workshop
+nicht geöffnet oder verändert.
 
-Vom beliebigen Ausgangsort:
+Eine ebenfalls gültige direkte Navigation ist:
 
 ```text
-cd /root/navigation-labor/abschlussgebiet/kontrollzentrum/freigaberaum
-pwd
-ziel-bestaetigen
+cd ../untergeschoss/lagerraum/archiv
+ls
+eintrag-bestaetigen
 ```
-
-## Fachliche Erklärung
-
-### Absoluter Pfad
-
-Ein ausgeschriebener absoluter Pfad beginnt mit `/` und wird vom Wurzelverzeichnis aus gelesen. Deshalb hängt er nicht vom aktuellen Verzeichnis ab.
-
-### Relativer Pfad
-
-Ein relativer Pfad wird vom aktuellen Verzeichnis aus gelesen. Der Weg `../abschlussgebiet/...` funktioniert in dieser Form nur, wenn der Ausgangsort `startpunkt` ist.
-
-### `/`
-
-`/` allein bezeichnet das Wurzelverzeichnis, also die oberste Ebene des Baums.
-
-### `~`
-
-`~` ist eine Kurzform für das Home-Verzeichnis. Im geplanten Killercoda-Backend wird `/root` erwartet. Diese Annahme muss im realen Pilot bestätigt werden.
-
-### `.`
-
-`.` bezeichnet das aktuelle Verzeichnis. Ein Wechsel mit `cd .` lässt den Standort unverändert.
-
-### `..`
-
-`..` bezeichnet das übergeordnete Verzeichnis. Vom `startpunkt` führt `cd ..` nach `/root/navigation-labor`.
 
 ## Grenzen des technischen CHECKs
 
-Der CHECK weist nur nach, dass die bereitgestellte technische Lab-Aktion mindestens einmal aus dem exakten Zielverzeichnis erfolgreich ausgeführt wurde und der Marker den erwarteten Inhalt besitzt.
+Die Prüfaktion kontrolliert:
 
-Er weist nicht nach:
+- Aufruf ohne Argument,
+- exakten aktuellen Fundort,
+- Existenz von `letzter_eintrag.txt`.
 
-- welchen Navigationsweg die Person verwendet hat;
-- ob Tab verwendet wurde;
-- ob tatsächlich ein absoluter und ein relativer Pfad genutzt wurden;
-- ob `.` oder `..` verstanden wurden;
-- ob die Begriffe fachlich erklärt werden können;
-- ob die Teilnehmer-Shell beim späteren CHECK noch im Zielverzeichnis steht.
+Erst danach erzeugt sie einen neutralen Marker. Sie verändert den letzten
+Eintrag nicht. Der CHECK liest nur diesen Marker und weist weder den
+Navigationsweg noch die Verwendung von Tab oder das Begriffsverständnis nach.

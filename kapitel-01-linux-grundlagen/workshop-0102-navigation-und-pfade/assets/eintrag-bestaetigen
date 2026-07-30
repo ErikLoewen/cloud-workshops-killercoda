@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly expected_dir="/root/navigation-labor/abschlussgebiet/kontrollzentrum/freigaberaum"
-readonly marker_dir="/tmp/labforge-navigation-und-pfade"
+readonly expected_dir="/home/waerter/leuchtturm/untergeschoss/lagerraum/archiv"
+readonly expected_file="${expected_dir}/letzter_eintrag.txt"
+readonly marker_dir="/tmp/navigation-im-nebel"
 readonly marker="${marker_dir}/erfolgreich"
-readonly marker_content="navigation-und-pfade:v1"
+readonly marker_content="navigation-im-nebel:v1"
 
 if (( $# != 0 )); then
-  printf '%s\n' "Diese bereitgestellte technische Lab-Aktion wird ohne Argument aufgerufen." >&2
+  printf '%s\n' "Diese bereitgestellte technische Prüfaktion wird ohne Argument aufgerufen." >&2
   exit 2
 fi
 
@@ -16,6 +17,12 @@ current_dir="$(pwd -P)"
 if [[ "$current_dir" != "$expected_dir" ]]; then
   printf '%s\n' "Der Zielort ist noch nicht erreicht." >&2
   printf '%s\n' "Prüfe deinen Standort mit pwd und untersuche den Verzeichnisbaum mit ls." >&2
+  exit 1
+fi
+
+if [[ ! -f "${expected_file}" ]]; then
+  printf '%s\n' "Der letzte Eintrag wurde an diesem Ort nicht gefunden." >&2
+  printf '%s\n' "Untersuche den sichtbaren Inhalt mit ls." >&2
   exit 1
 fi
 
@@ -35,4 +42,4 @@ chmod 0644 "$tmp_marker"
 mv -f -- "$tmp_marker" "$marker"
 trap - EXIT
 
-printf '%s\n' "Zielort bestätigt. Du kannst jetzt den CHECK ausführen."
+printf '%s\n' "Der letzte Eintrag wurde gefunden. Du kannst jetzt den CHECK ausführen."

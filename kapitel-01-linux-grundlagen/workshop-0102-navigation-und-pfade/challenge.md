@@ -1,96 +1,103 @@
-# Abschlussaufgabe: den Freigaberaum finden
+# Abschluss: den letzten Eintrag finden
 
-Wechsle zuerst mit diesem anklickbaren Befehl zum vorbereiteten `startpunkt`:
+Im Untergeschoss könnte eine erste Spur liegen. Wechsle mit diesem
+anklickbaren Befehl zum Ausgangsort:
 
-`cd /root/navigation-labor/startpunkt`{{exec}}
-
-Von dort beginnt die Abschlussaufgabe.
+`cd ~/leuchtturm/eingang`{{exec}}
 
 ## Dein Ziel
 
-Finde selbstständig den vorbereiteten `freigaberaum`.
+Finde selbstständig den Lagerraum. Entdecke dort das Archiv und darin mit
+`ls` die Datei `letzter_eintrag.txt`.
 
-Der vollständige Lösungspfad wird vor deinem ersten Versuch nicht angezeigt.
+Öffne, lies, verändere, kopiere oder benenne die Datei noch nicht um. Darum
+geht es erst im nächsten Workshop.
 
 ## Erlaubte Lernwerkzeuge
 
-Du benötigst ausschließlich:
+Nutze ausschließlich:
 
-- `pwd` für deinen aktuellen Standort;
-- `ls` für sichtbare Ziele;
-- `cd` für den Verzeichniswechsel;
-- Tab zur Vervollständigung eindeutiger Namen.
-
-Erstelle oder verändere keine Dateien und Verzeichnisse.
+- `pwd` für deinen Standort,
+- `ls` für sichtbare Einträge,
+- `cd` für den Verzeichniswechsel,
+- Tab für eindeutige Namen.
 
 ## Vorgehen
 
 1. Prüfe deinen Ausgangsort.
-2. Untersuche die sichtbaren Verzeichnisse.
-3. Entscheide, ob das gesuchte Gebiet innerhalb oder außerhalb des aktuellen Verzeichnisses liegt.
-4. Navigiere schrittweise zum `freigaberaum`.
-5. Prüfe dort deinen Standort mit `pwd`.
+2. Untersuche sichtbare Wege.
+3. Navigiere zum Lagerraum und suche dort das Archiv.
+4. Wechsle in das Archiv.
+5. Entdecke mit `ls` den letzten Eintrag.
 
-## Bereitgestellte technische Prüfaktion
+## Technische Prüfaktion
 
-Erst wenn du glaubst, den `freigaberaum` erreicht zu haben, führe diese bereitgestellte technische Lab-Aktion aus:
-
-```text
-ziel-bestaetigen
-```
-
-`ziel-bestaetigen` ist **kein neuer Linux-Lernbefehl**. Die Aktion prüft nur, ob sie aus dem richtigen Zielverzeichnis gestartet wurde. Nur dann bereitet sie den technischen CHECK vor.
-
-Erwartete Erfolgsmeldung:
+Wenn `letzter_eintrag.txt` in deiner `ls`-Ausgabe erscheint, führe ohne
+Argument aus:
 
 ```text
-Zielort bestätigt. Du kannst jetzt den CHECK ausführen.
+eintrag-bestaetigen
 ```
 
-Starte danach den CHECK.
+Die bereitgestellte Aktion ist kein neuer Linux-Lernbefehl. Sie prüft nur den
+Fundort und die Existenz der Datei. Bei Erfolg erscheint:
+
+```text
+Der letzte Eintrag wurde gefunden. Du kannst jetzt den CHECK ausführen.
+```
+
+Starte danach den Killercoda-CHECK.
 
 ## Hinweise
 
-Öffne eine weitere Stufe erst, nachdem du mit der vorherigen Hilfe noch einmal selbst versucht hast, das Ziel zu erreichen.
+Öffne eine weitere Stufe erst nach einem neuen eigenen Versuch.
 
 <details>
-<summary>Hinweis 1 – Konzept</summary>
+<summary>Hinweis 1 – Navigationsprinzip</summary>
 
-Der gesuchte Bereich liegt nicht innerhalb von `startpunkt`. Bestimme zuerst deinen aktuellen Standort und untersuche, wie du eine Ebene höher gelangst.
+Der Lagerraum liegt nicht im Eingang. Ermittle deinen Standort und gehe
+zunächst in den übergeordneten Hauptbereich des Leuchtturms.
 
 </details>
 
 <details>
 <summary>Hinweis 2 – passende Werkzeuge</summary>
 
-Nutze `pwd` für deinen Standort, `ls` für sichtbare Ziele und `cd ..`, um vom `startpunkt` in das übergeordnete Verzeichnis zu wechseln. Tab kann eindeutige Namen ergänzen.
+Nutze `pwd` zur Orientierung, `ls` für sichtbare Namen und `cd ..` für eine
+Ebene nach oben. Tab kann eindeutige Namen vervollständigen.
 
 </details>
 
 <details>
-<summary>Hinweis 3 – Struktur des Weges</summary>
+<summary>Hinweis 3 – grobe Wegstruktur</summary>
 
-Vom `startpunkt` führt der Weg zunächst über `..` in die Laborwurzel. Danach beginnt der relative Weg mit:
-
-```text
-../abschlussgebiet/kontrollzentrum/…
-```
-
-Der letzte Zielname fehlt noch.
+Vom Hauptbereich führt der Weg zuerst ins Untergeschoss, dann in den
+Lagerraum und schließlich ins Archiv. Prüfe auf jeder Ebene mit `ls`, welche
+Namen tatsächlich sichtbar sind.
 
 </details>
 
 <details>
 <summary>Hinweis 4 – Musterlösung mit Erklärung</summary>
 
-Eine vollständige gültige Lösung ist:
+Eine schrittweise Lösung ist:
 
 ```text
-cd ../abschlussgebiet/kontrollzentrum/freigaberaum
+cd ..
+ls
+cd untergeschoss
+ls
+cd lagerraum
+ls
+cd archiv
 pwd
-ziel-bestaetigen
+ls
+eintrag-bestaetigen
 ```
 
-`..` führt vom `startpunkt` zur Laborwurzel. Danach werden `abschlussgebiet`, `kontrollzentrum` und `freigaberaum` nacheinander betreten. `pwd` bestätigt den Zielort. Die bereitgestellte technische Prüfaktion erzeugt nur dort den neutralen Erfolgsmarker.
+`cd ..` führt vom Eingang zurück in den Hauptbereich. Danach folgst du den
+mit `ls` sichtbaren Namen. Im Archiv zeigt `ls` die Datei
+`letzter_eintrag.txt`; die Prüfaktion bestätigt anschließend Fundort und
+Datei, ohne den Eintrag zu verändern.
 
 </details>

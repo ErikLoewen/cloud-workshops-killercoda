@@ -1,77 +1,47 @@
-# Standort und Inhalt untersuchen
+# Wo bin ich? Standort und Umgebung
 
-Ein Terminalbefehl wirkt immer in einem bestimmten aktuellen Verzeichnis. Deshalb klären wir zuerst den Standort und untersuchen danach, welche Verzeichnisse dort sichtbar sind.
+Im Nebel hilft zuerst ein sicherer Standort. Ein Terminalbefehl wirkt immer
+in einem aktuellen Verzeichnis.
 
-## Vorhersage
+## `pwd`: den Standort anzeigen
 
-Welche Information müsste ein Befehl liefern, damit du deinen aktuellen Standort eindeutig bestimmen kannst?
+`pwd` steht für **„print working directory“** und zeigt den vollständigen
+Pfad deines aktuellen Verzeichnisses.
 
-## `pwd`: den aktuellen Standort anzeigen
+Welche Art von Antwort erwartest du: einen Pfad oder eine Liste von Namen?
 
-`pwd` steht für **„print working directory“**. Das bedeutet sinngemäß: **„Zeige das aktuelle Arbeitsverzeichnis an.“**
-
-### Was macht `pwd`?
-
-`pwd` zeigt den vollständigen Pfad des aktuellen Verzeichnisses.
-
-### Warum brauchen wir `pwd`?
-
-Vor und nach einer Navigation können wir damit prüfen, wo sich die Shell gerade befindet.
-
-### Welche Ausgabe erwarten wir?
-
-Wir erwarten genau eine Pfadangabe. Für dieses Lab ist als Startpfad `/root` vorgesehen.
-
-Führe nur diesen ersten Aufruf anklickbar aus:
+Führe diesen ersten Aufruf anklickbar aus:
 
 `pwd`{{exec}}
 
 **Erwartete Ausgabe:**
 
 ```text
-/root
+/home/waerter
 ```
 
-Die Zeile mit `pwd` war die Eingabe. `/root` ist die Ausgabe.
+`pwd` war die Eingabe. `/home/waerter` ist die Ausgabe.
 
-> **Erinnerung zum Kopieren:** Einen Pfad kannst du mit der Maus markieren und mit **Strg+Umschalt+C** kopieren. Mit **Strg+Umschalt+V** fügst du ihn hinter dem Prompt ein. Auf anders beschrifteten Tastaturen heißen diese Tasten **Ctrl+Shift+C** und **Ctrl+Shift+V**. Prüfe den eingefügten Text, bevor du **Enter** drückst.
+## `ls`: die Umgebung ansehen
 
-> Falls die Ausgabe im realen Lab von `/root` abweicht, beende nicht vorschnell die Übung. Der Startpfad muss im Killercoda-Pilot technisch bestätigt werden.
+`ls` kommt von **„list“** und zeigt die sichtbaren Einträge im aktuellen
+Verzeichnis. So findest du mögliche nächste Ziele.
 
-## `ls`: Verzeichnisinhalte untersuchen
+Gib selbst `ls` ein und drücke Enter.
 
-`ls` kommt vom englischen Wort **„list“**, also **„auflisten“**.
-
-### Was macht `ls`?
-
-`ls` zeigt die sichtbaren Einträge des aktuellen Verzeichnisses.
-
-### Warum brauchen wir `ls`?
-
-Vor einem Verzeichniswechsel müssen wir mögliche Zielnamen finden.
-
-### Welche Ausgabe erwarten wir?
-
-Im aktuellen Verzeichnis soll mindestens `navigation-labor` erscheinen. Die Anordnung kann je nach Terminalbreite unterschiedlich aussehen.
-
-Gib jetzt selbst ein:
+In der Ausgabe findest du:
 
 ```text
-ls
+leuchtturm
 ```
 
-Drücke Enter.
+Die Anordnung einer `ls`-Ausgabe kann je nach Terminalbreite abweichen.
 
-Suche in der Ausgabe nach:
+## Kurz unterscheiden
 
-```text
-navigation-labor
-```
+- Welcher Befehl zeigte deinen Standort?
+- Welcher Befehl zeigte einen sichtbaren Eintrag an diesem Standort?
 
-## Beobachtung
-
-Beantworte für dich:
-
-1. Welche Ausgabe zeigte einen Standort?
-2. Welche Ausgabe zeigte mögliche Inhalte dieses Standorts?
-3. Was würdest du zuerst verwenden, wenn `ls` unerwartete Namen zeigt?
+> **Erinnerung:** Mit **Strg+Umschalt+C** kopierst du markierten Text, mit
+> **Strg+Umschalt+V** fügst du ihn ein. Auf manchen Tastaturen heißen die
+> Tasten **Ctrl** und **Shift**.

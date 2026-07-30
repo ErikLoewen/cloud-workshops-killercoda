@@ -1,22 +1,13 @@
-# Wurzel, Home und absolute Pfade
+# Wurzel, Home und absolute Wege
 
-Ein Pfad beschreibt einen Weg zu einem Verzeichnis. Jetzt vergleichst du zwei wichtige Ausgangspunkte und verwendest einen vollständigen absoluten Pfad.
+Ein Pfad beschreibt einen Weg zu einem Verzeichnis. Jetzt vergleichst du zwei
+wichtige Ausgangspunkte.
 
 ## Das Wurzelverzeichnis `/`
 
-`/` allein bezeichnet das oberste Verzeichnis des Baums.
+`/` allein bezeichnet die oberste Ebene des Verzeichnisbaums.
 
-Gib ein:
-
-```text
-cd /
-```
-
-Prüfe anschließend:
-
-```text
-pwd
-```
+Gib `cd /` ein und prüfe anschließend mit `pwd`.
 
 **Erwartete Ausgabe:**
 
@@ -24,85 +15,44 @@ pwd
 /
 ```
 
-Beginnt ein ausgeschriebener Pfad mit `/`, wird er vom Wurzelverzeichnis aus gelesen.
-
 ## Das Home-Verzeichnis `~`
 
-`~` ist eine Kurzform für dein Home-Verzeichnis. In diesem Lab ist dafür `/root` vorgesehen.
+`~` ist die Kurzform für das Home-Verzeichnis des aktuellen Benutzers. Für
+`waerter` ist das `/home/waerter`.
 
-Gib ein:
-
-```text
-cd ~
-```
-
-Prüfe anschließend:
-
-```text
-pwd
-```
+Gib `cd ~` ein und prüfe wieder mit `pwd`.
 
 **Erwartete Ausgabe:**
 
 ```text
-/root
+/home/waerter
 ```
 
-`/` und `~` sind nicht dasselbe:
+Damit gilt:
 
-- `/` bezeichnet das oberste Verzeichnis;
-- `~` führt zum Home-Verzeichnis des aktuellen Benutzers.
+- `/` ist die oberste Ebene des gesamten Systems.
+- `~` führt in dein persönliches Home-Verzeichnis.
 
 ## Ein absoluter Pfad
 
-Ein ausgeschriebener absoluter Pfad beginnt mit `/` und beschreibt den Weg vom Wurzelverzeichnis aus.
+Ein ausgeschriebener absoluter Pfad beginnt mit `/`. Er wird unabhängig vom
+aktuellen Standort vom Wurzelverzeichnis aus gelesen.
 
-Wechsle direkt zum vorbereiteten Zielraum:
-
-```text
-cd /root/navigation-labor/lernstrecke/zielraum
-```
-
-Prüfe anschließend:
+Wechsle direkt in den Kartenraum:
 
 ```text
-pwd
+cd /home/waerter/leuchtturm/obergeschoss/kartenraum
 ```
+
+Prüfe mit `pwd`.
 
 **Erwartete Ausgabe:**
 
 ```text
-/root/navigation-labor/lernstrecke/zielraum
+/home/waerter/leuchtturm/obergeschoss/kartenraum
 ```
 
-Lies den Pfad von links nach rechts:
+Warum funktioniert dieser Weg unabhängig davon, wo du vorher warst?
 
-1. `/` – Start am Wurzelverzeichnis;
-2. `root`;
-3. `navigation-labor`;
-4. `lernstrecke`;
-5. `zielraum`.
-
-## Erklärungsfrage
-
-Warum kann dieser absolute Pfad unabhängig davon funktionieren, in welchem Verzeichnis du vorher warst?
-
-## Kurzer Vergleich
-
-Wechsle zurück zum vorbereiteten Startpunkt:
-
-```text
-cd ~/navigation-labor/startpunkt
-```
-
-Prüfe den Standort:
-
-```text
-pwd
-```
-
-**Erwartete Ausgabe:**
-
-```text
-/root/navigation-labor/startpunkt
-```
+Wechsle zum Schluss mit `cd ~/leuchtturm/eingang` zurück in den Eingang und
+prüfe deinen Standort.

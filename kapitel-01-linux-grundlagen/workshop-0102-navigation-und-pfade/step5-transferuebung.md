@@ -1,66 +1,44 @@
-# Bekannte Wege übertragen
+# Bekannte Wege selbst übertragen
 
-Jetzt passt du die bekannten Navigationsmuster an. Die Befehle sind bekannt; ein Teil des Weges muss von dir ergänzt werden.
+Du befindest dich im `kontrollraum`. Jetzt setzt du die bekannten
+Navigationsbausteine selbst zusammen.
 
-## Aufgabe 1: einen relativen Pfad vervollständigen
+## Aufgabe 1: zwei Ebenen nach oben
 
-Klicke auf den folgenden Befehl, um direkt zum Ausgangsort zu wechseln:
-
-`cd /root/navigation-labor/uebungszone/nordfluegel/kartenraum`{{exec}}
-
-Prüfe den Ausgangsort anschließend mit `pwd`.
-
-Das Ziel ist der `ruheraum` im `suedfluegel`.
-
-Vervollständige diese Eingabe selbst:
+Dein Ziel ist der `funkraum` im `obergeschoss`. Ergänze:
 
 ```text
-cd ../../suedfluegel/________
+cd ../../obergeschoss/________
 ```
 
 Prüfe danach mit `pwd`.
 
-**Erwartete Ausgabe am Ziel:**
+**Erwartete Ausgabe:**
 
 ```text
-/root/navigation-labor/uebungszone/suedfluegel/ruheraum
+/home/waerter/leuchtturm/obergeschoss/funkraum
 ```
 
-## Aufgabe 2: Home und Tab kombinieren
+Warum waren zwei aufeinanderfolgende `..` nötig?
 
-Wechsle zur Laborwurzel:
+## Aufgabe 2: Home und Tab verbinden
 
-```text
-cd ~/navigation-labor
-```
+Wechsle mit `cd ~/leuchtturm` zurück in den Hauptbereich.
 
-Prüfe mit `pwd`, ob du dort angekommen bist.
+Navigiere anschließend mit Tab in den `vorratsraum`:
 
-Navigiere anschließend mit Tab in den `gruener-raum` unter `startpunkt`:
-
-1. Beginne die Eingabe mit `cd s`.
-2. Ergänze den ersten eindeutigen Namen mit Tab.
-3. Tippe `g`.
-4. Ergänze den zweiten eindeutigen Namen mit Tab.
-5. Drücke Enter.
-6. Prüfe den Standort mit `pwd`.
+1. Beginne mit `cd u` und drücke Tab.
+2. Tippe `v` und drücke erneut Tab.
+3. Drücke Enter und prüfe mit `pwd`.
 
 **Erwartete Ausgabe:**
 
 ```text
-/root/navigation-labor/startpunkt/gruener-raum
-```
-
-Wechsle mit `cd ..` zurück zum `startpunkt` und prüfe erneut mit `pwd`.
-
-**Erwartete Ausgabe:**
-
-```text
-/root/navigation-labor/startpunkt
+/home/waerter/leuchtturm/untergeschoss/vorratsraum
 ```
 
 ## Erkläre in eigenen Worten
 
-1. Warum waren vom `kartenraum` aus zwei aufeinanderfolgende `..` nötig?
-2. Warum war `~/navigation-labor` unabhängig vom vorherigen Standort nutzbar?
-3. Warum konnte Tab die verwendeten Namen eindeutig vervollständigen?
+1. Warum hängt ein relativer Weg vom Ausgangsort ab?
+2. Warum funktioniert `~/leuchtturm` von jedem Verzeichnis aus?
+3. Warum konnte Tab beide Namen eindeutig ergänzen?

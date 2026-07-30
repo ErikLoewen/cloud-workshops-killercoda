@@ -23,4 +23,7 @@ Ein bestandener CHECK ist nur eine technische Teilprüfung. Er bestätigt keine 
 
 ## Übergang
 
-Im nächsten Workshop „Navigieren und Pfade lesen“ wird die jetzt eingeübte Terminalbedienung vorausgesetzt.
+Der Leuchtturmserver antwortet – doch noch kennst du dich in seinem
+Dateisystem nicht aus. Im nächsten Workshop „01.02 – Navigation im Nebel: Wo
+bin ich hier?“ lernst du, mit `pwd`, `ls` und `cd` deinen Standort zu
+bestimmen und dich durch die Verzeichnisse des Leuchtturms zu bewegen.

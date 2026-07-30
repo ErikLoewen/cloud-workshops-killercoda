@@ -1,28 +1,26 @@
-# Abschluss und Rückblick
+# Die erste Spur: Rückblick
 
-Du hast dich mit drei Linux-Lernbefehlen in einem vorbereiteten Verzeichnisbaum orientiert:
+Du hast dich mit drei Linux-Befehlen durch den Leuchtturm orientiert:
 
-- `pwd` zeigt den aktuellen Standort;
-- `ls` zeigt sichtbare Inhalte des aktuellen Verzeichnisses;
-- `cd` verändert den aktuellen Standort.
+- `pwd` zeigt den aktuellen Standort,
+- `ls` zeigt sichtbare Einträge,
+- `cd` verändert den Standort.
 
-Ein erfolgreiches `cd` erzeugt normalerweise keine eigene Erfolgsausgabe. Mit `pwd` kannst du die Veränderung sichtbar prüfen.
+Ein erfolgreiches `cd` bleibt normalerweise ohne Ausgabe. Mit `pwd` machst
+du den neuen Standort sichtbar.
 
 ## Abruf ohne Zurückblättern
 
-Beantworte die Fragen aus dem Gedächtnis:
-
-1. Welcher Befehl zeigt den aktuellen Standort?
-2. Welcher Befehl zeigt mögliche Ziele im aktuellen Verzeichnis?
-3. Welcher Befehl ändert den Standort?
-4. Woran erkennst du einen ausgeschriebenen absoluten Pfad?
-5. Was bedeuten `.` und `..`?
-6. Was bezeichnet `/` allein?
-7. Wohin führt `~` in diesem Lab?
-8. Was macht Tab vor dem Drücken von Enter?
-9. Warum kann ein relativer Pfad von einem anderen Ausgangsort aus fehlschlagen?
-10. Warum kann der technische CHECK nicht beweisen, welchen Navigationsweg du verwendet hast?
+1. Woran erkennst du einen absoluten Pfad?
+2. Was bedeuten `/` und `~`?
+3. Was bedeuten `.` und `..`?
+4. Warum hängt ein relativer Pfad vom Ausgangsort ab?
+5. Was macht Tab, und was macht erst Enter?
+6. Warum beweist der CHECK nicht, welchen Weg du genommen hast?
 
 ## Übergang
 
-Im nächsten Workshop werden die hier verwendeten Pfade und Verzeichnisse vorausgesetzt. Dort geht es erstmals darum, eine kleine Datei- und Verzeichnisstruktur mit vorgegebenem Inhalt zu erstellen.
+Im Archiv hast du `letzter_eintrag.txt` entdeckt, aber absichtlich weder
+geöffnet noch verändert. Im nächsten Workshop lernst du, Dateien und Ordner
+anzulegen, Inhalte zu prüfen und Dateien umzubenennen oder zu verschieben.
+Dann wird der letzte Eintrag zur ersten wirklichen Spur.

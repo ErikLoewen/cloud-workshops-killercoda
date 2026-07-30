@@ -1,88 +1,52 @@
-# Das Verzeichnis wechseln
+# Durch den Leuchtturm: Verzeichnisse wechseln
 
-Du hast mit `pwd` deinen Standort angezeigt und mit `ls` ein mögliches Ziel gefunden. Jetzt wechselst du dorthin.
+Du hast den Bereich `leuchtturm` mit `ls` entdeckt. Jetzt wechselst du hinein.
 
-## `cd`: den aktuellen Standort ändern
+## `cd`: den Standort ändern
 
-`cd` steht für **„change directory“**. Das bedeutet **„Verzeichnis wechseln“**.
+`cd` steht für **„change directory“**. Der Befehl ändert das aktuelle
+Verzeichnis der Shell.
 
-### Was macht `cd`?
+Was erwartest du bei einem erfolgreichen Wechsel: eine Meldung oder zunächst
+keine Ausgabe?
 
-`cd` ändert das aktuelle Verzeichnis der laufenden Shell.
-
-### Warum brauchen wir `cd`?
-
-Nur durch einen Verzeichniswechsel kann ein anderer Bereich des Baums zum aktuellen Standort werden.
-
-### Welche Ausgabe oder Veränderung erwarten wir?
-
-Ein erfolgreiches `cd` erzeugt normalerweise **keine eigene Erfolgsausgabe**. Die Veränderung ist der neue Standort. Diesen machen wir anschließend mit `pwd` sichtbar.
-
-## Vorhersage
-
-Wird die folgende Eingabe bei Erfolg den neuen Pfad ausgeben oder normalerweise still bleiben?
-
-Gib selbst ein:
+Gib ein:
 
 ```text
-cd navigation-labor
+cd leuchtturm
 ```
 
-Drücke Enter.
-
-Wenn keine Fehlermeldung erscheint, gib danach ein:
-
-```text
-pwd
-```
+Ein erfolgreiches `cd` bleibt normalerweise still. Das ist kein Fehler.
+Prüfe den neuen Standort mit `pwd`.
 
 **Erwartete Ausgabe:**
 
 ```text
-/root/navigation-labor
+/home/waerter/leuchtturm
 ```
 
-Untersuche nun die sichtbaren Einträge:
+Untersuche nun mit `ls` die sichtbaren Bereiche:
 
 ```text
-ls
+eingang
+obergeschoss
+technik
+untergeschoss
 ```
 
-Die Ausgabe soll diese Namen enthalten; Reihenfolge und Zeilenumbruch können abweichen:
-
-```text
-abschlussgebiet
-lernstrecke
-startpunkt
-uebungszone
-```
-
-Wechsle in den Startpunkt:
-
-```text
-cd startpunkt
-```
-
-Prüfe den Standort:
-
-```text
-pwd
-```
+Wechsle anschließend in den `eingang` und prüfe wieder mit `pwd`.
 
 **Erwartete Ausgabe:**
 
 ```text
-/root/navigation-labor/startpunkt
+/home/waerter/leuchtturm/eingang
 ```
 
 ## Beobachtung
 
-- Welche Eingabe veränderte den Standort?
-- Welche Eingabe zeigte den veränderten Standort als sichtbare Ausgabe?
-- Warum ist eine leere Erfolgsausgabe von `cd` nicht dasselbe wie ein Fehler?
+- Welcher Befehl veränderte den Standort?
+- Welcher Befehl machte die Veränderung sichtbar?
 
-## Bei einer Fehlermeldung
-
-Eine Meldung mit `No such file or directory` weist meist auf einen falschen Namen, einen falschen aktuellen Standort oder eine abweichende Groß- und Kleinschreibung hin.
-
-Prüfe zuerst deinen Standort mit `pwd` und untersuche danach mit `ls` die tatsächlich sichtbaren Namen.
+Eine Meldung mit `No such file or directory` weist meist auf einen falschen
+Namen, einen falschen Ausgangsort oder abweichende Groß- und Kleinschreibung
+hin. Prüfe dann zuerst mit `pwd` und `ls`.

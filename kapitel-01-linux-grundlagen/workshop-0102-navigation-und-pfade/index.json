@@ -1,48 +1,49 @@
 {
-  "title": "01.02 – Wo bin ich hier?",
-  "description": "Mit pwd, ls und cd im Linux-Verzeichnisbaum navigieren und absolute sowie relative Pfade verwenden.",
+  "title": "01.02 – Navigation im Nebel: Wo bin ich hier?",
+  "description": "Mit pwd, ls und cd durch den verlassenen Leuchtturm navigieren, absolute und relative Pfade unterscheiden und den letzten Eintrag entdecken.",
   "details": {
     "intro": {
-      "title": "Orientierung im Verzeichnisbaum",
+      "title": "Orientierung im Nebel",
       "text": "intro.md",
-      "foreground": "setup.sh"
+      "background": "setup.sh",
+      "foreground": "foreground.sh"
     },
     "steps": [
       {
-        "title": "Standort und Inhalt untersuchen",
+        "title": "Wo bin ich? Standort und Umgebung",
         "text": "step1-standort-und-inhalt.md"
       },
       {
-        "title": "Das Verzeichnis wechseln",
+        "title": "Durch den Leuchtturm: Verzeichnisse wechseln",
         "text": "step2-verzeichnis-wechseln.md"
       },
       {
-        "title": "Wurzel, Home und absolute Pfade",
+        "title": "Wurzel, Home und absolute Wege",
         "text": "step3-wurzel-home-und-absolute-pfade.md"
       },
       {
-        "title": "Relative Pfade und Tab-Vervollständigung",
+        "title": "Relative Wege im Nebel und Tab",
         "text": "step4-relative-pfade-und-tab.md"
       },
       {
-        "title": "Bekannte Wege übertragen",
+        "title": "Bekannte Wege selbst übertragen",
         "text": "step5-transferuebung.md"
       },
       {
-        "title": "Abschlussaufgabe",
+        "title": "Abschluss: den letzten Eintrag finden",
         "text": "challenge.md",
         "verify": "verify.sh"
       }
     ],
     "finish": {
-      "title": "Abschluss und Rückblick",
+      "title": "Die erste Spur: Rückblick",
       "text": "finish.md"
     },
     "assets": {
       "host01": [
         {
-          "file": "assets/ziel-bestaetigen",
-          "target": "/tmp/labforge-navigation-assets",
+          "file": "assets/eintrag-bestaetigen",
+          "target": "/tmp/navigation-im-nebel-assets",
           "chmod": "+x"
         }
       ]
