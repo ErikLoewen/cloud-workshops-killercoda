@@ -1,9 +1,9 @@
 # Dateien, Ordner und die erste Spur
 
-Im Archiv des Lagerraums hast du `letzter_eintrag.txt` gefunden. Draußen
-drückt der Nebel gegen die Scheiben; im Leuchtturm bleibt es still. Das
-Logbuch ist geschlossen, doch sein letzter Eintrag verweist auf den
-Kartenraum.
+Im Archiv des Lagerraums hast du den letzten Eintrag des verschwundenen
+Leuchtturmwärters gefunden. Jetzt brauchst du einen geeigneten Ort, um das
+Logbuch in Ruhe genauer anzusehen. Der Kartenraum bietet dafür einen großen
+Tisch und ausreichend Licht.
 
 ![Im Archiv des Lagerraums hält der Wärter das noch geschlossene Logbuch in den Händen.](./assets/0103-vorher-logbuch-in-der-hand.png)
 
