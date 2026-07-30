@@ -3,7 +3,7 @@
 Im Leuchtturm steht ein Server. Damit du weißt, womit du arbeitest, brauchst
 du sechs Begriffe. Du musst sie noch nicht auswendig lernen.
 
-![Einfaches Konzeptbild: Linux als Kern, Ubuntu als vollständiges System sowie Terminal, Bash und Befehle als Bedienweg](./assets/linux-terminal-konzept.png)
+![Einfaches Konzeptbild: Linux als Kern, Ubuntu als vollständiges System sowie Terminal, Bash und Befehle als Bedienweg](./assets/0101-konzept-linux-terminal.png)
 
 ## Vom System bis zum Befehl
 

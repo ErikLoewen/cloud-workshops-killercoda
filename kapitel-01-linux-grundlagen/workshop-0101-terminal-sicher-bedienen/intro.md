@@ -1,6 +1,6 @@
 # Moin im Leuchtturm!
 
-![Ein verlassener Leuchtturm im Sturm; im Wärterraum leuchtet noch ein Terminal](./assets/leuchtturm-einstieg.png)
+![Ein verlassener Leuchtturm im Sturm; im Wärterraum leuchtet noch ein Terminal](./assets/0101-einstieg-leuchtturm.png)
 
 Draußen drücken Sturm und Meer gegen den Deich. Im verlassenen Leuchtturm
 läuft noch der Deichserver. Vom Leuchtturmwärter fehlt jede Spur – nur der

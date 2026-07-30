@@ -1,5 +1,7 @@
 # Die erste Spur: Rückblick
 
+![Im dunklen Lagerraum liegt das gefundene Logbuch in einer geöffneten Holzkiste.](./assets/0102-abschluss-logbuch.png)
+
 Du hast dich mit drei Linux-Befehlen durch den Leuchtturm orientiert:
 
 - `pwd` zeigt den aktuellen Standort,

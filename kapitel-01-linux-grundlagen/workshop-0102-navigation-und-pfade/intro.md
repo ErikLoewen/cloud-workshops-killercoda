@@ -4,7 +4,7 @@ Der Leuchtturmwärter ist verschwunden. Draußen liegen Sturm und Nebel über
 der Küste, doch der Leuchtturmserver läuft weiter. Bevor du nach einer Spur
 suchen kannst, musst du dich in seinen Verzeichnissen orientieren.
 
-![Ein Steinpfad führt durch Sturm und Nebel vom Leuchtturm zur norddeutschen Küste.](./assets/0102-navigation-im-nebel.png)
+![Ein Steinpfad führt durch Sturm und Nebel vom Leuchtturm zur norddeutschen Küste.](./assets/0102-einstieg-navigation-im-nebel.png)
 
 Verzeichnisse sind dabei wie Räume und Bereiche im Leuchtturm. Du lernst,
 deinen Standort festzustellen, sichtbare Wege zu prüfen und sicher zwischen

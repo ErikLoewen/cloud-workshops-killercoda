@@ -1,5 +1,7 @@
 # Sicher im Hafen
 
+![Das Terminal im Leuchtturm ist bereit, während draußen weiter der Sturm über dem Meer liegt.](./assets/0101-abschluss-terminal.png)
+
 Der Sturm ist noch da, und das Verschwinden des Leuchtturmwärters bleibt
 ungeklärt. Aber am Deichserver kannst du dich nun sicher bewegen: Du hast
 Befehle eingegeben, Ausgaben gelesen, einen Tippfehler korrigiert und einen
