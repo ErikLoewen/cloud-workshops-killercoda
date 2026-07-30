@@ -4,8 +4,8 @@
 
 - Workshop als „Navigation im Nebel“ dünn an den verlassenen Leuchtturm
   angebunden und auf ungefähr 30 Minuten gestrafft.
-- Echten Benutzer `waerter`, Hostnamen `leuchtturm` und Login-Shell über
-  synchronisierte Background- und Foreground-Skripte eingerichtet.
+- Echten Benutzer `waerter`, Hostnamen `leuchtturm` und Login-Shell über ein
+  abschließend wechselndes Foreground-Setup eingerichtet.
 - Alten Laborbaum durch eine Leuchtturmstruktur unter
   `/home/waerter/leuchtturm` ersetzt.
 - Abschlussziel auf das Archiv mit `letzter_eintrag.txt` und die technische

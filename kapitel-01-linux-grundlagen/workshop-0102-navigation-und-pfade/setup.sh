@@ -7,7 +7,6 @@ readonly lab_root="${lab_home}/leuchtturm"
 readonly lab_hostname="leuchtturm"
 readonly marker_dir="/tmp/navigation-im-nebel"
 readonly marker="${marker_dir}/erfolgreich"
-readonly ready_file="${marker_dir}/setup-ready"
 readonly asset_source="/tmp/navigation-im-nebel-assets/eintrag-bestaetigen"
 readonly action_target="/usr/local/bin/eintrag-bestaetigen"
 
@@ -100,7 +99,7 @@ chmod 0644 \
   "${lab_root}/untergeschoss/lagerraum/archiv/letzter_eintrag.txt"
 
 install -d -m 0770 -o "${lab_user}" -g "${lab_user}" "${marker_dir}"
-rm -f -- "${marker}" "${ready_file}" "${ready_file}.tmp"
+rm -f -- "${marker}"
 install -o root -g root -m 0755 "${asset_source}" "${action_target}"
 
 [[ "$(id -un "${lab_user}")" == "${lab_user}" ]] ||
@@ -118,5 +117,5 @@ install -o root -g root -m 0755 "${asset_source}" "${action_target}"
 [[ -r "${lab_root}/untergeschoss/lagerraum/archiv/letzter_eintrag.txt" ]] ||
   fail "Der letzte Eintrag fehlt."
 
-printf 'ready\n' >"${ready_file}.tmp"
-mv "${ready_file}.tmp" "${ready_file}"
+clear 2>/dev/null || printf '\033[2J\033[H'
+exec su - "${lab_user}"

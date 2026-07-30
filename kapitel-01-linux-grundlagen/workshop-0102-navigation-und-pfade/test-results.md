@@ -10,7 +10,7 @@
 
 | Prüfung | Ergebnis | Befund |
 |---|---|---|
-| Bash-Syntax | bestanden | `setup.sh`, `foreground.sh`, `verify.sh` und `assets/eintrag-bestaetigen` sind syntaktisch gültig. |
+| Bash-Syntax | bestanden | `setup.sh`, `verify.sh` und `assets/eintrag-bestaetigen` sind syntaktisch gültig. |
 | JSON | bestanden | `index.json` ist gültig. |
 | Referenzen | bestanden | Alle referenzierten Texte und Skripte existieren. |
 | Bild | bestanden | PNG vorhanden, `./assets/...` verwendet und nicht als VM-Asset eingetragen. |
@@ -22,6 +22,7 @@
 
 | Prüfung | Ergebnis | Befund |
 |---|---|---|
+| Foreground-Setup | bestanden | Aktuelles Setup endet mit einer echten Login-Shell von `waerter`; Benutzer, Hostname und Home wurden danach bestätigt. |
 | Setup zweimal | bestanden | Beide Aufrufe endeten erfolgreich. |
 | Benutzer und Host | bestanden | `whoami` als Teilnehmer liefert `waerter`, UID ist ungleich 0, Hostname ist `leuchtturm`. |
 | Home und Shell | bestanden | Home ist `/home/waerter`, Start mit `cd ~` führt dorthin, Login-Shell ist `/bin/bash`. |
@@ -37,7 +38,8 @@
 
 ## Offene Tests
 
-- tatsächliche Background-/Foreground-Reihenfolge im Killercoda-Browser,
+- tatsächlicher Foreground-Ablauf mit abschließendem Benutzerwechsel im
+  Killercoda-Browser,
 - sichtbarer Prompt und vollständig geleertes Browserterminal,
 - echte Tab-Taste und Terminalfokus im Browser,
 - vollständiger Szenariodurchlauf einschließlich CHECK-Schaltfläche,

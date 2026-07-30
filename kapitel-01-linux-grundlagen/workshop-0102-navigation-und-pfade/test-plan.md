@@ -5,8 +5,8 @@ ausschließlich in `test-results.md`.
 
 ## T01 – Frischer Szenariostart
 
-- Background-Setup und Foreground-Warteprozess starten gemeinsam.
-- Das Ready-Signal verhindert eine Race Condition.
+- Das Foreground-Setup stellt die Umgebung vollständig her und wechselt
+  anschließend mit `exec su - waerter` in die Teilnehmer-Shell.
 - Der sichtbare Prompt lautet `waerter@leuchtturm:~$`.
 - Das Terminal enthält keine sichtbaren Setup-Zeilen.
 
@@ -103,8 +103,7 @@ Im Archiv vor und nach dem Aufruf Hash, Inhalt und Metadaten von
 ## T10 – Statische Qualität
 
 - `index.json` ist gültig.
-- Alle Text-, Background-, Foreground-, Verify- und VM-Asset-Referenzen
-  existieren.
+- Alle Text-, Foreground-, Verify- und VM-Asset-Referenzen existieren.
 - Das PNG liegt unter `assets/`, wird mit `./assets/...` eingebunden und
   steht nicht in `details.assets`.
 - Bash-Syntax aller Skripte ist gültig; Skripte sind ausführbar.
