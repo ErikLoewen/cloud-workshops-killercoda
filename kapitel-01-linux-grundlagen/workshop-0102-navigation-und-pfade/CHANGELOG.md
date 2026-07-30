@@ -11,6 +11,8 @@
 - Abschlussziel auf das Archiv mit `letzter_eintrag.txt` und die technische
   Prüfaktion `eintrag-bestaetigen` umgestellt.
 - Titel, Begleitunterlagen, Testplanung und README konsistent aktualisiert.
+- VM-Asset-Pfad an die Killercoda-Syntax relativ zum lokalen `assets/`-Ordner
+  angepasst.
 
 ## 1.0.0 – 2026-07-16
 

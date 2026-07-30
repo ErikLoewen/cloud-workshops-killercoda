@@ -41,7 +41,7 @@
     "assets": {
       "host01": [
         {
-          "file": "assets/eintrag-bestaetigen",
+          "file": "eintrag-bestaetigen",
           "target": "/tmp/navigation-im-nebel-assets",
           "chmod": "+x"
         }

@@ -19,8 +19,6 @@ fail() {
   fail "Unsicherer Workshop-Pfad."
 [[ "${marker_dir}" == "/tmp/navigation-im-nebel" ]] ||
   fail "Unsicherer Markerpfad."
-[[ -f "${asset_source}" ]] ||
-  fail "Die bereitgestellte Prüfaktion wurde nicht als Asset gefunden."
 
 if ! getent group "${lab_user}" >/dev/null 2>&1; then
   groupadd "${lab_user}"
@@ -100,6 +98,8 @@ chmod 0644 \
 
 install -d -m 0770 -o "${lab_user}" -g "${lab_user}" "${marker_dir}"
 rm -f -- "${marker}"
+[[ -f "${asset_source}" ]] ||
+  fail "Die bereitgestellte Prüfaktion wurde nicht als Asset gefunden."
 install -o root -g root -m 0755 "${asset_source}" "${action_target}"
 
 [[ "$(id -un "${lab_user}")" == "${lab_user}" ]] ||

@@ -12,7 +12,7 @@
 |---|---|---|
 | Bash-Syntax | bestanden | `setup.sh`, `verify.sh` und `assets/eintrag-bestaetigen` sind syntaktisch gültig. |
 | JSON | bestanden | `index.json` ist gültig. |
-| Referenzen | bestanden | Alle referenzierten Texte und Skripte existieren. |
+| Referenzen | bestanden | Alle referenzierten Texte und Skripte existieren; das VM-Asset wird relativ zum lokalen `assets/`-Ordner referenziert. |
 | Bild | bestanden | PNG vorhanden, `./assets/...` verwendet und nicht als VM-Asset eingetragen. |
 | Altbegriffe | bestanden | Keine Treffer für die vorgegebenen alten Pfade, Namen oder Markerbezeichnungen. |
 | Diff-Prüfung | bestanden | `git diff --check` meldet keine Fehler. |
@@ -38,6 +38,7 @@
 
 ## Offene Tests
 
+- erneuter Killercoda-Start nach Korrektur des VM-Asset-Pfads,
 - tatsächlicher Foreground-Ablauf mit abschließendem Benutzerwechsel im
   Killercoda-Browser,
 - sichtbarer Prompt und vollständig geleertes Browserterminal,
