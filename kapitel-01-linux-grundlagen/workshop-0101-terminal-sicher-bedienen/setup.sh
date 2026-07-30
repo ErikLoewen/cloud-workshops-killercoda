@@ -48,6 +48,8 @@ configure_user() {
 if [[ -f "${HOME}/.bashrc" ]]; then
   source "${HOME}/.bashrc"
 fi
+
+clear 2>/dev/null || printf '\033[2J\033[H'
 PROFILE
 
   cat >"${lab_home}/.bashrc" <<'BASHRC'
