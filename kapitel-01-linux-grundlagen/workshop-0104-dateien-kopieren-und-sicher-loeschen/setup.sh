@@ -9,6 +9,8 @@ readonly lab_hostname="leuchtturm"
 readonly lab_root="${lab_home}/leuchtturm"
 readonly room="${lab_root}/obergeschoss/kartenraum"
 readonly state_root="/var/lib/labforge/workshop-0104"
+readonly asset_source="/tmp/workshop-0104-assets/flag-einreichen"
+readonly action_target="/usr/local/bin/flag-einreichen"
 
 fail() { printf 'Setup-Fehler: %s\n' "$1" >&2; exit 1; }
 
@@ -58,7 +60,11 @@ install -d -m 0755 -o "${lab_user}" -g "${lab_user}" \
   "${room}/arbeitstisch/volle-kiste" \
   "${room}/eingestuerzte-ecke/splitter"
 install -d -m 0755 -o root -g root "${room}/original"
-install -d -m 0700 -o root -g root "${state_root}"
+install -d -m 0750 -o root -g "${lab_user}" "${state_root}"
+install -d -m 0730 -o root -g "${lab_user}" "${state_root}/submissions"
+
+[[ -f "${asset_source}" && ! -L "${asset_source}" ]] || fail "Das Werkzeug zur Flag-Abgabe fehlt."
+install -m 0755 -o root -g root "${asset_source}" "${action_target}"
 
 printf '%s\n' 'Die erste Spur weist auf ein Pochen hinter der Nordwand.' >"${room}/original/erste-spur.txt"
 printf '%s\n' 'Vorlage fuer eine sichere Kopie' >"${room}/arbeitstisch/vorlage.txt"
@@ -78,8 +84,10 @@ find "${lab_root}" -type d -exec chmod 0755 {} +
 find "${lab_root}" -type f -exec chmod 0644 {} +
 chmod 0555 "${room}/original"
 chmod 0444 "${room}/original/erste-spur.txt"
-chmod 0700 "${state_root}"
-chmod 0400 "${state_root}"/*
+chmod 0750 "${state_root}"
+chmod 0400 "${state_root}"/*.ref "${state_root}/setup-version"
+chown root:"${lab_user}" "${state_root}/submissions"
+chmod 0730 "${state_root}/submissions"
 chown "${lab_user}:${lab_user}" "${lab_home}/.bash_profile" "${lab_home}/.bashrc"
 chmod 0644 "${lab_home}/.bash_profile" "${lab_home}/.bashrc"
 

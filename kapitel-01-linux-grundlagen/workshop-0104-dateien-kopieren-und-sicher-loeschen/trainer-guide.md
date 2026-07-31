@@ -12,6 +12,8 @@ Teilnehmende sichern eine wichtige Datei mit `cp`, unterscheiden `cp` von
 - Vor jeder Löschung folgen `pwd`, Zielprüfung, Vorhersage und Kontrolle.
 - Der `rmdir`-Fehler wird als Schutzwirkung erklärt.
 - Vor `rm -r` wird der gesamte Baum gelesen.
+- Nach `rm -r` wird die neu erschienene Notiz entdeckt, gelesen und ihre Flag
+  eingereicht.
 - Die Meme-Zeile wird nur analysiert, nie kopiert oder ausgeführt.
 - Die volle Kiste sowie das Root-geschützte Original bleiben unverändert.
 

@@ -5,7 +5,8 @@
     "intro": {
       "title": "Ein Knacken im Kartenraum",
       "text": "intro.md",
-      "foreground": "setup.sh"
+      "foreground": "setup.sh",
+      "background": "reveal-wall-note.sh"
     },
     "steps": [
       { "title": "Die Kopie bleibt", "text": "step1-kopieren-und-verschieben.md" },
@@ -18,6 +19,15 @@
     "finish": {
       "title": "Das Loch in der Wand",
       "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "flag-einreichen",
+          "target": "/tmp/workshop-0104-assets",
+          "chmod": "+x"
+        }
+      ]
     }
   },
   "backend": { "imageid": "ubuntu" }

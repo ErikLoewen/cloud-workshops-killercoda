@@ -49,6 +49,8 @@ ls eingestuerzte-ecke/splitter
 cat eingestuerzte-ecke/splitter/rest.txt
 rm -r eingestuerzte-ecke
 ls
+cat notiz-aus-der-wand.txt
+flag-einreichen 'FLAG{der_waerter_war_hier}'
 ```
 
 ```bash
@@ -67,5 +69,7 @@ analysiert. Sicher ausgeführt wird nur eine `printf`-Ausgabe von `$HOME`.
 
 ## Grenze des CHECKs
 
-Der CHECK prüft den Dateisystem-Endzustand, nicht die Befehlsreihenfolge oder
-ob die Sicherheitsroutine bewusst eingehalten wurde.
+Der Hintergrundprozess legt unmittelbar nach dem Entfernen der Ecke die Datei
+`notiz-aus-der-wand.txt` an. Der CHECK prüft den Dateisystem-Endzustand und
+die korrekte Flag-Abgabe, nicht die Befehlsreihenfolge oder ob die
+Sicherheitsroutine bewusst eingehalten wurde.

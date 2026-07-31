@@ -8,12 +8,9 @@ verdeckten Wandabschnitt freigelegt.
 
 ![Nach dem kontrollierten Räumen ist ein schmaler Durchgang in der Wand freigelegt. Dahinter sind Dunkelheit, Regen und das Meer zu sehen.](./assets/0104-nachher-loch-in-der-wand.png)
 
-Zwischen den Steinen steckt eine kleine, salzfleckige Notiz:
-
-`FLAG{der_waerter_war_hier}`
-
-Die Flagge erscheint erst auf dieser Abschlussseite nach erfolgreichem CHECK
-und ist nicht Teil der Linux-Prüfung.
+Die salzfleckige Notiz ist bereits beim kontrollierten Räumen im Kartenraum
+erschienen. Du hast ihre Flagge gefunden und vor dem CHECK erfolgreich
+eingereicht.
 
 ## Rufe das Wichtigste ab
 

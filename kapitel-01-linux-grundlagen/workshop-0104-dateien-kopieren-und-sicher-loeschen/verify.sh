@@ -7,6 +7,10 @@ readonly state="/var/lib/labforge/workshop-0104"
 readonly original="${room}/original/erste-spur.txt"
 readonly copy="${room}/sicherung/erste-spur-kopie.txt"
 readonly full_box="${room}/arbeitstisch/volle-kiste"
+readonly wall_note="${room}/notiz-aus-der-wand.txt"
+readonly revealed="${state}/flag-revealed"
+readonly submitted="${state}/submissions/flag-submitted"
+readonly expected_flag="FLAG{der_waerter_war_hier}"
 readonly expected_original_sha="558d6ad13b8b410df5ada20a57282478f49aca1ad64c3e7cf077a9d0123c2a92"
 readonly expected_box_sha="47fde1c9a7ccd093dc031a10ae4f835f2535080d64001ca34a814dfe4b2052f2"
 readonly expected_version_sha="c28fcca53637bc88e124af1725df13cb98c69dedefd62fb3cdbe1cdb6b760624"
@@ -40,7 +44,13 @@ regular_not_link "${full_box}/inhalt.txt" || fail "Der Inhalt der vollen Kiste f
 cmp -s -- "${full_box}/inhalt.txt" "${state}/volle-kiste.ref" || fail "Der Inhalt der vollen Kiste wurde verändert." "Starte das Szenario neu."
 [[ "$(find "${full_box}" -mindepth 1 -maxdepth 1 -printf '%f\n')" == "inhalt.txt" ]] || fail "volle-kiste enthält unerwartete oder fehlende Einträge." "Sie muss unverändert bleiben."
 missing "${room}/eingestuerzte-ecke" || fail "eingestuerzte-ecke ist noch vorhanden." "Untersuche den vollständigen Baum und entferne ausschließlich diesen Bereich rekursiv."
+regular_not_link "${wall_note}" || fail "Die Notiz aus der freigelegten Wand ist noch nicht erschienen." "Warte einen Augenblick, prüfe den Kartenraum erneut mit ls und lies die neue Datei mit cat."
+regular_not_link "${revealed}" || fail "Die Entfernung der eingestürzten Ecke wurde noch nicht als Enthüllung erkannt." "Prüfe, ob ausschließlich eingestuerzte-ecke vollständig entfernt wurde, und versuche den CHECK erneut."
+[[ "$(grep -Fxc -- "${expected_flag}" "${wall_note}" || true)" == "1" ]] || fail "Die freigelegte Notiz enthält nicht genau die erwartete Flag." "Starte das Szenario neu; die neue Notiz darf nicht verändert werden."
+regular_not_link "${submitted}" || fail "Die gefundene Flag wurde noch nicht erfolgreich eingereicht." "Lies notiz-aus-der-wand.txt mit cat und nutze danach flag-einreichen."
+[[ "$(<"${submitted}")" == "wall-flag-submitted" ]] || fail "Die Flag-Abgabe ist ungültig." "Reiche die Flag aus notiz-aus-der-wand.txt erneut mit flag-einreichen ein."
 
 printf '%s\n' 'CHECK erfolgreich: Die erste Spur ist eigenständig gesichert und das Original blieb unverändert geschützt.'
 printf '%s\n' 'Die freigegebenen Ziele wurden entfernt; volle-kiste blieb samt Inhalt erhalten.'
+printf '%s\n' 'Die hinter der entfernten Ecke enthüllte Flag wurde korrekt eingereicht.'
 printf '%s\n' 'Der CHECK bewertet den Endzustand, nicht die tatsächlich eingegebene Befehlsfolge.'

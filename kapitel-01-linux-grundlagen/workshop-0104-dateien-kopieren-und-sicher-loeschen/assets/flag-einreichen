@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly expected_flag="FLAG{der_waerter_war_hier}"
+readonly wall_note="/home/waerter/leuchtturm/obergeschoss/kartenraum/notiz-aus-der-wand.txt"
+readonly submitted="/var/lib/labforge/workshop-0104/submissions/flag-submitted"
+
+if (( $# != 1 )); then
+  printf '%s\n' "Aufruf: flag-einreichen 'GEFUNDENE_FLAG'" >&2
+  exit 2
+fi
+
+if [[ ! -f "${wall_note}" || -L "${wall_note}" ]]; then
+  printf '%s\n' "Hinter der eingestürzten Ecke wurde noch keine Notiz freigelegt." >&2
+  exit 1
+fi
+
+if [[ "$1" != "${expected_flag}" ]]; then
+  printf '%s\n' "Diese Flag passt nicht zur Notiz aus der Wand." >&2
+  printf '%s\n' "Lies notiz-aus-der-wand.txt noch einmal genau mit cat." >&2
+  exit 1
+fi
+
+printf '%s\n' "wall-flag-submitted" >"${submitted}"
+chmod 0640 "${submitted}"
+printf '%s\n' "Flag angenommen. Du kannst jetzt den CHECK ausführen."

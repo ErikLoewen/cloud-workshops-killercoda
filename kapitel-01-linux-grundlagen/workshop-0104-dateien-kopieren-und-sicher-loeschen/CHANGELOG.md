@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0
+
+- Flagge aus der Finish-Seite in eine nach dem Räumen unmittelbar erscheinende
+  Wandnotiz verlegt und ihre Abgabe in den CHECK aufgenommen.
+
 ## Version 2.0.0 – Kartenraum und sichere Spur
 
 - Workshop an die Geschichte aus 01.03 sowie an `waerter@leuchtturm` angepasst.
