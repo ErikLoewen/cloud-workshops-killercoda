@@ -4,6 +4,8 @@
 
 - Flagge aus der Finish-Seite in eine nach dem Räumen unmittelbar erscheinende
   Wandnotiz verlegt und ihre Abgabe in den CHECK aufgenommen.
+- Flag-Abgabe ersetzt den Statusmarker atomar, damit auch ein bereits
+  vorhandener, nicht beschreibbarer Marker keinen Abbruch verursacht.
 
 ## Version 2.0.0 – Kartenraum und sichere Spur
 

@@ -27,6 +27,8 @@
 - isolierter Ubuntu-24.04-Ablauf: Wandnotiz nach 103 ms erschienen
 - falsche Flag abgelehnt, korrekte Flag angenommen: bestanden
 - CHECK und unveränderte Wiederholung: bestanden
+- atomarer Ersatz eines vorhandenen, Root-eigenen Abgabemarkers und erneute
+  Flag-Abgabe: bestanden
 
 Noch im echten Killercoda-Lauf zu prüfen: Terminalhinweis, Asset-Übertragung
 und Setup-Wiederholung mit installiertem `flag-einreichen`.
