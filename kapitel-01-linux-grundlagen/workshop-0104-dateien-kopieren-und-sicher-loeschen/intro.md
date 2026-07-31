@@ -5,7 +5,7 @@ Regal kippt und ein Teil der Wand bricht ein. Karten, Abschriften und Kisten
 liegen durcheinander. Die erste Spur ist noch da. Bevor mehr verloren geht,
 musst du sie sichern und den beschädigten Bereich kontrolliert räumen.
 
-<!-- INTROBILD: Hier später das Bild des frisch beschädigten Kartenraums einfügen. -->
+![Im alten Kartenraum liegen nach dem Einsturz Karten, Abschriften und Kisten durcheinander. Im Licht einer Laterne ist die erste Spur noch zu erkennen.](./assets/0104-vorher-einsturz-im-kartenraum.png)
 
 Du arbeitest wirklich als `waerter` am Rechner `leuchtturm` und startest hier:
 

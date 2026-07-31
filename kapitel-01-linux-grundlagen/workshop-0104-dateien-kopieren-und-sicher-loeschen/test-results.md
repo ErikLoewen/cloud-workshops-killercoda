@@ -16,5 +16,5 @@
 ## Noch manuell erforderlich
 
 - echter Killercoda-Plattformtest einschließlich sichtbarer Start-Shell;
-- Prüfung der später einzufügenden Intro- und Outrobilder;
+- visueller Plattformtest der eingefügten Intro- und Outrobilder;
 - Anfängerpilot mit Zeitmessung und Beobachtung der Sicherheitsroutine.

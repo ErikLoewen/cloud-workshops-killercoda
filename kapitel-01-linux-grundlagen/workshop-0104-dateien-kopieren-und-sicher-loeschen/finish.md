@@ -6,7 +6,7 @@ Bereich ist nicht durch einen Befehl verschwunden: Du hast den bereits
 eingestürzten, unbrauchbaren Teil kontrolliert geräumt und damit den zuvor
 verdeckten Wandabschnitt freigelegt.
 
-<!-- OUTROBILD: Hier später den geräumten Kartenraum mit dem freigelegten Loch einfügen. -->
+![Nach dem kontrollierten Räumen ist ein schmaler Durchgang in der Wand freigelegt. Dahinter sind Dunkelheit, Regen und das Meer zu sehen.](./assets/0104-nachher-loch-in-der-wand.png)
 
 Zwischen den Steinen steckt eine kleine, salzfleckige Notiz:
 
