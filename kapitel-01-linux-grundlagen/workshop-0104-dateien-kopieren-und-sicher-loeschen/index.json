@@ -1,45 +1,24 @@
 {
   "title": "01.04 – Kopieren, aufräumen, nichts versenken",
-  "description": "Dateien kopieren, freigegebene Laborobjekte kontrolliert entfernen und einen Schutzbereich unverändert lassen.",
+  "description": "Die erste Spur im morschen Kartenraum sichern und ausschließlich geprüfte Dateien und Verzeichnisse kontrolliert entfernen.",
   "details": {
     "intro": {
-      "title": "Sicher im Dateilabor arbeiten",
+      "title": "Ein Knacken im Kartenraum",
       "text": "intro.md",
       "foreground": "setup.sh"
     },
     "steps": [
-      {
-        "title": "Kopieren und Verschieben unterscheiden",
-        "text": "step1-kopieren-und-verschieben.md"
-      },
-      {
-        "title": "Eine einzelne Datei sicher entfernen",
-        "text": "step2-datei-sicher-entfernen.md"
-      },
-      {
-        "title": "Ein leeres Verzeichnis entfernen",
-        "text": "step3-leeres-verzeichnis-entfernen.md"
-      },
-      {
-        "title": "Kontrolliertes Scheitern mit rmdir",
-        "text": "step4-rmdir-schutzwirkung.md"
-      },
-      {
-        "title": "Rekursives Löschen vorbereiten",
-        "text": "step5-rekursiv-und-schutzbereich.md"
-      },
-      {
-        "title": "Abschlussauftrag",
-        "text": "challenge.md",
-        "verify": "verify.sh"
-      }
+      { "title": "Die Kopie bleibt", "text": "step1-kopieren-und-verschieben.md" },
+      { "title": "Eine alte Abschrift entfernen", "text": "step2-datei-sicher-entfernen.md" },
+      { "title": "Eine leere Mappe entfernen", "text": "step3-leeres-verzeichnis-entfernen.md" },
+      { "title": "Die volle Kiste schützt ihren Inhalt", "text": "step4-rmdir-schutzwirkung.md" },
+      { "title": "Die eingestürzte Ecke beurteilen", "text": "step5-rekursiv-und-schutzbereich.md" },
+      { "title": "Abschluss: sichern und räumen", "text": "challenge.md", "verify": "verify.sh" }
     ],
     "finish": {
-      "title": "Prüfen und reflektieren",
+      "title": "Das Loch in der Wand",
       "text": "finish.md"
     }
   },
-  "backend": {
-    "imageid": "ubuntu"
-  }
+  "backend": { "imageid": "ubuntu" }
 }

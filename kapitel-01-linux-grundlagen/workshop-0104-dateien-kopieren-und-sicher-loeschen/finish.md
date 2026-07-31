@@ -1,24 +1,28 @@
-# Abschluss und Reflexion
+# Das Loch in der Wand
 
-Der technische CHECK bestätigt ausschließlich den geprüften Dateisystemzustand. Er beweist nicht, welche Befehle du verwendet hast oder ob du die Sicherheitsroutine bewusst eingehalten hast.
+Der Staub legt sich langsam. Dort, wo eben noch Trümmer, morsche Bretter und
+alte Kisten lagen, ist nun ein schmales Loch in der Wand zu erkennen. Der
+Bereich ist nicht durch einen Befehl verschwunden: Du hast den bereits
+eingestürzten, unbrauchbaren Teil kontrolliert geräumt und damit den zuvor
+verdeckten Wandabschnitt freigelegt.
+
+<!-- OUTROBILD: Hier später den geräumten Kartenraum mit dem freigelegten Loch einfügen. -->
+
+Zwischen den Steinen steckt eine kleine, salzfleckige Notiz:
+
+`FLAG{der_waerter_war_hier}`
+
+Die Flagge erscheint erst auf dieser Abschlussseite nach erfolgreichem CHECK
+und ist nicht Teil der Linux-Prüfung.
 
 ## Rufe das Wichtigste ab
 
 1. Worin unterscheiden sich `cp` und `mv`?
-2. Warum bleibt die Quelle nach `cp` erhalten?
-3. Warum kann ein erfolgreicher Befehl ohne Ausgabe enden?
-4. Was bedeutet Löschen ohne verwendeten Papierkorb?
-5. Welche unterschiedlichen Ziele behandeln `rm` und `rmdir` in diesem Workshop?
-6. Weshalb scheiterte `rmdir` am nicht leeren Verzeichnis?
-7. Warum war dieses Scheitern eine Schutzwirkung?
-8. Was bedeutet `-r`?
-9. Welche enthaltenen Objekte waren vom rekursiven Ziel betroffen?
-10. Welche sechs Schritte umfasst die Sicherheitsroutine?
-11. Welcher Bereich musste unverändert bleiben?
-12. Warum ist `-f` keine normale Fehlerbehebung?
-13. Warum ist die Kombination `rm -rf` besonders gefährlich?
-14. Welche sicherheitsrelevante Leistung kann der CHECK nicht beweisen?
+2. Warum schützt `rmdir` ein nicht leeres Verzeichnis?
+3. Welche Objekte umfasst `rm -r eingestuerzte-ecke`?
+4. Was bewirkt `-f`, und warum ist es keine normale Fehlerbehebung?
+5. Welche fünf Fragen stellst du vor einem fremden Terminalbefehl?
 
-## Übergang
-
-Im nächsten Workshop untersuchst du Dateirechte und Ausführbarkeit. Dabei bleibt die bekannte Grundidee erhalten: Ein Pfad legt das Ziel fest, eine technische Änderung wird anschließend geprüft, und Schutzbereiche werden nur nach ausdrücklicher Freigabe verändert.
+Aus dem dunklen Hohlraum dringt ein gleichmäßiges Ticken. Irgendwo im
+Leuchtturm arbeitet noch etwas im Hintergrund. Später musst du herausfinden,
+welcher Prozess oder Dienst dort weiterläuft.

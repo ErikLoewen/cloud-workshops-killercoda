@@ -1,66 +1,43 @@
-# Rekursives Löschen vorbereiten
+# Die eingestürzte Ecke beurteilen
 
-Ein nicht leeres Verzeichnis enthält weitere Objekte. Für das ausdrücklich freigegebene Ziel wird später die konkrete Form `rm -r` verwendet.
-
-```text
-rm        -r        verzeichnis
-Befehl    Option    Ziel
-```
-
-- `-r` ist eine konkrete Option von `rm`.
-- `-r` bedeutet hier rekursiv.
-- Rekursiv umfasst das Zielverzeichnis, seine Dateien und seine Unterverzeichnisse.
-- `rm -r` ist deshalb folgenstärker als `rm` auf einer einzelnen Datei.
-- Wildcards werden nicht verwendet.
-- Allgemeinere oder übergeordnete Pfade sind nicht freigegeben.
-
-Die erste und einzige tatsächliche Ausführung erfolgt in der Abschlussaufgabe. Sie wird immer selbst eingegeben.
-
-## Das einzige freigegebene rekursive Ziel
+`rm -r VERZEICHNIS` entfernt rekursiv den genannten Ordner, alle enthaltenen
+Dateien und alle Unterverzeichnisse. Deshalb muss der vollständige Zielbaum
+vorher bekannt sein. Das einzige freigegebene rekursive Ziel ist:
 
 ```text
-/root/dateilabor/auftrag/arbeitsbereich/temp-projekt
+/home/waerter/leuchtturm/obergeschoss/kartenraum/eingestuerzte-ecke
 ```
 
-Untersuche den Zielbaum, ohne ihn jetzt zu entfernen:
+Untersuche ihn jetzt vollständig, ohne ihn schon zu entfernen:
 
 ```bash
-cd /root/dateilabor/auftrag/arbeitsbereich
 pwd
-ls
-ls temp-projekt
-cat temp-projekt/notiz.txt
-ls temp-projekt/unterordner
-cat temp-projekt/unterordner/rest.txt
+ls eingestuerzte-ecke
+cat eingestuerzte-ecke/nasse-notiz.txt
+ls eingestuerzte-ecke/splitter
+cat eingestuerzte-ecke/splitter/rest.txt
 ```
 
-Kontrolliere den Schutzbereich:
+## Einen gefährlichen Meme-Befehl nur analysieren
 
-```bash
-ls /root/dateilabor/auftrag/schutzbereich
-cat /root/dateilabor/auftrag/schutzbereich/wichtig.txt
-```
+Die folgende Zeichenfolge darfst du **niemals ausführen**. Sie ist bewusst
+nicht kopierbar und kein Lösungsvorschlag:
 
-## Sicherheitsroutine verkürzt abrufen
+<pre><code>sudo rm -rf ~/</code></pre>
 
-Beantworte vor der späteren Ausführung:
+- `sudo`: mit administrativen Rechten ausführen;
+- `rm`: entfernen;
+- `-r`: Verzeichnisse samt Inhalt rekursiv bearbeiten;
+- `-f`: erzwingen und Rückfragen beziehungsweise bestimmte Meldungen unterdrücken;
+- `~/`: Home-Verzeichnis des aktuellen Benutzers, hier `/home/waerter/`.
 
-1. Wo befinde ich mich?
-2. Welcher konkrete Zielpfad ist freigegeben?
-3. Welche enthaltenen Objekte werden mitbetroffen?
-4. Liegt der Zielpfad vollständig im Arbeitsbereich?
-5. Welcher Bereich muss unverändert bleiben?
+Die Shell erweitert `~` schon vor dem Start von `sudo`. Zur sicheren
+Demonstration führe ausschließlich dies aus:
 
-## Gefahrenanalyse: nicht ausführen
+`printf 'Dein Home-Verzeichnis ist: %s\n' "$HOME"`{{exec}}
 
-Die Kombination `rm -rf` wird in diesem Workshop nur theoretisch analysiert:
+> Kopiere keinen Terminalbefehl, dessen Befehl, Optionen und Ziel du nicht
+> erklären kannst.
 
-```text
-rm     entfernt
--r     arbeitet rekursiv
--f     erzwingt die Handlung und unterdrückt bestimmte Rückmeldungen
-```
-
-`-r` erweitert den betroffenen Bereich. `-f` kann Rückmeldungen oder Schutzwirkungen reduzieren. Ein falsch gelesener Pfad kann dadurch erhebliche Folgen haben.
-
-`-f` ist für kein Lernziel erforderlich und keine normale Reaktion auf eine Fehlermeldung. Prüfe zuerst Pfad, Objektart und Fehlerursache.
+Prüfe immer: Welcher Befehl? Welche Optionen? Welches Ziel? Warum `sudo`?
+Kannst du die Wirkung vorher gefahrlos prüfen?

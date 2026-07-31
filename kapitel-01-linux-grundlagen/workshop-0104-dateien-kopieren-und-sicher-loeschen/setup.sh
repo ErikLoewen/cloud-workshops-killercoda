@@ -3,107 +3,89 @@ set -Eeuo pipefail
 
 export LC_ALL=C
 
-readonly LAB_ROOT="/root/dateilabor"
-readonly STATE_ROOT="/var/lib/labforge/dateien-kopieren-und-sicher-loeschen"
-readonly EXPECTED_LAB_ROOT="/root/dateilabor"
-readonly EXPECTED_STATE_ROOT="/var/lib/labforge/dateien-kopieren-und-sicher-loeschen"
-readonly MIN_LAB_PATH_LENGTH=10
-readonly MIN_STATE_PATH_LENGTH=20
+readonly lab_user="waerter"
+readonly lab_home="/home/${lab_user}"
+readonly lab_hostname="leuchtturm"
+readonly lab_root="${lab_home}/leuchtturm"
+readonly room="${lab_root}/obergeschoss/kartenraum"
+readonly state_root="/var/lib/labforge/workshop-0104"
 
-fail() {
-  printf 'Setup abgebrochen: %s\n' "$1" >&2
-  exit 1
-}
+fail() { printf 'Setup-Fehler: %s\n' "$1" >&2; exit 1; }
 
-validate_lab_cleanup_path() {
-  local candidate="${1-}"
+[[ "${room}" == "/home/waerter/leuchtturm/obergeschoss/kartenraum" ]] || fail "Unsicherer Workshop-Pfad."
+[[ "${state_root}" == "/var/lib/labforge/workshop-0104" ]] || fail "Unsicherer Statuspfad."
 
-  [[ -n "$candidate" ]] || fail "Der Laborpfad ist leer."
-  [[ "$candidate" == "$EXPECTED_LAB_ROOT" ]] || fail "Der Laborpfad entspricht nicht exakt $EXPECTED_LAB_ROOT."
-  [[ "$candidate" != "/" ]] || fail "Der Wurzelpfad darf nicht bereinigt werden."
-  [[ "$candidate" != "/root" ]] || fail "Der Pfad /root darf nicht bereinigt werden."
-  [[ "$candidate" != "." ]] || fail "Der Pfad . darf nicht bereinigt werden."
-  [[ "$candidate" != ".." ]] || fail "Der Pfad .. darf nicht bereinigt werden."
-  (( ${#candidate} >= MIN_LAB_PATH_LENGTH )) || fail "Der Laborpfad ist unerwartet kurz."
-  [[ "$candidate" != *'$'* ]] || fail "Der Laborpfad enthält eine unaufgelöste Variable."
-  [[ "$candidate" != *'{'* ]] || fail "Der Laborpfad enthält einen unaufgelösten Platzhalter."
-  [[ "$candidate" != *'}'* ]] || fail "Der Laborpfad enthält einen unaufgelösten Platzhalter."
-}
-
-validate_state_cleanup_path() {
-  local candidate="${1-}"
-
-  [[ -n "$candidate" ]] || fail "Der technische Zustandspfad ist leer."
-  [[ "$candidate" == "$EXPECTED_STATE_ROOT" ]] || fail "Der technische Zustandspfad entspricht nicht dem erwarteten statischen Pfad."
-  [[ "$candidate" != "/" ]] || fail "Der Wurzelpfad darf nicht bereinigt werden."
-  [[ "$candidate" != "/var" ]] || fail "Der Pfad /var darf nicht bereinigt werden."
-  [[ "$candidate" != "/var/lib" ]] || fail "Der Pfad /var/lib darf nicht bereinigt werden."
-  (( ${#candidate} >= MIN_STATE_PATH_LENGTH )) || fail "Der technische Zustandspfad ist unerwartet kurz."
-  [[ "$candidate" != *'$'* ]] || fail "Der technische Zustandspfad enthält eine unaufgelöste Variable."
-  [[ "$candidate" != *'{'* ]] || fail "Der technische Zustandspfad enthält einen unaufgelösten Platzhalter."
-  [[ "$candidate" != *'}'* ]] || fail "Der technische Zustandspfad enthält einen unaufgelösten Platzhalter."
-}
-
-remove_existing_static_directory() {
-  local candidate="$1"
-  local label="$2"
-
-  if [[ -L "$candidate" ]]; then
-    fail "$label ist ein symbolischer Link. Das Linkziel wird nicht verändert."
-  fi
-
-  if [[ -e "$candidate" ]]; then
-    [[ -d "$candidate" ]] || fail "$label existiert, ist aber kein Verzeichnis."
-    rm -r -- "$candidate"
-  fi
-}
-
-main() {
-  validate_lab_cleanup_path "$LAB_ROOT"
-  validate_state_cleanup_path "$STATE_ROOT"
-
-  [[ "/root" == "$(dirname -- "$LAB_ROOT")" ]] || fail "Der Elternpfad des Labors ist nicht /root."
-
-  remove_existing_static_directory "$LAB_ROOT" "Der Laborstamm"
-  remove_existing_static_directory "$STATE_ROOT" "Das technische Zustandsverzeichnis"
-
-  mkdir -p -- \
-    "$LAB_ROOT/demo/leerer-ordner" \
-    "$LAB_ROOT/demo/nicht-leer" \
-    "$LAB_ROOT/auftrag/quelle" \
-    "$LAB_ROOT/auftrag/arbeitsbereich/leeres-archiv" \
-    "$LAB_ROOT/auftrag/arbeitsbereich/temp-projekt/unterordner" \
-    "$LAB_ROOT/auftrag/schutzbereich" \
-    "$STATE_ROOT"
-
-  printf '%s\n' 'Kopieren erhaelt die Quelle' > "$LAB_ROOT/demo/quelle.txt"
-  printf '%s\n' 'Dieses Objekt erinnert an mv' > "$LAB_ROOT/demo/verschoben.txt"
-  printf '%s\n' 'Diese Datei darf entfernt werden' > "$LAB_ROOT/demo/einzeldatei.txt"
-  printf '%s\n' 'Das Verzeichnis ist nicht leer' > "$LAB_ROOT/demo/nicht-leer/inhalt.txt"
-
-  printf '%s\n' 'Bericht fuer die Sicherung' > "$LAB_ROOT/auftrag/quelle/bericht.txt"
-  printf '%s\n' 'Veraltete Arbeitsdatei' > "$LAB_ROOT/auftrag/arbeitsbereich/alt.txt"
-  printf '%s\n' 'Temporäre Notiz' > "$LAB_ROOT/auftrag/arbeitsbereich/temp-projekt/notiz.txt"
-  printf '%s\n' 'Temporärer Rest' > "$LAB_ROOT/auftrag/arbeitsbereich/temp-projekt/unterordner/rest.txt"
-  printf '%s\n' 'Dieser Inhalt muss erhalten bleiben' > "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt"
-
-  printf '%s\n' 'Bericht fuer die Sicherung' > "$STATE_ROOT/bericht.ref"
-  printf '%s\n' 'Dieser Inhalt muss erhalten bleiben' > "$STATE_ROOT/wichtig.ref"
-  printf '%s\n' 'wichtig.txt' > "$STATE_ROOT/schutz-eintraege.ref"
-  printf '%s\n' '1.0.0' > "$STATE_ROOT/setup-version"
-
-  chmod 0755 "$LAB_ROOT" "$LAB_ROOT/demo" "$LAB_ROOT/auftrag" \
-    "$LAB_ROOT/auftrag/quelle" "$LAB_ROOT/auftrag/arbeitsbereich" \
-    "$LAB_ROOT/auftrag/schutzbereich" "$STATE_ROOT"
-  chmod 0644 "$STATE_ROOT/bericht.ref" "$STATE_ROOT/wichtig.ref" \
-    "$STATE_ROOT/schutz-eintraege.ref" "$STATE_ROOT/setup-version"
-
-  [[ ! -e "$LAB_ROOT/demo/kopie.txt" && ! -L "$LAB_ROOT/demo/kopie.txt" ]] \
-    || fail "Die Demo-Kopie darf im Ausgangszustand nicht existieren."
-  [[ ! -e "$LAB_ROOT/auftrag/arbeitsbereich/bericht-kopie.txt" && ! -L "$LAB_ROOT/auftrag/arbeitsbereich/bericht-kopie.txt" ]] \
-    || fail "Die Auftragskopie darf im Ausgangszustand nicht existieren."
-}
-
-if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
-  main "$@"
+if ! getent group "${lab_user}" >/dev/null 2>&1; then groupadd "${lab_user}"; fi
+if ! id "${lab_user}" >/dev/null 2>&1; then
+  useradd --create-home --home-dir "${lab_home}" --shell /bin/bash --gid "${lab_user}" "${lab_user}"
 fi
+usermod --home "${lab_home}" --shell /bin/bash --gid "${lab_user}" "${lab_user}"
+install -d -m 0750 -o "${lab_user}" -g "${lab_user}" "${lab_home}"
+
+printf '%s\n' "${lab_hostname}" >/etc/hostname
+if [[ "$(hostname)" != "${lab_hostname}" ]]; then
+  if command -v hostnamectl >/dev/null 2>&1 && hostnamectl set-hostname "${lab_hostname}" >/dev/null 2>&1; then :
+  elif command -v hostname >/dev/null 2>&1; then hostname "${lab_hostname}"
+  else fail "Der Hostname konnte nicht gesetzt werden."
+  fi
+fi
+if grep -qE '^[[:space:]]*127\.0\.1\.1[[:space:]]+' /etc/hosts; then
+  hosts_tmp="$(mktemp /tmp/workshop-0104-hosts.XXXXXX)"
+  awk -v host="${lab_hostname}" '$1 == "127.0.1.1" { print "127.0.1.1 " host; next } { print }' /etc/hosts >"${hosts_tmp}"
+  cat "${hosts_tmp}" >/etc/hosts
+  rm -f -- "${hosts_tmp}"
+else
+  printf '127.0.1.1 %s\n' "${lab_hostname}" >>/etc/hosts
+fi
+
+cat >"${lab_home}/.bash_profile" <<PROFILE
+if [[ -f "\${HOME}/.bashrc" ]]; then source "\${HOME}/.bashrc"; fi
+cd "${room}"
+clear 2>/dev/null || printf '\\033[2J\\033[H'
+PROFILE
+cat >"${lab_home}/.bashrc" <<'BASHRC'
+PS1='\u@\h:\w\$ '
+BASHRC
+
+if [[ -L "${lab_root}" ]]; then fail "Der Leuchtturmpfad ist ein symbolischer Link."; fi
+if [[ -e "${lab_root}" ]]; then [[ -d "${lab_root}" ]] || fail "Der Leuchtturmpfad ist kein Verzeichnis."; rm -r -- "${lab_root}"; fi
+if [[ -L "${state_root}" ]]; then fail "Der Statuspfad ist ein symbolischer Link."; fi
+if [[ -e "${state_root}" ]]; then [[ -d "${state_root}" ]] || fail "Der Statuspfad ist kein Verzeichnis."; rm -r -- "${state_root}"; fi
+
+install -d -m 0755 -o "${lab_user}" -g "${lab_user}" \
+  "${room}/sicherung" \
+  "${room}/arbeitstisch/leere-mappe" \
+  "${room}/arbeitstisch/volle-kiste" \
+  "${room}/eingestuerzte-ecke/splitter"
+install -d -m 0755 -o root -g root "${room}/original"
+install -d -m 0700 -o root -g root "${state_root}"
+
+printf '%s\n' 'Die erste Spur weist auf ein Pochen hinter der Nordwand.' >"${room}/original/erste-spur.txt"
+printf '%s\n' 'Vorlage fuer eine sichere Kopie' >"${room}/arbeitstisch/vorlage.txt"
+printf '%s\n' 'Diese alte Abschrift ist unbrauchbar.' >"${room}/arbeitstisch/alte-abschrift.txt"
+printf '%s\n' 'Diese Kiste bleibt geschlossen und erhalten.' >"${room}/arbeitstisch/volle-kiste/inhalt.txt"
+printf '%s\n' 'Vom Regen unleserlich geworden.' >"${room}/eingestuerzte-ecke/nasse-notiz.txt"
+printf '%s\n' 'Morsches Holz und feuchte Pappe.' >"${room}/eingestuerzte-ecke/splitter/rest.txt"
+
+cp -- "${room}/original/erste-spur.txt" "${state_root}/erste-spur.ref"
+printf '%s\n' 'Diese Kiste bleibt geschlossen und erhalten.' >"${state_root}/volle-kiste.ref"
+printf '%s\n' '2.0.0' >"${state_root}/setup-version"
+
+chown -R "${lab_user}:${lab_user}" "${lab_root}"
+chown -R root:root "${room}/original" "${state_root}"
+chmod 0750 "${lab_home}"
+find "${lab_root}" -type d -exec chmod 0755 {} +
+find "${lab_root}" -type f -exec chmod 0644 {} +
+chmod 0555 "${room}/original"
+chmod 0444 "${room}/original/erste-spur.txt"
+chmod 0700 "${state_root}"
+chmod 0400 "${state_root}"/*
+chown "${lab_user}:${lab_user}" "${lab_home}/.bash_profile" "${lab_home}/.bashrc"
+chmod 0644 "${lab_home}/.bash_profile" "${lab_home}/.bashrc"
+
+[[ "$(id -u "${lab_user}")" != 0 ]] || fail "Der Workshop-Benutzer darf nicht Root sein."
+[[ "$(hostname)" == "${lab_hostname}" ]] || fail "Der aktive Hostname ist nicht korrekt."
+su -s /bin/bash -c "test -r '${room}/original/erste-spur.txt' && test ! -w '${room}/original/erste-spur.txt' && test ! -w '${room}/original'" "${lab_user}" || fail "Das Original ist nicht korrekt geschützt."
+
+clear 2>/dev/null || printf '\033[2J\033[H'
+exec su - "${lab_user}"

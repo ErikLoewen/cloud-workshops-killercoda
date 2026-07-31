@@ -1,41 +1,16 @@
-# Ein leeres Verzeichnis entfernen
+# Eine leere Mappe entfernen
 
-`rmdir` entfernt ausschließlich ein leeres Verzeichnis.
-
-```text
-rmdir        leerer-ordner
-Befehl       Zielverzeichnis
-```
-
-`rmdir` entfernt keine Datei und kein Verzeichnis, das noch Inhalte besitzt.
-
-## Erfolgreicher Fall
-
-Prüfe im Demo-Verzeichnis zunächst den vorhandenen Eintrag:
+`rmdir` entfernt ausschließlich ein leeres Verzeichnis. Prüfe die vorbereitete
+Mappe:
 
 ```bash
 pwd
-ls
-ls leerer-ordner
+ls arbeitstisch/leere-mappe
 ```
 
-Sage voraus, welches Objekt danach fehlen soll.
+Wenn `ls` keinen Inhalt zeigt, tippe selbst:
 
-Gib den Befehl selbst ein:
+`rmdir arbeitstisch/leere-mappe`{{}}
 
-`rmdir leerer-ordner`{{}}
-
-Die leere Code-Aktion verhindert eine automatische Ausführung. Tippe den Befehl selbst.
-
-Kontrolliere anschließend selbst:
-
-```bash
-ls
-```
-
-Wenn keine ausführliche Erfolgsmeldung erscheint, ist das normal. `ls` zeigt, ob das leere Verzeichnis entfernt wurde.
-
-## Kurze Erklärung
-
-- Warum passt `rmdir` zu diesem Ziel?
-- Weshalb wäre `rm` auf eine einzelne Datei eine andere Handlung?
+Kontrolliere danach mit `ls arbeitstisch`. Warum ist `rmdir` für eine einzelne
+Datei nicht der passende Befehl?

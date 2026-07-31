@@ -1,74 +1,45 @@
-# Dateien kopieren und sicher löschen
+# Kopieren, aufräumen, nichts versenken
 
-In diesem Workshop kopierst du eine Datei und entfernst ausschließlich ausdrücklich freigegebene Laborobjekte.
+Ein dumpfes Knacken geht durch den Kartenraum. Morsches Holz gibt nach, ein
+Regal kippt und ein Teil der Wand bricht ein. Karten, Abschriften und Kisten
+liegen durcheinander. Die erste Spur ist noch da. Bevor mehr verloren geht,
+musst du sie sichern und den beschädigten Bereich kontrolliert räumen.
 
-Das Hauptziel ist nicht möglichst schnelles Löschen:
+<!-- INTROBILD: Hier später das Bild des frisch beschädigten Kartenraums einfügen. -->
 
-> Entferne nur das ausdrücklich freigegebene Ziel und lasse den Schutzbereich vollständig unverändert.
-
-## Voraussetzungen
-
-Du verwendest bekannte Befehle und Begriffe aus den vorherigen Workshops:
-
-- `pwd`, `ls`, `cd`, `cat` und `mv`;
-- absolute und relative Pfade;
-- Datei, Verzeichnis, Quelle und Ziel;
-- technische Kontrolle mit einem CHECK.
-
-Neu sind `cp`, `rm`, `rmdir` und die konkrete Form `rm -r`.
-
-## Das Labor
-
-Der sichtbare Teilnehmerbereich liegt unter `/root/dateilabor`.
+Du arbeitest wirklich als `waerter` am Rechner `leuchtturm` und startest hier:
 
 ```text
-/root/dateilabor/
-├── demo/
-│   ├── quelle.txt
-│   ├── verschoben.txt
-│   ├── einzeldatei.txt
-│   ├── leerer-ordner/
-│   └── nicht-leer/
+waerter@leuchtturm:~/leuchtturm/obergeschoss/kartenraum$
+```
+
+```text
+kartenraum/
+├── original/
+│   └── erste-spur.txt
+├── sicherung/
+├── arbeitstisch/
+│   ├── vorlage.txt
+│   ├── alte-abschrift.txt
+│   ├── leere-mappe/
+│   └── volle-kiste/
 │       └── inhalt.txt
-└── auftrag/
-    ├── quelle/
-    │   └── bericht.txt
-    ├── arbeitsbereich/
-    │   ├── alt.txt
-    │   ├── leeres-archiv/
-    │   └── temp-projekt/
-    │       ├── notiz.txt
-    │       └── unterordner/
-    │           └── rest.txt
-    └── schutzbereich/
-        └── wichtig.txt
+└── eingestuerzte-ecke/
+    ├── nasse-notiz.txt
+    └── splitter/
+        └── rest.txt
 ```
 
-Du darfst nur Objekte in diesen Bereichen verändern:
+`original/erste-spur.txt` gehört `root` und ist nur lesbar. Du kannst sie
+prüfen und kopieren, aber als `waerter` weder überschreiben noch entfernen.
+Die übrigen Arbeitsbereiche gehören dir.
 
-- `/root/dateilabor/demo`
-- `/root/dateilabor/auftrag/arbeitsbereich`
+Neu sind `cp`, `rm`, `rmdir` und `rm -r`. `mv`, `pwd`, `ls` und `cat` kennst
+du bereits. Für jede Löschung gilt die kurze Routine:
 
-Die Datei `/root/dateilabor/auftrag/quelle/bericht.txt` darfst du lesen und kopieren, aber nicht verändern oder entfernen.
-
-Der Bereich `/root/dateilabor/auftrag/schutzbereich` muss vollständig unverändert bleiben.
-
-## Orientierung
-
-Wechsle in das Demo-Verzeichnis und rufe dein Vorwissen ab. Gib jeden Befehl selbst ein:
-
-```bash
-cd /root/dateilabor/demo
-pwd
-ls
-cat quelle.txt
+```text
+Standort prüfen → Ziel prüfen → Wirkung vorhersagen
+        → Befehl selbst tippen → Ergebnis kontrollieren
 ```
 
-Beantworte vor dem nächsten Schritt:
-
-1. Welcher Befehl zeigt deinen aktuellen Standort?
-2. Welcher Befehl zeigt vorhandene Dateien und Verzeichnisse?
-3. Was sind Quelle und Ziel bei `mv`?
-4. Bleibt nach einem Verschieben das ursprüngliche Objekt zusätzlich am Quellpfad erhalten?
-
-Ein technisch ausführbarer Befehl ist nicht automatisch fachlich richtig. Der Pfad entscheidet, welches Objekt betroffen ist.
+Passende Folge: `pwd` → `ls ZIEL` → Befehl → `ls`.

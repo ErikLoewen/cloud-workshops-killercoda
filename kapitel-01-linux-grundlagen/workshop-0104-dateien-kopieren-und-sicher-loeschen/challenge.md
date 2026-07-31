@@ -1,173 +1,86 @@
-# Abschlussauftrag: Bericht sichern und Arbeitsbereich bereinigen
+# Abschluss: die Spur sichern und kontrolliert räumen
 
-## Ausgangslage
+Arbeite im Kartenraum und löse den Auftrag zunächst ohne vollständige
+Befehlsfolge:
 
-```text
-/root/dateilabor/auftrag/
-├── quelle/
-│   └── bericht.txt
-├── arbeitsbereich/
-│   ├── alt.txt
-│   ├── leeres-archiv/
-│   └── temp-projekt/
-│       ├── notiz.txt
-│       └── unterordner/
-│           └── rest.txt
-└── schutzbereich/
-    └── wichtig.txt
-```
+1. Kopiere `original/erste-spur.txt` nach
+   `sicherung/erste-spur-kopie.txt`.
+2. Prüfe, dass Original und Kopie existieren, und vergleiche ihre Inhalte.
+3. Entferne `arbeitstisch/alte-abschrift.txt`.
+4. Entferne das leere Verzeichnis `arbeitstisch/leere-mappe`.
+5. Prüfe, warum `arbeitstisch/volle-kiste` von `rmdir` abgelehnt wird, und
+   lasse Kiste sowie Inhalt erhalten.
+6. Untersuche vollständig den Inhalt von `eingestuerzte-ecke`.
+7. Entferne rekursiv **ausschließlich** `eingestuerzte-ecke`.
+8. Kontrolliere erneut Original, Sicherung und volle Kiste.
+9. Starte den CHECK.
 
-## Ziel
-
-```text
-/root/dateilabor/auftrag/
-├── quelle/
-│   └── bericht.txt
-├── arbeitsbereich/
-│   └── bericht-kopie.txt
-└── schutzbereich/
-    └── wichtig.txt
-```
-
-Die Quelle darf gelesen und kopiert, aber nicht verändert oder entfernt werden. Der Schutzbereich muss vollständig unverändert bleiben.
-
-## Dein Auftrag
-
-Bearbeite die Aufgabe zunächst ohne vollständige Befehlsfolge:
-
-1. Untersuche `/root/dateilabor/auftrag`.
-2. Identifiziere Arbeitsbereich und Schutzbereich.
-3. Kontrolliere die Quelle `quelle/bericht.txt`.
-4. Kopiere sie nach `arbeitsbereich/bericht-kopie.txt`.
-5. Kontrolliere Quelle, Kopie und beide Inhalte.
-6. Entferne ausschließlich die einzelne Datei `arbeitsbereich/alt.txt`.
-7. Entferne ausschließlich das leere Verzeichnis `arbeitsbereich/leeres-archiv`.
-8. Entferne rekursiv ausschließlich `arbeitsbereich/temp-projekt`.
-9. Wende vor jeder destruktiven Handlung die Sicherheitsroutine an.
-10. Kontrolliere den Schutzbereich.
-11. Starte anschließend den CHECK.
-
-Vor dem rekursiven Schritt muss ausdrücklich feststehen:
-
-```text
-Freigegebenes Ziel:
-/root/dateilabor/auftrag/arbeitsbereich/temp-projekt
-```
-
-Der CHECK prüft den Endzustand. Er kann nicht beweisen, dass du die Sicherheitsroutine bewusst eingehalten oder bestimmte Befehle verwendet hast.
+Wende vor jeder Löschung die Routine an: Standort prüfen → Ziel prüfen →
+Wirkung vorhersagen → Befehl selbst tippen → Ergebnis kontrollieren.
 
 <details>
-<summary>Hinweis 1 – Konzept</summary>
+<summary>Hinweis 1 – Werkzeuge</summary>
 
-- Kopieren erhält die Quelle.
-- Einzeldatei, leeres Verzeichnis und nicht leeres Verzeichnis benötigen unterschiedliche Handlungen.
-- Der Schutzbereich darf nicht verändert werden.
-- Vor jedem Löschen wird der Zielpfad geprüft.
+Du benötigst `cp`, `rm`, `rmdir`, `rm -r`, `pwd`, `ls` und `cat`.
 
 </details>
 
 <details>
-<summary>Hinweis 2 – Werkzeuge</summary>
-
-Du benötigst ausschließlich:
-
-- `cp`
-- `rm`
-- `rmdir`
-- `rm -r`
-- `pwd`
-- `ls`
-- `cat`
-
-</details>
-
-<details>
-<summary>Hinweis 3 – Struktur</summary>
+<summary>Hinweis 2 – Befehlsmuster</summary>
 
 ```text
-cp <QUELLE> <ZIELKOPIE>
-
-rm <EINZELDATEI>
-
-rmdir <LEERES_VERZEICHNIS>
-
-rm -r <FREIGEGEBENES_NICHT_LEERES_VERZEICHNIS>
+cp QUELLE ZIEL
+rm DATEI
+rmdir LEERES_VERZEICHNIS
+rm -r GEPRUEFTES_VERZEICHNIS
 ```
-
-Die Platzhalter werden nicht wörtlich eingegeben. Der Schutzbereich gehört in keinen Löschbefehl. Bestätige vor jedem Löschbefehl den konkreten Pfad.
 
 </details>
 
 <details>
-<summary>Hinweis 4 – vollständige Methode</summary>
-
-Gib jeden Befehl einzeln ein:
+<summary>Hinweis 3 – vollständige Methode</summary>
 
 ```bash
-cd /root/dateilabor/auftrag
 pwd
+ls original/erste-spur.txt sicherung
+cat original/erste-spur.txt
+cp original/erste-spur.txt sicherung/erste-spur-kopie.txt
+ls original/erste-spur.txt sicherung/erste-spur-kopie.txt
+cat sicherung/erste-spur-kopie.txt
+```
+
+```bash
+pwd
+ls arbeitstisch/alte-abschrift.txt
+rm arbeitstisch/alte-abschrift.txt
+ls arbeitstisch
+```
+
+```bash
+pwd
+ls arbeitstisch/leere-mappe
+rmdir arbeitstisch/leere-mappe
+rmdir arbeitstisch/volle-kiste
+ls arbeitstisch/volle-kiste
+cat arbeitstisch/volle-kiste/inhalt.txt
+```
+
+```bash
+pwd
+ls eingestuerzte-ecke
+cat eingestuerzte-ecke/nasse-notiz.txt
+ls eingestuerzte-ecke/splitter
+cat eingestuerzte-ecke/splitter/rest.txt
+rm -r eingestuerzte-ecke
 ls
-ls quelle
-ls arbeitsbereich
-ls schutzbereich
-cat schutzbereich/wichtig.txt
 ```
 
 ```bash
-cp quelle/bericht.txt arbeitsbereich/bericht-kopie.txt
-ls quelle
-ls arbeitsbereich
-cat quelle/bericht.txt
-cat arbeitsbereich/bericht-kopie.txt
-```
-
-```bash
-pwd
-ls arbeitsbereich/alt.txt
-rm arbeitsbereich/alt.txt
-ls arbeitsbereich
-```
-
-```bash
-pwd
-ls arbeitsbereich/leeres-archiv
-rmdir arbeitsbereich/leeres-archiv
-ls arbeitsbereich
-```
-
-Prüfe vor dem rekursiven Schritt noch einmal Zielbaum und Schutzbereich:
-
-```bash
-pwd
-ls arbeitsbereich/temp-projekt
-ls arbeitsbereich/temp-projekt/unterordner
-cat arbeitsbereich/temp-projekt/notiz.txt
-cat arbeitsbereich/temp-projekt/unterordner/rest.txt
-ls schutzbereich
-cat schutzbereich/wichtig.txt
-```
-
-Der vollständig freigegebene Zielpfad lautet:
-
-```text
-/root/dateilabor/auftrag/arbeitsbereich/temp-projekt
-```
-
-Gib anschließend selbst ein:
-
-```bash
-rm -r arbeitsbereich/temp-projekt
-```
-
-Kontrolliere den Endzustand:
-
-```bash
-ls quelle
-ls arbeitsbereich
-ls schutzbereich
-cat quelle/bericht.txt
-cat arbeitsbereich/bericht-kopie.txt
-cat schutzbereich/wichtig.txt
+ls original/erste-spur.txt sicherung/erste-spur-kopie.txt
+cat original/erste-spur.txt
+cat sicherung/erste-spur-kopie.txt
+ls arbeitstisch/volle-kiste
+cat arbeitstisch/volle-kiste/inhalt.txt
 ```
 
 </details>
