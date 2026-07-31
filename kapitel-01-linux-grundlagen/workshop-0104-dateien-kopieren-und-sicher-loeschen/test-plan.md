@@ -20,8 +20,8 @@
    entfernen; `notiz-aus-der-wand.txt` muss innerhalb eines kurzen
    Polling-Intervalls erscheinen.
 10. Flag aus der neuen Notiz lesen und korrekt einreichen.
-    Eine vorhandene, nicht beschreibbare Markerdatei muss dabei atomar ersetzt
-    werden können.
+    Der Abgabemarker muss ohne Schreibzugriff auf den geschützten technischen
+    Statusordner angelegt und atomar ersetzt werden können.
 11. Abschlusskopie erstellen; CHECK muss erfolgreich sein und wiederholt
     read-only erfolgreich bleiben.
 

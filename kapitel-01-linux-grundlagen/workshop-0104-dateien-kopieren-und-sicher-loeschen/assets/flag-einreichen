@@ -2,9 +2,9 @@
 set -Eeuo pipefail
 
 readonly expected_flag="FLAG{der_waerter_war_hier}"
-readonly wall_note="/home/waerter/leuchtturm/obergeschoss/kartenraum/notiz-aus-der-wand.txt"
-readonly submission_dir="/var/lib/labforge/workshop-0104/submissions"
-readonly submitted="${submission_dir}/flag-submitted"
+readonly room="/home/waerter/leuchtturm/obergeschoss/kartenraum"
+readonly wall_note="${room}/notiz-aus-der-wand.txt"
+readonly submitted="${room}/.flag-submitted"
 
 if (( $# != 1 )); then
   printf '%s\n' "Aufruf: flag-einreichen 'GEFUNDENE_FLAG'" >&2
@@ -22,7 +22,7 @@ if [[ "$1" != "${expected_flag}" ]]; then
   exit 1
 fi
 
-marker_tmp="$(mktemp "${submission_dir}/flag-submitted.XXXXXX")" || {
+marker_tmp="$(mktemp "${room}/.flag-submitted.XXXXXX")" || {
   printf '%s\n' "Die Flag-Abgabe kann ihren Status nicht speichern." >&2
   printf '%s\n' "Starte das Szenario neu und versuche es erneut." >&2
   exit 1

@@ -61,7 +61,6 @@ install -d -m 0755 -o "${lab_user}" -g "${lab_user}" \
   "${room}/eingestuerzte-ecke/splitter"
 install -d -m 0755 -o root -g root "${room}/original"
 install -d -m 0750 -o root -g "${lab_user}" "${state_root}"
-install -d -m 0730 -o root -g "${lab_user}" "${state_root}/submissions"
 
 [[ -f "${asset_source}" && ! -L "${asset_source}" ]] || fail "Das Werkzeug zur Flag-Abgabe fehlt."
 install -m 0755 -o root -g root "${asset_source}" "${action_target}"
@@ -86,8 +85,6 @@ chmod 0555 "${room}/original"
 chmod 0444 "${room}/original/erste-spur.txt"
 chmod 0750 "${state_root}"
 chmod 0400 "${state_root}"/*.ref "${state_root}/setup-version"
-chown root:"${lab_user}" "${state_root}/submissions"
-chmod 0730 "${state_root}/submissions"
 chown "${lab_user}:${lab_user}" "${lab_home}/.bash_profile" "${lab_home}/.bashrc"
 chmod 0644 "${lab_home}/.bash_profile" "${lab_home}/.bashrc"
 
