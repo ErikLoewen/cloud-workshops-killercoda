@@ -12,11 +12,11 @@ Befehlsfolge:
    lasse Kiste sowie Inhalt erhalten.
 6. Untersuche vollständig den Inhalt von `eingestuerzte-ecke`.
 7. Entferne rekursiv **ausschließlich** `eingestuerzte-ecke`.
-8. Prüfe direkt danach mit `ls`, was neu im Kartenraum erschienen ist, und
-   lies die neue Datei mit `cat`.
-9. Reiche die darin gefundene Flagge mit
-   `flag-einreichen 'GEFUNDENE_FLAG'` ein.
-10. Kontrolliere erneut Original, Sicherung und volle Kiste.
+8. Kontrolliere erneut Original, Sicherung und volle Kiste.
+9. Prüfe mit `ls`, was neu im Kartenraum erschienen ist, und lies die neue
+   Datei mit `cat`.
+10. Reiche zuletzt die darin gefundene Flagge mit
+    `flag-einreichen 'GEFUNDENE_FLAG'` ein.
 11. Starte den CHECK.
 
 Wende vor jeder Löschung die Routine an: Standort prüfen → Ziel prüfen →
@@ -77,8 +77,6 @@ ls eingestuerzte-ecke/splitter
 cat eingestuerzte-ecke/splitter/rest.txt
 rm -r eingestuerzte-ecke
 ls
-cat notiz-aus-der-wand.txt
-flag-einreichen 'GEFUNDENE_FLAG'
 ```
 
 ```bash
@@ -87,6 +85,9 @@ cat original/erste-spur.txt
 cat sicherung/erste-spur-kopie.txt
 ls arbeitstisch/volle-kiste
 cat arbeitstisch/volle-kiste/inhalt.txt
+ls
+cat notiz-aus-der-wand.txt
+flag-einreichen 'GEFUNDENE_FLAG'
 ```
 
 </details>

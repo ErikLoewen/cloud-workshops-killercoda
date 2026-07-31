@@ -32,10 +32,10 @@ Flag ist dort noch nicht sichtbar. Der Hintergrundprozess wartet.
 - Namen `erste_spur.txt` und `erste Spur.txt`;
 - Datei mit falschem Inhalt;
 - falsche Flag-Abgabe;
-- CHECK ohne Abgabemarker.
+- CHECK ohne oder mit ungültigem Abgabemarker.
 
-Keiner dieser Zustände darf die Enthüllung beziehungsweise den erfolgreichen
-CHECK auslösen.
+Keiner dieser Zustände darf die Enthüllung beziehungsweise eine erfolgreiche
+Flag-Abgabe auslösen. Der CHECK selbst prüft nur deren Abgabemarker.
 
 ## Positiver Test
 

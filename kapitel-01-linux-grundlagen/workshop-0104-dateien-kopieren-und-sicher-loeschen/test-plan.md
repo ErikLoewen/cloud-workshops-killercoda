@@ -22,27 +22,21 @@
 10. Flag aus der neuen Notiz lesen und korrekt einreichen.
     Der Abgabemarker muss ohne Schreibzugriff auf den geschützten technischen
     Statusordner angelegt und atomar ersetzt werden können.
-11. Abschlusskopie erstellen; CHECK muss erfolgreich sein und wiederholt
-    read-only erfolgreich bleiben.
+11. Alle übrigen Kontrollen vor der Flag-Abgabe abschließen; nach erfolgreicher
+    Abgabe muss der CHECK sofort und wiederholt erfolgreich sein.
 
 ## Negative CHECK-Fälle
 
-12. Fehlendes, verändertes oder verlinktes Original ablehnen.
-13. Fehlende, falsche, symbolisch verlinkte oder hardverlinkte Kopie ablehnen.
-14. Jedes noch vorhandene Löschziel getrennt melden.
-15. Fehlende, veränderte, verlinkte oder ergänzte volle Kiste ablehnen.
-16. Fehlende, veränderte oder verlinkte Wandnotiz sowie eine fehlende oder
-    falsche Flag-Abgabe ablehnen.
-17. Veränderte Eigentümer oder Rechte des Originals ablehnen.
-18. Fehlende oder manipulierte Referenzdaten als technischen Fehler melden.
+12. CHECK ohne oder mit ungültigem Abgabemarker ablehnen.
+13. Nach erfolgreicher Flag-Abgabe keine weiteren Dateisystemkriterien prüfen.
 
 ## Teilnehmertexte und Plattform
 
-19. Keine alten Laborpfade oder Root-/Ubuntu-Prompts.
-20. Kein Löschbefehl mit ausführbarer Code-Aktion.
-21. Meme-Zeile nur in nicht kopierbarem `<pre><code>` und klarer Warnung.
-22. Alle `index.json`-Referenzen und lokalen Bildlinks prüfen.
-23. Intro- und Outrobild-Platzhalter eindeutig finden.
-24. Flagge erst nach Entfernung der eingestürzten Ecke sichtbar machen und als
+14. Keine alten Laborpfade oder Root-/Ubuntu-Prompts.
+15. Kein Löschbefehl mit ausführbarer Code-Aktion.
+16. Meme-Zeile nur in nicht kopierbarem `<pre><code>` und klarer Warnung.
+17. Alle `index.json`-Referenzen und lokalen Bildlinks prüfen.
+18. Intro- und Outrobild-Platzhalter eindeutig finden.
+19. Flagge erst nach Entfernung der eingestürzten Ecke sichtbar machen und als
     Voraussetzung des CHECKs prüfen.
-25. Vollständigen Killercoda-Lauf und Anfängerpilot manuell durchführen.
+20. Vollständigen Killercoda-Lauf und Anfängerpilot manuell durchführen.

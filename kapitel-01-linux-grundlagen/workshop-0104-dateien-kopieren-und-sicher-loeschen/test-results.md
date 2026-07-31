@@ -9,7 +9,8 @@
 - Referenzen aus `index.json`: vollständig
 - Suche nach alten Laborpfaden und inkonsistenten Prompts: keine Treffer
 - isolierter CHECK: Erfolg und unveränderte Wiederholung bestanden
-- negative CHECK-Fälle: fehlende Kopie und verändertes Original erkannt
+- ursprüngliche Endzustandsprüfungen: fehlende Kopie und verändertes Original
+  erkannt; seit 2.1.0 bewusst nicht mehr Teil des CHECKs
 - Ubuntu-24.04-Wegwerfcontainer: Setup zweimal, Benutzer, Hostname,
   Startstruktur, Originalschutz, vollständiger Lernweg und CHECK bestanden
 
@@ -29,6 +30,8 @@
 - CHECK und unveränderte Wiederholung: bestanden
 - Flag-Abgabe und Wiederholung bei vollständig gesperrtem technischem
   `/var/lib`-Statusordner: bestanden
+- CHECK ohne Abgabemarker abgelehnt: bestanden
+- CHECK mit gültigem Abgabemarker ohne weitere Dateisystemprüfung: bestanden
 
 Noch im echten Killercoda-Lauf zu prüfen: Terminalhinweis, Asset-Übertragung
 und Setup-Wiederholung mit installiertem `flag-einreichen`.

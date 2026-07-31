@@ -29,6 +29,6 @@ werden soll.
 | Keine Ausgabe bedeutet Fehler | Den Zustand kontrollieren. |
 | `rmdir` ist defekt | Inhalt zeigen und Schutzwirkung erklären lassen. |
 | `-f` repariert | Pfad, Objektart und eigentliche Fehlerursache prüfen. |
-| CHECK beweist den Ablauf | Endzustand und menschliche Sicherheitsleistung trennen. |
+| CHECK beweist den Ablauf | Der CHECK bestätigt nur die Flag-Abgabe; Lernweg und Sicherheitsleistung beobachten. |
 
 Hinweise gestuft öffnen: Konzept → Werkzeuge → Muster → vollständige Methode.

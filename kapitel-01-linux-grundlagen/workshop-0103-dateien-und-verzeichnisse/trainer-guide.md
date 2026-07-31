@@ -43,6 +43,6 @@ vorbereitete Fallbackdatei am nächsten Prompt genau einmal an.
 
 ## Prüfung
 
-Der CHECK bewertet den zentralen Endzustand und die Flag-Abgabe. Die
-Verwendung einzelner Lernbefehle und das Verständnis der Konzepte müssen
-beobachtet oder erfragt werden.
+Der CHECK bestätigt ausschließlich die erfolgreiche Flag-Abgabe. Die
+Dateioperationen, die Verwendung einzelner Lernbefehle und das Verständnis
+der Konzepte müssen beobachtet oder erfragt werden.

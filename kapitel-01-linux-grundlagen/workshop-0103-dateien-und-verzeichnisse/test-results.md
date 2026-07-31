@@ -46,3 +46,8 @@
 - echter Benutzer, Hostname, Startpfad und sauberer Prompt;
 - vollständiger Ablauf mit CHECK-Schaltfläche;
 - Zeitmessung und Anfängerpilot.
+
+## Änderung 2.1.0 – lokal geprüft
+
+- CHECK ohne Abgabemarker abgelehnt: bestanden
+- CHECK mit gültigem Abgabemarker ohne weitere Dateisystemprüfung: bestanden

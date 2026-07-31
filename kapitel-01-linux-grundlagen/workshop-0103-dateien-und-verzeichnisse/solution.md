@@ -48,4 +48,5 @@ Die konkrete Flag steht absichtlich nicht in dieser Musterlösung.
 Erst nach dem echten Verschieben erkennt das Hintergrundskript die
 vorbereitete Datei anhand von Gerät und Inode sowie ihres ursprünglichen
 Hashes. Es ersetzt den Inhalt atomar und erzeugt einen Enthüllungsmarker.
-Der technische CHECK verlangt zusätzlich die erfolgreiche Flag-Abgabe.
+`flag-einreichen` prüft die gefundene Zeichenfolge; der anschließende CHECK
+bestätigt ausschließlich diese erfolgreiche Abgabe.

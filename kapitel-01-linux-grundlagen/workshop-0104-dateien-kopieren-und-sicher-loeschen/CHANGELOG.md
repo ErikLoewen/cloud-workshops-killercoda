@@ -8,6 +8,8 @@
   vorhandener, nicht beschreibbarer Marker keinen Abbruch verursacht.
 - Abgabemarker aus dem plattformabhängig geschützten `/var/lib` in den
   beschreibbaren Kartenraum verlegt.
+- Flag-Abgabe als letzte Aufgabe angeordnet und CHECK auf ihren Abgabemarker
+  reduziert; danach bestehen keine weiteren Prüfkriterien.
 
 ## Version 2.0.0 – Kartenraum und sichere Spur
 
