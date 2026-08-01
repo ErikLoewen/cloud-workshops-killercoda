@@ -17,24 +17,23 @@ erfolgreichen Wechsel immer:
 <summary>Hinweis 1: Woran sollte ich zuerst denken?</summary>
 
 Unterscheide Benutzername und Kennwort. Der Kontoname ist an der Schalttafel
-sichtbar; das Kennwort muss aus einer hinterlassenen Nachricht abgeleitet
-werden.
+sichtbar; das Kennwort steht direkt in einer hinterlassenen Nachricht.
 
 </details>
 
 <details>
 <summary>Hinweis 2: Wo könnte ich suchen?</summary>
 
-Lies den zugänglichen Übergabe-Chat im Schalttafelverzeichnis. Achte auf zwei
-aufeinanderfolgende Begriffe.
+Lies den zugänglichen Übergabe-Chat im Schalttafelverzeichnis. Dort ist das
+Übergabekennwort direkt angegeben.
 
 </details>
 
 <details>
 <summary>Hinweis 3: Konkreter Lösungsansatz</summary>
 
-Setze „Sturm“ und „Licht“ klein und ohne Leerzeichen zusammen. Verwende den
-abgeleiteten Wert beim Wechsel mit `su - nachtwache`.
+Verwende das dort genannte Kennwort `sturmlicht` beim Wechsel mit
+`su - nachtwache`.
 
 </details>
 

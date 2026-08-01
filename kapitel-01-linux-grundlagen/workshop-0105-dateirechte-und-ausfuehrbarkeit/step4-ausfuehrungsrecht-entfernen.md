@@ -34,7 +34,6 @@ ls -l
 cat uebergabe-chat.log
 ```
 
-Die Nachricht umschreibt das Übergabekennwort mit „erst der Sturm, dann das
-Licht“, ohne es direkt auszuschreiben.
+Die Nachricht nennt das Übergabekennwort direkt: `sturmlicht`.
 
 </details>

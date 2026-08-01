@@ -23,8 +23,8 @@ set -Eeuo pipefail
 printf '%s\n' 'Signalprüfung erfolgreich: Die Schalttafel reagiert.'
 SCRIPT
 cat >"${panel}/uebergabe-chat.log" <<'LOG'
-Nachtwache: Das Übergabekennwort bleibt wie besprochen: erst der Sturm,
-dann das Licht. Ich ändere es nach der Schicht.
+Nachtwache: Das Übergabekennwort lautet: sturmlicht
+Ich ändere es nach der Schicht.
 LOG
 cat >"/home/nachtwache/dienst-chat.log" <<'LOG'
 Nachtwache: Tabitha, die Schalttafel hat deine letzte Nachricht übernommen.
