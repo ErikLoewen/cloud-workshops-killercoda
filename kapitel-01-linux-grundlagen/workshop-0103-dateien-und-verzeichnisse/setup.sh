@@ -85,6 +85,7 @@ PROFILE
 
 cat >"${lab_home}/.bashrc" <<'BASHRC'
 PS1='\u@\h:\w\$ '
+bind 'set echo-control-characters off'
 
 workshop_0103_notification() {
   local state_dir="/tmp/workshop-0103"

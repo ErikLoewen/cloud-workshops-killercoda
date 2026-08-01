@@ -47,6 +47,7 @@ clear 2>/dev/null || printf '\\033[2J\\033[H'
 PROFILE
 cat >"${lab_home}/.bashrc" <<'BASHRC'
 PS1='\u@\h:\w\$ '
+bind 'set echo-control-characters off'
 BASHRC
 
 if [[ -L "${lab_root}" ]]; then fail "Der Leuchtturmpfad ist ein symbolischer Link."; fi

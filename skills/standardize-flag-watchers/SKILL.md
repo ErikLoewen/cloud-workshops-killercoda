@@ -20,12 +20,21 @@ description: Standardisiert Flaggen, Flag-Abgaben, Hintergrund-Watcher, asynchro
 - Statusdateien atomar über eine temporäre Datei und `mv` schreiben.
 - Asynchrone Hinweise niemals ohne Zeilenbegrenzung auf ein TTY schreiben.
 - PID und TTY der interaktiven Bash gemeinsam bestimmen.
-- Vor und nach der Meldung `\r\n` ausgeben.
-- Danach `SIGWINCH` an die ermittelte Bash senden, damit Readline Prompt und
-  eine eventuell begonnene Eingabe neu zeichnet.
+- Vor der Meldung `\r\n` ausgeben.
+- Vor der Ausgabe mindestens zweimal prüfen, dass Bash schläft und selbst die
+  Vordergrund-Prozessgruppe des TTY ist. So wird kein laufender
+  Vordergrundbefehl unterbrochen.
+- Danach `SIGINT` direkt an die wartende Bash senden. Ein extern gesendetes
+  Signal beendet bei der geprüften Vordergrundlage keinen Lernendenbefehl und
+  lässt Bash zuverlässig einen vollständigen neuen Prompt ausgeben.
+- In der vom Setup erzeugten interaktiven `.bashrc`
+  `bind 'set echo-control-characters off'` setzen. Dadurch zeigt das für die
+  Neuzeichnung verwendete Signal kein verwirrendes `^C`.
 - Fehlt ein beschreibbares Teilnehmer-TTY, ohne Fehler weiterarbeiten und die
   Benachrichtigung bei Bedarf als Statusdatei für einen späteren Abruf erhalten.
-- Niemals `SIGINT`, Tastatureingaben oder einen nachgebauten `PS1` verwenden.
+- Niemals Tastatureingaben injizieren oder einen `PS1` nachbauen.
+- `SIGWINCH` nicht zur Prompt-Neuzeichnung verwenden; ohne echte
+  Größenänderung zeichnet Readline den Prompt nicht zuverlässig neu.
 
 Verbindliches TTY-Muster:
 
@@ -36,14 +45,32 @@ participant_shell="$(
 )" || true
 read -r participant_pid participant_tty <<<"${participant_shell}"
 
-if [[ -n "${participant_tty}" && -w "/dev/${participant_tty}" ]]; then
+shell_is_waiting=false
+stable_samples=0
+for _ in {1..100}; do
+  read -r shell_state foreground_group < <(
+    ps -o stat=,tpgid= -p "${participant_pid}" 2>/dev/null
+  ) || break
+  if [[ "${shell_state}" == S* && "${foreground_group}" == "${participant_pid}" ]]; then
+    ((stable_samples += 1))
+    if (( stable_samples >= 2 )); then
+      shell_is_waiting=true
+      break
+    fi
+  else
+    stable_samples=0
+  fi
+  sleep 0.05
+done
+
+if [[ "${shell_is_waiting}" == "true" &&
+  -n "${participant_tty}" && -w "/dev/${participant_tty}" ]]; then
   {
     printf '\r\n'
     cat "${notification}"
-    printf '\r\n'
   } >"/dev/${participant_tty}"
   [[ "${participant_pid}" =~ ^[0-9]+$ ]] &&
-    kill -WINCH "${participant_pid}" 2>/dev/null || true
+    kill -INT "${participant_pid}" 2>/dev/null || true
 fi
 ```
 
@@ -71,7 +98,9 @@ git diff --check
 Zusätzlich testen:
 
 - Watcher-Meldung beginnt getrennt vom vorhandenen Prompt.
-- Nach der Meldung erscheint ohne `Strg+C` eine neu gezeichnete Eingabezeile.
+- Nach der Meldung erscheint ohne Benutzereingabe und ohne sichtbares `^C`
+  der vollständige neue Prompt.
+- Ein während der Erkennung laufender Vordergrundbefehl wird nicht unterbrochen.
 - Falsche Flag wird abgelehnt und erzeugt keinen gültigen Status.
 - Korrekte Flag wird angenommen; der CHECK besteht sofort und wiederholt.
 - Nach erfolgreicher Flag-Abgabe beeinflussen andere Dateisystemzustände den

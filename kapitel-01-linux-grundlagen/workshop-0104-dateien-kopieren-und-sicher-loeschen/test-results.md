@@ -38,12 +38,13 @@ und Setup-Wiederholung mit installiertem `flag-einreichen`.
 
 ## Änderung 2.1.1 – lokal geprüft
 
-- Watcher-Ausgabe auf eigene Zeilen begrenzt und anschließende
-  Readline-Neuzeichnung per `SIGWINCH` ergänzt.
+- Watcher-Ausgabe auf eigene Zeilen begrenzt und die Prompt-Ausgabe nach
+  zweifacher Prüfung der wartenden Vordergrund-Bash per `SIGINT` ausgelöst.
+- Readline blendet das dabei sonst sichtbare Steuerzeichen `^C` aus.
 - Bash-Syntax aller betroffenen Setup-, Reveal-, Verify- und Abgabeskripte:
   bestanden.
 - `jq empty index.json`, Skill-Validierung und `git diff --check`: bestanden.
 - Der CHECK prüft weiterhin ausschließlich den erfolgreichen Flag-Status.
 
-Noch im echten Killercoda-Lauf zu prüfen: sichtbare Prompt-Neuzeichnung ohne
-`Strg+C` im Browserterminal.
+Noch im echten Killercoda-Lauf zu prüfen: sichtbare vollständige Prompt-Ausgabe
+ohne Benutzereingabe im Browserterminal.

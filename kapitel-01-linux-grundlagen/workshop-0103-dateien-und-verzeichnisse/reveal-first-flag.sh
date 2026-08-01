@@ -62,16 +62,31 @@ NOTICE
         awk '$2 != "?" && $3 == "bash" { print $1, $2; exit }'
     )" || true
     read -r participant_pid participant_tty <<<"${participant_shell}"
-    if [[ -n "${participant_tty}" && -w "/dev/${participant_tty}" ]]; then
-      # Die asynchrone Meldung vom bereits sichtbaren Prompt absetzen und
-      # Readline anschließend zum erneuten Zeichnen der Eingabezeile bewegen.
+    shell_is_waiting=false
+    stable_samples=0
+    for _ in {1..100}; do
+      read -r shell_state foreground_group < <(
+        ps -o stat=,tpgid= -p "${participant_pid}" 2>/dev/null
+      ) || break
+      if [[ "${shell_state}" == S* && "${foreground_group}" == "${participant_pid}" ]]; then
+        ((stable_samples += 1))
+        if (( stable_samples >= 2 )); then
+          shell_is_waiting=true
+          break
+        fi
+      else
+        stable_samples=0
+      fi
+      sleep 0.05
+    done
+    if [[ "${shell_is_waiting}" == "true" &&
+      -n "${participant_tty}" && -w "/dev/${participant_tty}" ]]; then
       {
         printf '\r\n'
         cat "${notification}"
-        printf '\r\n'
       } >"/dev/${participant_tty}"
       [[ "${participant_pid}" =~ ^[0-9]+$ ]] &&
-        kill -WINCH "${participant_pid}" 2>/dev/null || true
+        kill -INT "${participant_pid}" 2>/dev/null || true
       : >"${shown}"
       chown waerter:waerter "${shown}"
       chmod 0644 "${shown}"

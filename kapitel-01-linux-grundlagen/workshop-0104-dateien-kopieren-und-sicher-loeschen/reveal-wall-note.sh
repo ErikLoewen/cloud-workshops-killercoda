@@ -46,15 +46,32 @@ if command -v ps >/dev/null 2>&1; then
   )" || true
 fi
 read -r participant_pid participant_tty <<<"${participant_shell}"
-if [[ -n "${participant_tty}" && -w "/dev/${participant_tty}" ]]; then
+shell_is_waiting=false
+stable_samples=0
+for _ in {1..100}; do
+  read -r shell_state foreground_group < <(
+    ps -o stat=,tpgid= -p "${participant_pid}" 2>/dev/null
+  ) || break
+  if [[ "${shell_state}" == S* && "${foreground_group}" == "${participant_pid}" ]]; then
+    ((stable_samples += 1))
+    if (( stable_samples >= 2 )); then
+      shell_is_waiting=true
+      break
+    fi
+  else
+    stable_samples=0
+  fi
+  sleep 0.05
+done
+if [[ "${shell_is_waiting}" == "true" &&
+  -n "${participant_tty}" && -w "/dev/${participant_tty}" ]]; then
   {
     printf '\r\n'
     cat <<'NOTICE'
 [ Hinter der entfernten Ecke ist etwas Neues erschienen. ]
 [ Prüfe den Kartenraum mit ls und lies die neue Datei mit cat. ]
 NOTICE
-    printf '\r\n'
   } >"/dev/${participant_tty}"
   [[ "${participant_pid}" =~ ^[0-9]+$ ]] &&
-    kill -WINCH "${participant_pid}" 2>/dev/null || true
+    kill -INT "${participant_pid}" 2>/dev/null || true
 fi

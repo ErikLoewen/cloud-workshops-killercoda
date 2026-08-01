@@ -41,4 +41,6 @@
     Voraussetzung des CHECKs prüfen.
 20. Vollständigen Killercoda-Lauf und Anfängerpilot manuell durchführen.
 21. Watcher-Hinweis muss auf einer eigenen Zeile erscheinen und Bash muss den
-    Prompt ohne Strg+C unmittelbar danach neu zeichnen.
+    vollständigen Prompt ohne Benutzereingabe und ohne sichtbares `^C`
+    unmittelbar danach ausgeben.
+22. Ein laufender Vordergrundbefehl darf vom Watcher nicht unterbrochen werden.

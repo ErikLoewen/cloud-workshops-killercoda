@@ -3,7 +3,8 @@
 ## 2.1.1
 
 - Asynchrone Watcher-Meldung vom bestehenden Prompt getrennt und die
-  Bash-Eingabezeile anschließend automatisch neu zeichnen lassen.
+  nachweislich wartende Bash anschließend zuverlässig einen vollständigen
+  neuen Prompt ausgeben lassen.
 - Der CHECK bleibt bewusst ausschließlich von der erfolgreichen Flag-Abgabe
   abhängig.
 
