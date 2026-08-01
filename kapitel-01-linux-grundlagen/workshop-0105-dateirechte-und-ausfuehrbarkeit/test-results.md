@@ -1,35 +1,21 @@
 # Testprotokoll
 
-**Status:** noch nicht getestet
+## Lokal
 
-## Allgemeine Angaben
+- Bash-Syntax von `setup.sh`, `verify.sh` und `assets/flag-einreichen`:
+  bestanden.
+- `jq empty index.json`: bestanden.
+- Alle Text-, Foreground-, Verify-, Finish- und Asset-Referenzen: vorhanden.
+- Startbild, Rechteillustration und Endbild: gültige PNG-Dateien und in den
+  vorgesehenen Markdown-Dateien referenziert.
+- Suche nach `rechtelabor`, `/root`, alten Root-Prompts, `demo` und
+  `schutzbereich`: keine Treffer im aktuellen Workshopinhalt.
+- `git diff --check`: bestanden.
+- Vollständiger Mehrbenutzerlauf: lokal nicht ohne isolierte Root-Umgebung
+  ausführbar.
 
-- Datum:
-- Tester:
-- Umgebung:
-- Commit oder Version:
-- Besonderheiten:
+## Manuell erforderlich
 
-## Statische Prüfung
-
-| Testfall | Ergebnis | Befund |
-|---|---|---|
-|  |  |  |
-
-## Lokaler technischer Test
-
-| Testfall | Ergebnis | Befund |
-|---|---|---|
-|  |  |  |
-
-## Killercoda-Test
-
-| Testfall | Ergebnis | Befund |
-|---|---|---|
-|  |  |  |
-
-## Anfängerpilot
-
-| Testfall | Ergebnis | Befund |
-|---|---|---|
-|  |  |  |
+- vollständiger Killercoda-Lauf mit Passwortdialogen;
+- Darstellung aller drei Bilder;
+- Anfängerpilot und Zeitmessung.

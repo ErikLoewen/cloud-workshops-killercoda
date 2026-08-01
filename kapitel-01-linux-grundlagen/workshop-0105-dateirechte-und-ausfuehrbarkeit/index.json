@@ -1,39 +1,24 @@
 {
-  "title": "01.05 – Wer darf das ausführen?",
-  "description": "Grundlegende Dateirechte lesen, das Besitzer-Ausführungsrecht gezielt ändern und einen Schutzbereich unverändert lassen.",
+  "title": "01.05 – Gesperrtes Signal: Wer darf das ausführen?",
+  "description": "An der alten Schalttafel Dateirechte, Besitzer und Benutzergrenzen untersuchen und ein gesperrtes Signal freigeben.",
   "details": {
-    "intro": {
-      "text": "intro.md",
-      "foreground": "setup.sh"
-    },
+    "intro": { "text": "intro.md", "foreground": "setup.sh" },
     "steps": [
-      {
-        "title": "Rechteanzeige lesen",
-        "text": "step1-rechteanzeige-lesen.md"
-      },
-      {
-        "title": "Ausführbarkeit beobachten",
-        "text": "step2-ausfuehrbarkeit-beobachten.md"
-      },
-      {
-        "title": "Ausführungsrecht hinzufügen",
-        "text": "step3-ausfuehrungsrecht-hinzufuegen.md"
-      },
-      {
-        "title": "Ausführungsrecht entfernen",
-        "text": "step4-ausfuehrungsrecht-entfernen.md"
-      },
-      {
-        "title": "Abschlussaufgabe",
-        "text": "challenge.md",
-        "verify": "verify.sh"
-      }
+      { "title": "Rechte an der Schalttafel lesen", "text": "step1-rechteanzeige-lesen.md" },
+      { "title": "Das Signal testen", "text": "step2-ausfuehrbarkeit-beobachten.md" },
+      { "title": "Das Besitzerrecht ergänzen", "text": "step3-ausfuehrungsrecht-hinzufuegen.md" },
+      { "title": "Die Nachtwache finden", "text": "step4-ausfuehrungsrecht-entfernen.md" },
+      { "title": "Den zweiten Hinweis lesen", "text": "step5-nachtwache-hinweis.md" },
+      { "title": "Zu Mrs. A. H. wechseln", "text": "step6-mrs-ah.md" },
+      { "title": "Die letzte Nachricht ausführen", "text": "step7-letzte-nachricht.md" },
+      { "title": "Abschlussprüfung", "text": "challenge.md", "verify": "verify.sh" }
     ],
-    "finish": {
-      "text": "finish.md"
+    "finish": { "text": "finish.md" },
+    "assets": {
+      "host01": [
+        { "file": "flag-einreichen", "target": "/tmp/workshop-0105-assets", "chmod": "+x" }
+      ]
     }
   },
-  "backend": {
-    "imageid": "ubuntu"
-  }
+  "backend": { "imageid": "ubuntu" }
 }

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+readonly expected="FLAG{mrs_a_h_war_nie_ihr_name}"
+readonly signal="/home/waerter/leuchtturm/flur/schalttafel/signaltest"
+readonly final="/home/mrs_ah/letzte-nachricht"
+readonly submitted="/home/mrs_ah/.flag-submitted"
+(( $# == 1 )) || { printf '%s\n' "Aufruf: flag-einreichen 'GEFUNDENE_FLAG'" >&2; exit 2; }
+[[ "$1" == "${expected}" ]] || { printf '%s\n' 'Diese Flag ist nicht korrekt.' >&2; exit 1; }
+[[ -x "${signal}" && -f /var/lib/labforge/workshop-0105/signaltest.marker ]] ||
+  { printf '%s\n' 'Führe zuerst signaltest erfolgreich als waerter aus.' >&2; exit 1; }
+[[ -x "${final}" && -f /var/lib/labforge/workshop-0105/letzte-nachricht.marker ]] ||
+  { printf '%s\n' 'Führe zuerst letzte-nachricht erfolgreich als mrs_ah aus.' >&2; exit 1; }
+tmp="$(mktemp /home/mrs_ah/.flag-submitted.XXXXXX)"
+printf '%s\n' 'workshop-0105-flag-submitted' >"${tmp}"
+chmod 0640 "${tmp}"
+mv -f -- "${tmp}" "${submitted}"
+printf '%s\n' 'Flag angenommen. Du kannst jetzt den CHECK ausführen.'

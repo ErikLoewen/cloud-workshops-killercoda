@@ -1,77 +1,21 @@
-# Schritt 3: Das Ausführungsrecht des Besitzers ergänzen
+# Das Besitzerrecht ergänzen
 
-Nun ergänzt du genau ein Recht für genau einen Rechtebereich.
-
-## Den Befehl zerlegen
-
-```text
-chmod        u+x        ohne-ausfuehrungsrecht
-Befehl       Rechte-    Ziel
-             argument
-```
-
-`chmod` verändert Dateirechte. In diesem Workshop verändert der Befehl ausschließlich Rechte und niemals den Dateiinhalt.
-
-Das zusammengehörige Rechteargument `u+x` wird so gelesen:
-
-```text
-u        +              x
-Besitzer hinzufügen     ausführen
-```
-
-- `u` bezeichnet hier den Besitzerbereich.
-- `+` bedeutet innerhalb dieses Arguments: hinzufügen.
-- `x` bezeichnet das Ausführungsrecht.
-- `+` ist kein Rechenoperator.
-- `u+x` ist kein eigener Befehl.
-- `u+x` ist kein Shelloperator.
-- Gruppe und andere erhalten dadurch kein neues Recht.
-
-## Rechte gezielt ändern
-
-Gib selbst ein:
+`chmod u+x signaltest` fügt ausschließlich dem Besitzer das
+Ausführungsrecht hinzu. `u` meint den Besitzer der Datei – nicht automatisch
+die Person vor dem Bildschirm.
 
 ```bash
-chmod u+x ohne-ausfuehrungsrecht
-```
-
-Kontrolliere die Veränderung anschließend selbst:
-
-```bash
-ls -l
-```
-
-Erwarteter Rechteblock der Datei:
-
-```text
--rwxr--r--
-```
-
-Beobachte genau:
-
-- Nur eine Stelle wechselt von `-` zu `x`.
-- Diese Stelle liegt im Besitzerbereich.
-- Lesen und Schreiben des Besitzers bleiben erhalten.
-- Gruppe und andere bleiben unverändert.
-
-## Datei direkt ausführen
-
-Gib selbst ein:
-
-```bash
-./ohne-ausfuehrungsrecht
+chmod u+x signaltest
+ls -l signaltest
+./signaltest
 ```
 
 Erwartete Ausgabe:
 
 ```text
-Demo-Datei erfolgreich ausgeführt
+Signalprüfung erfolgreich: Die Schalttafel reagiert.
 ```
 
-## Erkläre
-
-> Warum funktioniert dieselbe Ausführungsform jetzt, obwohl der Dateiinhalt nicht verändert wurde?
-
-Eine passende Kernaussage lautet:
-
-> Das Ausführungsrecht des Besitzers wurde ergänzt.
+Nur im Besitzerblock ist nun `x` hinzugekommen. Mit `chmod u-x signaltest`
+könntest du genau dieses Recht wieder entfernen; für den weiteren Ablauf bleibt
+es gesetzt.

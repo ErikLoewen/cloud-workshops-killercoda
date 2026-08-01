@@ -1,124 +1,79 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-
-readonly LAB_ROOT='/root/rechtelabor'
-readonly STATE_ROOT='/var/lib/labforge/dateirechte-und-ausfuehrbarkeit'
-readonly REF_ROOT="${STATE_ROOT}/referenz"
-readonly MARKER="${STATE_ROOT}/auftrag-ausgefuehrt.marker"
-
-die() {
-  printf 'Setup-Fehler: %s\n' "$1" >&2
-  exit 1
-}
-
-safe_remove_tree() {
-  local path="$1"
-  local expected="$2"
-
-  [[ -n "$path" ]] || die 'Ein Bereinigungspfad ist leer.'
-  [[ "$path" == "$expected" ]] || die "Der Bereinigungspfad '$path' entspricht nicht dem erwarteten statischen Pfad '$expected'."
-
-  case "$path" in
-    /|/root|/var|/var/lib|.|..|\~)
-      die "Der Bereinigungspfad '$path' ist ausdrücklich gesperrt."
-      ;;
-  esac
-
-  [[ ! -L "$path" ]] || die "Der Laborstamm '$path' ist ein symbolischer Link und wird nicht bereinigt."
-
-  if [[ -e "$path" ]]; then
-    rm -rf -- "$path"
+readonly lab_user="waerter"
+readonly lab_home="/home/${lab_user}"
+readonly panel="${lab_home}/leuchtturm/flur/schalttafel"
+readonly state="/var/lib/labforge/workshop-0105"
+readonly asset="/tmp/workshop-0105-assets/flag-einreichen"
+fail() { printf 'Setup-Fehler: %s\n' "$1" >&2; exit 1; }
+for account in waerter nachtwache mrs_ah; do
+  getent group "${account}" >/dev/null 2>&1 || groupadd "${account}"
+  if ! id "${account}" >/dev/null 2>&1; then
+    useradd --create-home --shell /bin/bash --gid "${account}" "${account}"
   fi
-}
-
-require_regular_not_symlink() {
-  local path="$1"
-  [[ ! -L "$path" ]] || die "Der erwartete reguläre Pfad '$path' ist ein symbolischer Link."
-  [[ -f "$path" ]] || die "Die erwartete reguläre Datei '$path' fehlt."
-}
-
-mode_with_leading_zero() {
-  local path="$1"
-  local raw
-  raw="$(stat -c '%a' "$path")"
-  printf '0%s\n' "$raw"
-}
-
-safe_remove_tree "$LAB_ROOT" '/root/rechtelabor'
-safe_remove_tree "$STATE_ROOT" '/var/lib/labforge/dateirechte-und-ausfuehrbarkeit'
-
-readonly setup_uid="$(id -u)"
-readonly setup_gid="$(id -g)"
-
-mkdir -p \
-  "$LAB_ROOT/demo" \
-  "$LAB_ROOT/auftrag/arbeitsbereich" \
-  "$LAB_ROOT/auftrag/schutzbereich" \
-  "$REF_ROOT"
-
-cat > "$LAB_ROOT/demo/ohne-ausfuehrungsrecht" <<'EOF'
-#!/usr/bin/env bash
-printf '%s\n' 'Demo-Datei erfolgreich ausgeführt'
-EOF
-
-cat > "$LAB_ROOT/demo/bereits-ausfuehrbar" <<'EOF'
-#!/usr/bin/env bash
-printf '%s\n' 'Diese Demo-Datei ist bereits ausführbar'
-EOF
-
-cat > "$LAB_ROOT/auftrag/arbeitsbereich/pruefdatei" <<'EOF'
+  usermod --shell /bin/bash --gid "${account}" "${account}"
+done
+printf '%s\n' 'nachtwache:sturmlicht' 'mrs_ah:tabitha' | chpasswd
+printf '%s\n' 'leuchtturm' >/etc/hostname
+hostname leuchtturm 2>/dev/null || true
+rm -rf -- "${lab_home}/leuchtturm" "${state}"
+install -d -m 0755 -o waerter -g waerter "${panel}"
+install -d -m 0733 -o root -g root "${state}"
+cat >"${panel}/signaltest" <<'SCRIPT'
 #!/usr/bin/env bash
 set -Eeuo pipefail
-readonly MARKER='/var/lib/labforge/dateirechte-und-ausfuehrbarkeit/auftrag-ausgefuehrt.marker'
-printf '%s\n' 'Prüfdatei erfolgreich ausgeführt'
-printf '%s\n' 'ausgefuehrt' > "$MARKER"
-EOF
-
-cat > "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt" <<'EOF'
-Dieser Inhalt und diese Rechte bleiben unverändert
-EOF
-
-chown -R "${setup_uid}:${setup_gid}" "$LAB_ROOT" "$STATE_ROOT"
-
-chmod 0755 \
-  "$LAB_ROOT" \
-  "$LAB_ROOT/demo" \
-  "$LAB_ROOT/auftrag" \
-  "$LAB_ROOT/auftrag/arbeitsbereich" \
-  "$LAB_ROOT/auftrag/schutzbereich"
-
-chmod 0750 "$STATE_ROOT"
-chmod 0700 "$REF_ROOT"
-
-chmod 0644 "$LAB_ROOT/demo/ohne-ausfuehrungsrecht"
-chmod 0744 "$LAB_ROOT/demo/bereits-ausfuehrbar"
-chmod 0644 "$LAB_ROOT/auftrag/arbeitsbereich/pruefdatei"
-chmod 0644 "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt"
-
-rm -f -- "$MARKER"
-
-sha256sum "$LAB_ROOT/auftrag/arbeitsbereich/pruefdatei" | cut -d ' ' -f 1 > "$REF_ROOT/pruefdatei.sha256"
-sha256sum "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt" | cut -d ' ' -f 1 > "$REF_ROOT/wichtig.txt.sha256"
-printf '%s\n' "$setup_uid" > "$REF_ROOT/eigentuemer.uid"
-printf '%s\n' "$setup_gid" > "$REF_ROOT/gruppe.gid"
-mode_with_leading_zero "$LAB_ROOT/auftrag/arbeitsbereich/pruefdatei" > "$REF_ROOT/pruefdatei.modus"
-mode_with_leading_zero "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt" > "$REF_ROOT/wichtig.txt.modus"
-
-chown -R "${setup_uid}:${setup_gid}" "$STATE_ROOT"
-chmod 0400 "$REF_ROOT"/*
-
-require_regular_not_symlink "$LAB_ROOT/demo/ohne-ausfuehrungsrecht"
-require_regular_not_symlink "$LAB_ROOT/demo/bereits-ausfuehrbar"
-require_regular_not_symlink "$LAB_ROOT/auftrag/arbeitsbereich/pruefdatei"
-require_regular_not_symlink "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt"
-
-[[ "$(stat -c '%a' "$LAB_ROOT/demo/ohne-ausfuehrungsrecht")" == '644' ]] || die 'Der Ausgangsmodus der nicht ausführbaren Demo-Datei ist falsch.'
-[[ "$(stat -c '%a' "$LAB_ROOT/demo/bereits-ausfuehrbar")" == '744' ]] || die 'Der Ausgangsmodus der ausführbaren Demo-Datei ist falsch.'
-[[ "$(stat -c '%a' "$LAB_ROOT/auftrag/arbeitsbereich/pruefdatei")" == '644' ]] || die 'Der Ausgangsmodus der Auftragsdatei ist falsch.'
-[[ "$(stat -c '%a' "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt")" == '644' ]] || die 'Der Ausgangsmodus der Schutzdatei ist falsch.'
-[[ ! -e "$MARKER" && ! -L "$MARKER" ]] || die 'Der Ausführungsmarker darf nach dem Setup nicht existieren.'
-
-[[ "$(stat -c '%u' "$LAB_ROOT/auftrag/arbeitsbereich/pruefdatei")" == "$setup_uid" ]] || die 'Die Besitzer-UID der Auftragsdatei ist nicht reproduzierbar.'
-[[ "$(stat -c '%g' "$LAB_ROOT/auftrag/arbeitsbereich/pruefdatei")" == "$setup_gid" ]] || die 'Die Gruppen-GID der Auftragsdatei ist nicht reproduzierbar.'
-[[ "$(stat -c '%u' "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt")" == "$setup_uid" ]] || die 'Die Besitzer-UID der Schutzdatei ist nicht reproduzierbar.'
-[[ "$(stat -c '%g' "$LAB_ROOT/auftrag/schutzbereich/wichtig.txt")" == "$setup_gid" ]] || die 'Die Gruppen-GID der Schutzdatei ist nicht reproduzierbar.'
+printf '%s\n' 'Signalprüfung erfolgreich: Die Schalttafel reagiert.'
+printf '%s\n' 'signaltest-ausgefuehrt' >"/var/lib/labforge/workshop-0105/signaltest.marker"
+SCRIPT
+cat >"${panel}/uebergabe-chat.log" <<'LOG'
+Nachtwache: Das Übergabekennwort bleibt vorerst sturmlicht.
+Waerter: Zugangsdaten gehören nicht in diesen Chat. Entferne die Nachricht.
+LOG
+cat >"/home/nachtwache/hinweis-fuer-mrs-ah.log" <<'LOG'
+Mrs. A. H., Tabitha, du kannst deinen Vornamen nicht als Passwort benutzen.
+Bitte ändere das endlich.
+LOG
+cat >"/home/mrs_ah/letzte-nachricht" <<'SCRIPT'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+printf '%s\n' 'Die Schalttafel entriegelt die nächste Spur:'
+printf '%s\n' 'FLAG{mrs_a_h_war_nie_ihr_name}'
+printf '%s\n' 'letzte-nachricht-ausgefuehrt' >"/var/lib/labforge/workshop-0105/letzte-nachricht.marker"
+SCRIPT
+chown waerter:waerter "${panel}/signaltest"
+chown nachtwache:nachtwache "${panel}/uebergabe-chat.log" "/home/nachtwache/hinweis-fuer-mrs-ah.log"
+chown mrs_ah:mrs_ah "/home/mrs_ah/letzte-nachricht"
+chmod 0644 "${panel}/signaltest" "${panel}/uebergabe-chat.log" \
+  "/home/nachtwache/hinweis-fuer-mrs-ah.log" "/home/mrs_ah/letzte-nachricht"
+chmod 0755 "${lab_home}/leuchtturm" "${lab_home}/leuchtturm/flur" "${panel}"
+chmod 0755 "${lab_home}"
+chmod 0750 "/home/nachtwache" "/home/mrs_ah"
+rm -f -- "/home/mrs_ah/.flag-submitted"
+[[ -f "${asset}" && ! -L "${asset}" ]] || fail "flag-einreichen fehlt."
+install -m 0755 -o root -g root "${asset}" /usr/local/bin/flag-einreichen
+cat >"${lab_home}/.bash_profile" <<PROFILE
+if [[ -f "\${HOME}/.bashrc" ]]; then source "\${HOME}/.bashrc"; fi
+cd "${panel}"
+clear 2>/dev/null || printf '\\033[2J\\033[H'
+PROFILE
+cat >"${lab_home}/.bashrc" <<'BASHRC'
+PS1='\u@\h:\w\$ '
+BASHRC
+for account in nachtwache mrs_ah; do
+  cat >"/home/${account}/.bash_profile" <<'PROFILE'
+if [[ -f "${HOME}/.bashrc" ]]; then source "${HOME}/.bashrc"; fi
+cd "${HOME}"
+PROFILE
+  cat >"/home/${account}/.bashrc" <<'BASHRC'
+PS1='\u@\h:\w\$ '
+BASHRC
+done
+chown waerter:waerter "${lab_home}/.bash_profile" "${lab_home}/.bashrc"
+chown nachtwache:nachtwache /home/nachtwache/.bash_profile /home/nachtwache/.bashrc
+chown mrs_ah:mrs_ah /home/mrs_ah/.bash_profile /home/mrs_ah/.bashrc
+[[ "$(stat -c '%U:%G:%a' "${panel}/signaltest")" == "waerter:waerter:644" ]] ||
+  fail "signaltest besitzt einen falschen Ausgangszustand."
+[[ "$(stat -c '%U:%G:%a' "/home/mrs_ah/letzte-nachricht")" == "mrs_ah:mrs_ah:644" ]] ||
+  fail "letzte-nachricht besitzt einen falschen Ausgangszustand."
+clear 2>/dev/null || printf '\033[2J\033[H'
+exec su - "${lab_user}"

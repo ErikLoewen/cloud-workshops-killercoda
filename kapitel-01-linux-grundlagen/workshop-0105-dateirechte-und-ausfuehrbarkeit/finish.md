@@ -1,45 +1,20 @@
-# Abschluss: Rechte lesen, gezielt ändern und prüfen
+# Die Schalttafel gibt den Weg frei
 
-Du hast eine Rechteanzeige gelesen, einen erwarteten Berechtigungsfehler beobachtet, das Besitzer-Ausführungsrecht ergänzt, eine vorbereitete Datei direkt ausgeführt und das Recht im Demo wieder entfernt.
+Die alte Schalttafel hat eine weitere Spur freigegeben. Hinter dem System
+stehen verschiedene Benutzer, Besitzer und Zugriffsgrenzen – und die
+Anmeldung entscheidet mit darüber, was verändert oder ausgeführt werden darf.
 
-## Die sechs Kernideen
+![Die Eingangstür des Leuchtturms steht offen; auf dem Rechner an der Schalttafel leuchtet die gefundene Flag.](./assets/0105-abschluss-offene-tuer.png)
 
-1. **Dateirechte:** Regeln für mögliche Handlungen mit einer Datei.
-2. **Rechteanzeige:** Der erste Kernblock von `ls -l` zeigt Objekttyp und Grundrechte.
-3. **Lesen, Schreiben und Ausführen:** `r`, `w` und `x`.
-4. **Besitzer, Gruppe und andere:** drei Dreiergruppen nach dem ersten Zeichen.
-5. **Symbolische Rechteänderung:** `u+x` fügt das Besitzer-Ausführungsrecht hinzu, `u-x` entfernt es.
-6. **Ausführen über einen relativen Pfad:** `./dateiname` verweist auf eine Datei im aktuellen Verzeichnis.
+## Rufe das Wichtigste ab
 
-## Wirkungsmodell
+1. Welche Bereiche folgen in `-rw-r-----` auf den Dateityp?
+2. Wofür stehen `r`, `w` und `x`?
+3. Warum konnte eine lesbare Datei trotzdem nicht mit `./dateiname` starten?
+4. Wen bezeichnet `u` in `chmod u+x`?
+5. Warum hast du nach jedem `su - BENUTZER` erneut `whoami` und `pwd`
+   geprüft?
+6. Warum dürfen Passwörter nicht in Logs oder Chatnachrichten stehen?
 
-```text
-Dateiinhalt
-    +
-Dateirechte
-    ↓
-bestimmen gemeinsam, welche Handlung mit der Datei möglich ist
-```
-
-`cat` zeigt einen Inhalt, führt die Datei aber nicht aus. `chmod` verändert in diesem Workshop Rechte, nicht den Dateiinhalt.
-
-## Rufe das Wissen ab
-
-Beantworte ohne zur Lösung zurückzuscrollen:
-
-1. Welches Zeichen gehört nicht zu den neun Rechtepositionen?
-2. Welche drei Rechtebereiche folgen danach?
-3. Wofür stehen `r`, `w` und `x`?
-4. Was bedeutet ein Bindestrich innerhalb einer Dreiergruppe?
-5. Was bedeutet `u` in `u+x`?
-6. Was bewirkt `u-x`?
-7. Wofür steht `./`?
-8. Warum erhält nur der Besitzer ein neues Ausführungsrecht?
-9. Warum ist `cat` keine Ausführung?
-10. Was kann der technische CHECK nicht über deinen Lösungsweg beweisen?
-
-## Sicherheitsgrundsatz
-
-> Ergänze nur das Recht, das für die konkrete Aufgabe benötigt wird, und nur für den vorgesehenen Rechtebereich.
-
-Der technische CHECK bestätigt ausschließlich den vorgesehenen Endzustand. Verständnis, Diagnose und selbstständiges Vorgehen müssen zusätzlich erklärt und beobachtet werden.
+Die letzte Nachricht bleibt eine Spur. Was hinter ihr liegt, klärt der nächste
+Abschnitt der Geschichte.
