@@ -46,6 +46,10 @@ Flag-Abgabe auslösen. Der CHECK selbst prüft nur deren Abgabemarker.
 4. Flag exakt mit `flag-einreichen` abgeben.
 5. `verify.sh` ausführen.
 
+Der vollständige Abschluss-Walkthrough muss die Schritte `cat`,
+`flag-einreichen 'GEFUNDENE_FLAG'` und anschließend CHECK in dieser Reihenfolge
+enthalten.
+
 ## Wiederholbarkeit
 
 - Hintergrundskript erneut starten;

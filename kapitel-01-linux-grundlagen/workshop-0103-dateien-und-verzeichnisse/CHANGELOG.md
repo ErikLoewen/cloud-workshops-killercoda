@@ -1,5 +1,10 @@
 # Changelog
 
+## Walkthrough vereinheitlicht
+
+- Vollständigen Abschlussablauf um `cat`,
+  `flag-einreichen 'GEFUNDENE_FLAG'` und den anschließenden CHECK ergänzt.
+
 ## 2.1.0 – 2026-07-31
 
 - CHECK auf die zuvor erfolgreich angenommene Flag reduziert; nach der

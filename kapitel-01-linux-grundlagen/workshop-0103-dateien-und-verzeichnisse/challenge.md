@@ -60,14 +60,16 @@ Das Ziel liegt unter
 </details>
 
 <details>
-<summary>Hinweis 4 – vollständiger Verschiebebefehl</summary>
+<summary>Hinweis 4 – vollständiger Ablauf</summary>
 
-```text
+```bash
 mv /home/waerter/leuchtturm/untergeschoss/lagerraum/archiv/letzter_eintrag.txt /home/waerter/leuchtturm/obergeschoss/kartenraum/erste-spur.txt
+cat /home/waerter/leuchtturm/obergeschoss/kartenraum/erste-spur.txt
+flag-einreichen 'GEFUNDENE_FLAG'
 ```
 
 Der erste Pfad bezeichnet die vorhandene Quelle. Der zweite Pfad legt Ort
-und neuen Namen fest. Lies danach `erste-spur.txt` im Kartenraum erneut mit
-`cat` und reiche den gefundenen Text mit `flag-einreichen` ein.
+und neuen Namen fest. Ersetze bei der Abgabe `GEFUNDENE_FLAG` durch den
+vollständigen Flag-Text aus der Ausgabe von `cat` und starte danach den CHECK.
 
 </details>

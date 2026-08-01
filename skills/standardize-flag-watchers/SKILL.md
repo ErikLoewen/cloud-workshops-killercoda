@@ -86,6 +86,12 @@ fi
   das Lesen der Flag-Datei sowie die Abgabe als nächsten Schritt.
 - Teilnehmertext, Musterlösung, Trainerleitfaden und Testplan müssen die Grenze
   des CHECKs ausdrücklich benennen.
+- Jeder Abschluss-Walkthrough eines Flag-Workshops muss den gesamten letzten
+  Ablauf explizit und in dieser Reihenfolge zeigen: Flag-Datei mit `cat` lesen,
+  `flag-einreichen 'GEFUNDENE_FLAG'` ausführen, danach den CHECK starten.
+- `GEFUNDENE_FLAG` bleibt ein klar erkennbarer Platzhalter; die konkrete Flag
+  nur in einer internen Musterlösung zeigen, wenn dies ausdrücklich vorgesehen
+  ist.
 
 ## Mindesttests
 
