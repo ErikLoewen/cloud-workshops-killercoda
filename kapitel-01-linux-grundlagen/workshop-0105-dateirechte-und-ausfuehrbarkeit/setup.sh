@@ -3,7 +3,6 @@ set -Eeuo pipefail
 readonly lab_user="waerter"
 readonly lab_home="/home/${lab_user}"
 readonly panel="${lab_home}/leuchtturm/flur/schalttafel"
-readonly state="/var/lib/labforge/workshop-0105"
 readonly asset="/tmp/workshop-0105-assets/flag-einreichen"
 fail() { printf 'Setup-Fehler: %s\n' "$1" >&2; exit 1; }
 for account in waerter nachtwache mrs_ah; do
@@ -16,35 +15,38 @@ done
 printf '%s\n' 'nachtwache:sturmlicht' 'mrs_ah:tabitha' | chpasswd
 printf '%s\n' 'leuchtturm' >/etc/hostname
 hostname leuchtturm 2>/dev/null || true
-rm -rf -- "${lab_home}/leuchtturm" "${state}"
+rm -rf -- "${lab_home}/leuchtturm"
 install -d -m 0755 -o waerter -g waerter "${panel}"
-install -d -m 0733 -o root -g root "${state}"
 cat >"${panel}/signaltest" <<'SCRIPT'
 #!/usr/bin/env bash
 set -Eeuo pipefail
 printf '%s\n' 'Signalprüfung erfolgreich: Die Schalttafel reagiert.'
-printf '%s\n' 'signaltest-ausgefuehrt' >"/var/lib/labforge/workshop-0105/signaltest.marker"
 SCRIPT
 cat >"${panel}/uebergabe-chat.log" <<'LOG'
-Nachtwache: Das Übergabekennwort bleibt vorerst sturmlicht.
-Waerter: Zugangsdaten gehören nicht in diesen Chat. Entferne die Nachricht.
+Nachtwache: Das Übergabekennwort bleibt wie besprochen: erst der Sturm,
+dann das Licht. Ich ändere es nach der Schicht.
 LOG
-cat >"/home/nachtwache/hinweis-fuer-mrs-ah.log" <<'LOG'
-Mrs. A. H., Tabitha, du kannst deinen Vornamen nicht als Passwort benutzen.
-Bitte ändere das endlich.
+cat >"/home/nachtwache/dienst-chat.log" <<'LOG'
+Nachtwache: Tabitha, die Schalttafel hat deine letzte Nachricht übernommen.
+Mrs. A. H.: Gut. Ich prüfe sie später selbst.
+LOG
+cat >"/home/nachtwache/sicherheitsnotiz.log" <<'LOG'
+Waerter: An euch beide: Vornamen haben in Passwörtern nichts verloren.
+Ändert solche Kennwörter und schreibt Zugangsdaten nicht in Nachrichten.
 LOG
 cat >"/home/mrs_ah/letzte-nachricht" <<'SCRIPT'
 #!/usr/bin/env bash
 set -Eeuo pipefail
 printf '%s\n' 'Die Schalttafel entriegelt die nächste Spur:'
 printf '%s\n' 'FLAG{mrs_a_h_war_nie_ihr_name}'
-printf '%s\n' 'letzte-nachricht-ausgefuehrt' >"/var/lib/labforge/workshop-0105/letzte-nachricht.marker"
 SCRIPT
 chown waerter:waerter "${panel}/signaltest"
-chown nachtwache:nachtwache "${panel}/uebergabe-chat.log" "/home/nachtwache/hinweis-fuer-mrs-ah.log"
+chown nachtwache:nachtwache "${panel}/uebergabe-chat.log" \
+  "/home/nachtwache/dienst-chat.log" "/home/nachtwache/sicherheitsnotiz.log"
 chown mrs_ah:mrs_ah "/home/mrs_ah/letzte-nachricht"
 chmod 0644 "${panel}/signaltest" "${panel}/uebergabe-chat.log" \
-  "/home/nachtwache/hinweis-fuer-mrs-ah.log" "/home/mrs_ah/letzte-nachricht"
+  "/home/nachtwache/dienst-chat.log" "/home/nachtwache/sicherheitsnotiz.log" \
+  "/home/mrs_ah/letzte-nachricht"
 chmod 0755 "${lab_home}/leuchtturm" "${lab_home}/leuchtturm/flur" "${panel}"
 chmod 0755 "${lab_home}"
 chmod 0750 "/home/nachtwache" "/home/mrs_ah"

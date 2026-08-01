@@ -1,13 +1,19 @@
-# Den zweiten Hinweis lesen
+# Zwei getrennte Hinweise
 
-Zeige die Dateien der Nachtwache mit `ls -l` an und lies anschließend:
+Zeige als `nachtwache` zunächst die vorhandenen Dateien:
+
+`ls -l`{{exec}}
+
+Lies dann beide Logs:
 
 ```bash
-cat hinweis-fuer-mrs-ah.log
+cat dienst-chat.log
+cat sicherheitsnotiz.log
 ```
 
-Der Text spricht Mrs. A. H. mit `Tabitha` an und warnt davor, den Vornamen
-als Passwort zu benutzen. Welche problematische Vermutung legt das nahe?
+Der erste Log nennt Mrs. A. H. bei ihrem Vornamen. Der zweite enthält eine
+allgemeine Ermahnung des Wärters an beide: Vornamen gehören nicht in
+Passwörter. Erst zusammen ergeben die getrennten Nachrichten eine Vermutung
+für das nächste Kennwort.
 
-Auch dieser Hinweis zeigt unsicheres Verhalten: Ein erratbares Passwort ist
-kein gutes Passwort.
+Erkläre: Warum ist bereits dieser erratbare Zusammenhang ein Sicherheitsfehler?

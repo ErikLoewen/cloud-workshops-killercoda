@@ -7,4 +7,4 @@ if [[ ! -f "${submitted}" || -L "${submitted}" ]] ||
   printf '%s\n' "Nächster Schritt: Führe letzte-nachricht aus und nutze flag-einreichen 'GEFUNDENE_FLAG'."
   exit 1
 fi
-printf '%s\n' 'CHECK erfolgreich: Beide Signale wurden ausführbar gemacht, ausgeführt und die Flag wurde korrekt eingereicht.'
+printf '%s\n' 'CHECK erfolgreich: Die Abschlussflagge wurde korrekt eingereicht.'

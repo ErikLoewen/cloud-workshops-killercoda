@@ -18,6 +18,6 @@ Benutzerwechsel mit `whoami` und `pwd`.
 
 ## CHECK-Grenze
 
-Der CHECK bestätigt nur die Flag-Abgabe. Das Abgabewerkzeug prüft davor, dass
-beide vorgesehenen Dateien ausführbar gemacht und ausgeführt wurden.
-Begriffsverständnis und bewusste Benutzerkontrolle bleiben Beobachtungsziele.
+Der CHECK bestätigt nur die Flag-Abgabe; auch `flag-einreichen` prüft keine
+früheren Lernhandlungen. Rechteänderungen, Ausführungen, Begriffsverständnis
+und bewusste Benutzerkontrolle bleiben Beobachtungsziele.

@@ -1,17 +1,30 @@
 # Zu Mrs. A. H. wechseln
 
-Wechsle mit der abgeleiteten Zugangsinformation:
+Leite aus den beiden Logs ein mögliches Kennwort ab und versuche:
 
 ```bash
 su - mrs_ah
 ```
 
-Verwende bei der Passwortabfrage `tabitha`. Kontrolliere anschließend wieder:
+Kontrolliere nach dem erfolgreichen Wechsel wieder:
 
 ```bash
 whoami
 pwd
 ```
 
-Erwartet werden `mrs_ah` und `/home/mrs_ah`. Der erneute Check verhindert,
-dass du Rechte unter der falschen Identität veränderst.
+<details>
+<summary>Hinweis 1 – Informationen verbinden</summary>
+
+Welchen Vornamen verwendet die Nachtwache im `dienst-chat.log`? Welche
+Kennwortregel kritisiert der Wärter separat in `sicherheitsnotiz.log`?
+
+</details>
+
+<details>
+<summary>Hinweis 2 – Kennwort</summary>
+
+Das Kennwort lautet `tabitha`. Bei Passwörtern wird Groß- und
+Kleinschreibung unterschieden.
+
+</details>

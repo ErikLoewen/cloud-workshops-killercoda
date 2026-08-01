@@ -13,12 +13,13 @@
 3. `signaltest` vor `chmod` ablehnen, danach ausführen.
 4. Mit Passwort `sturmlicht` zu `nachtwache` wechseln.
 5. Zweiten Hinweis lesen und mit `tabitha` zu `mrs_ah` wechseln.
-6. `letzte-nachricht` vor `chmod` ablehnen, danach ausführen.
+6. `letzte-nachricht` erst in der Abschlussprüfung vor `chmod` ablehnen,
+   danach ausführen und die Flag erstmals anzeigen.
 7. Falsche Flag ablehnen, korrekte Flag annehmen und CHECK wiederholt bestehen.
 
 ## Negative Fälle
 
-- Flag-Abgabe ohne einen der Ausführungsnachweise ablehnen.
+- Korrekte Flag unabhängig von früheren technischen Lernwegzuständen annehmen.
 - CHECK ohne oder mit falschem Marker ablehnen.
 - Andere Benutzer dürfen nicht `chmod u+x` an einer fremden Zieldatei
   erfolgreich durchführen.
@@ -28,3 +29,5 @@
 - Passwortdialoge, unsichtbare Passworteingabe und verschachtelte
   `su`-Sitzungen prüfen.
 - Bilddarstellung, Prompt, Anfängerführung und Gesamtzeit testen.
+- Alle vier Hinweisstufen und den vollständigen Walkthrough der
+  Abschlussprüfung testen.

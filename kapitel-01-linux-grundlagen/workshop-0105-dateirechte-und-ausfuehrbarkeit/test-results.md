@@ -11,6 +11,10 @@
 - Suche nach `rechtelabor`, `/root`, alten Root-Prompts, `demo` und
   `schutzbereich`: keine Treffer im aktuellen Workshopinhalt.
 - `git diff --check`: bestanden.
+- Abschlussprüfung mit vier Hinweisstufen und vollständigem Flag-Walkthrough:
+  statisch geprüft.
+- `flag-einreichen` vergleicht ausschließlich die Flag; der CHECK liest
+  ausschließlich den atomaren Abgabemarker.
 - Vollständiger Mehrbenutzerlauf: lokal nicht ohne isolierte Root-Umgebung
   ausführbar.
 

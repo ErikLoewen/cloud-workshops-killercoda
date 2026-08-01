@@ -10,8 +10,7 @@
       { "title": "Die Nachtwache finden", "text": "step4-ausfuehrungsrecht-entfernen.md" },
       { "title": "Den zweiten Hinweis lesen", "text": "step5-nachtwache-hinweis.md" },
       { "title": "Zu Mrs. A. H. wechseln", "text": "step6-mrs-ah.md" },
-      { "title": "Die letzte Nachricht ausführen", "text": "step7-letzte-nachricht.md" },
-      { "title": "Abschlussprüfung", "text": "challenge.md", "verify": "verify.sh" }
+      { "title": "Abschlussprüfung: die letzte Nachricht", "text": "challenge.md", "verify": "verify.sh" }
     ],
     "finish": { "text": "finish.md" },
     "assets": {

@@ -8,3 +8,6 @@
   verbunden.
 - Flag-Abgabe und CHECK an den Repository-Standard angeglichen.
 - Startbild, Rechteillustration und Endbild eingebunden.
+- Flag-Abgabe und CHECK auf die Flag beschränkt; letzte Rechteaufgabe in die
+  Abschlussprüfung mit vier Hinweisstufen verschoben.
+- Getrennte Logs für Vorname und Passwort-Ermahnung eingeführt.
