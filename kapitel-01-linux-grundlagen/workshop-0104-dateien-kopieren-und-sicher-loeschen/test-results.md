@@ -35,3 +35,15 @@
 
 Noch im echten Killercoda-Lauf zu prüfen: Terminalhinweis, Asset-Übertragung
 und Setup-Wiederholung mit installiertem `flag-einreichen`.
+
+## Änderung 2.1.1 – lokal geprüft
+
+- Watcher-Ausgabe auf eigene Zeilen begrenzt und anschließende
+  Readline-Neuzeichnung per `SIGWINCH` ergänzt.
+- Bash-Syntax aller betroffenen Setup-, Reveal-, Verify- und Abgabeskripte:
+  bestanden.
+- `jq empty index.json`, Skill-Validierung und `git diff --check`: bestanden.
+- Der CHECK prüft weiterhin ausschließlich den erfolgreichen Flag-Status.
+
+Noch im echten Killercoda-Lauf zu prüfen: sichtbare Prompt-Neuzeichnung ohne
+`Strg+C` im Browserterminal.

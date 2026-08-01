@@ -57,12 +57,21 @@ NOTICE
     chmod 0644 "${notification_tmp}"
     mv -f -- "${notification_tmp}" "${notification}"
 
-    participant_tty="$(
-      ps -u waerter -o tty=,comm= 2>/dev/null |
-        awk '$1 != "?" && $2 == "bash" { print $1; exit }'
-    )"
+    participant_shell="$(
+      ps -u waerter -o pid=,tty=,comm= 2>/dev/null |
+        awk '$2 != "?" && $3 == "bash" { print $1, $2; exit }'
+    )" || true
+    read -r participant_pid participant_tty <<<"${participant_shell}"
     if [[ -n "${participant_tty}" && -w "/dev/${participant_tty}" ]]; then
-      cat "${notification}" >"/dev/${participant_tty}"
+      # Die asynchrone Meldung vom bereits sichtbaren Prompt absetzen und
+      # Readline anschließend zum erneuten Zeichnen der Eingabezeile bewegen.
+      {
+        printf '\r\n'
+        cat "${notification}"
+        printf '\r\n'
+      } >"/dev/${participant_tty}"
+      [[ "${participant_pid}" =~ ^[0-9]+$ ]] &&
+        kill -WINCH "${participant_pid}" 2>/dev/null || true
       : >"${shown}"
       chown waerter:waerter "${shown}"
       chmod 0644 "${shown}"

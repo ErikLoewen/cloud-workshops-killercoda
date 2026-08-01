@@ -19,6 +19,10 @@ Befehlsfolge:
     `flag-einreichen 'GEFUNDENE_FLAG'` ein.
 11. Starte den CHECK.
 
+Der CHECK bestätigt ausschließlich, dass du die gefundene Flagge erfolgreich
+eingereicht hast. Er prüft weder deine Befehlsreihenfolge noch die übrigen
+Dateisystemzustände; kontrolliere diese deshalb vor der Flag-Abgabe selbst.
+
 Wende vor jeder Löschung die Routine an: Standort prüfen → Ziel prüfen →
 Wirkung vorhersagen → Befehl selbst tippen → Ergebnis kontrollieren.
 

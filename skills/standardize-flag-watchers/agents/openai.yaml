@@ -1,0 +1,4 @@
+interface:
+  display_name: "Flaggen und Watcher standardisieren"
+  short_description: "Einheitliche Flag-, Watcher- und CHECK-Logik"
+  default_prompt: "Use $standardize-flag-watchers to implement or review a Killercoda flag watcher and its CHECK."

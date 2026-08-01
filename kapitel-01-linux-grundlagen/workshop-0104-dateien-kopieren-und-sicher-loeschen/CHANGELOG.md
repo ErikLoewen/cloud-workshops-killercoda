@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.1
+
+- Asynchrone Watcher-Meldung vom bestehenden Prompt getrennt und die
+  Bash-Eingabezeile anschließend automatisch neu zeichnen lassen.
+- Der CHECK bleibt bewusst ausschließlich von der erfolgreichen Flag-Abgabe
+  abhängig.
+
 ## 2.1.0
 
 - Flagge aus der Finish-Seite in eine nach dem Räumen unmittelbar erscheinende

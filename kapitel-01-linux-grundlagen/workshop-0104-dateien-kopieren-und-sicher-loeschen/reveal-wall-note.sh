@@ -38,17 +38,23 @@ chown root:root "${marker_tmp}"
 chmod 0400 "${marker_tmp}"
 mv -f -- "${marker_tmp}" "${revealed}"
 
-participant_tty=""
+participant_shell=""
 if command -v ps >/dev/null 2>&1; then
-  participant_tty="$(
-    ps -u waerter -o tty=,comm= 2>/dev/null |
-      awk '$1 != "?" && $2 == "bash" { print $1; exit }'
+  participant_shell="$(
+    ps -u waerter -o pid=,tty=,comm= 2>/dev/null |
+      awk '$2 != "?" && $3 == "bash" { print $1, $2; exit }'
   )" || true
 fi
+read -r participant_pid participant_tty <<<"${participant_shell}"
 if [[ -n "${participant_tty}" && -w "/dev/${participant_tty}" ]]; then
-  cat >"/dev/${participant_tty}" <<'NOTICE'
-
+  {
+    printf '\r\n'
+    cat <<'NOTICE'
 [ Hinter der entfernten Ecke ist etwas Neues erschienen. ]
 [ Prüfe den Kartenraum mit ls und lies die neue Datei mit cat. ]
 NOTICE
+    printf '\r\n'
+  } >"/dev/${participant_tty}"
+  [[ "${participant_pid}" =~ ^[0-9]+$ ]] &&
+    kill -WINCH "${participant_pid}" 2>/dev/null || true
 fi

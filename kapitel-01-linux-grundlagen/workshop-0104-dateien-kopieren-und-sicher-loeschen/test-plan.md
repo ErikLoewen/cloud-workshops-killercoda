@@ -40,3 +40,5 @@
 19. Flagge erst nach Entfernung der eingestürzten Ecke sichtbar machen und als
     Voraussetzung des CHECKs prüfen.
 20. Vollständigen Killercoda-Lauf und Anfängerpilot manuell durchführen.
+21. Watcher-Hinweis muss auf einer eigenen Zeile erscheinen und Bash muss den
+    Prompt ohne Strg+C unmittelbar danach neu zeichnen.

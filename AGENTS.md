@@ -9,6 +9,8 @@ Lies vor jeder inhaltlichen oder technischen Änderung vollständig:
 1. `skills/01-workshopdidaktik-evidenzbasiert.md`
 2. `skills/02-killercoda-authoring-standards.md`
 3. `skills/03-workshop-aenderungen.md`
+4. `skills/standardize-flag-watchers/SKILL.md` bei Flaggen, Flag-Abgaben,
+   Watchern, asynchronen Terminalmeldungen oder zugehörigen CHECKs
 
 Diese Dateien sind verbindliche Arbeitsgrundlagen. Bei Widersprüchen gilt:
 
