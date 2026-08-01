@@ -15,6 +15,13 @@
   statisch geprüft.
 - `flag-einreichen` vergleicht ausschließlich die Flag; der CHECK liest
   ausschließlich den atomaren Abgabemarker.
+- Sichtbare Teilnehmertexte nach Entfernen aller `details`-Blöcke automatisiert
+  auf `sturmlicht` und `tabitha` geprüft: keine Treffer.
+- Offene Lerntexte enthalten keine vollständige Fund- oder Befehlskette;
+  konkrete Fundorte, Kombinationen, Passwörter und Walkthroughs stehen in
+  geschlossenen Hilfen.
+- Flag-Literal erscheint nur in Setup, Abgabewerkzeug und interner
+  Musterlösung; die Teilnehmerausgabe erfolgt erst in der Abschlussmission.
 - Vollständiger Mehrbenutzerlauf: lokal nicht ohne isolierte Root-Umgebung
   ausführbar.
 

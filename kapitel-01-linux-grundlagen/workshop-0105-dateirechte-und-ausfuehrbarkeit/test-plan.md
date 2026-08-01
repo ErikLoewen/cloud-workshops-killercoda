@@ -5,6 +5,10 @@
 - Bash-Syntax aller Skripte und JSON validieren.
 - Alle `index.json`-Referenzen und drei Bildpfade prüfen.
 - Nach alten Begriffen und Root-Prompts suchen.
+- Offenen Haupttext getrennt von `details`-Blöcken prüfen: keine Passwörter,
+  keine vollständige Fundkette und keine offene Komplettlösung.
+- Geschlossene Hilfen auf die Eskalation Denkrichtung → Fundort/Werkzeug →
+  konkreter Ansatz → vollständiger Walkthrough prüfen.
 
 ## Positiver Ablauf
 
@@ -31,3 +35,4 @@
 - Bilddarstellung, Prompt, Anfängerführung und Gesamtzeit testen.
 - Alle vier Hinweisstufen und den vollständigen Walkthrough der
   Abschlussprüfung testen.
+- Prüfen, dass die Flag erst bei der Abschlussmission ausgegeben wird.

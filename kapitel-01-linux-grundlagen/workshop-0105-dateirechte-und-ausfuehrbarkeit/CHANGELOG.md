@@ -11,3 +11,6 @@
 - Flag-Abgabe und CHECK auf die Flag beschränkt; letzte Rechteaufgabe in die
   Abschlussprüfung mit vier Hinweisstufen verschoben.
 - Getrennte Logs für Vorname und Passwort-Ermahnung eingeführt.
+- Sichtbaren Haupttext auf Konzepte und Untersuchungsaufträge reduziert;
+  konkrete Fundorte, Kombinationen, Passwörter und Befehlsfolgen in gestufte
+  Dropdowns verschoben.

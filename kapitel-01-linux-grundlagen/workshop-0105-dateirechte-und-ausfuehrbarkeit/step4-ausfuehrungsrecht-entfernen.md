@@ -1,38 +1,40 @@
-# Die Nachtwache finden
+# Fremde Besitzverhältnisse
 
-`uebergabe-chat.log` gehört laut `ls -l` der `nachtwache`, ist für dich
-aber lesbar:
+Das Signal reagiert, doch an der Schalttafel liegen weitere Dateien. Nicht
+alles gehört `waerter`. Untersuche Rechte, Besitzer, Gruppe und lesbare
+Inhalte, ohne fremde Dateien zu verändern.
 
-`cat uebergabe-chat.log`{{exec}}
-
-Die Nachricht schreibt das Kennwort nicht direkt aus, hinterlässt aber einen
-leicht erratbaren Hinweis. Auch das ist schlechtes Sicherheitsverhalten.
-Leite das Kennwort ab und wechsle mit `su - nachtwache`.
-
-Kontrolliere danach bewusst:
-
-```bash
-whoami
-pwd
-```
+Welche Informationen kannst du mit deiner aktuellen Identität lesen? Gibt es
+Hinweise darauf, dass ein anderes Konto an der Schalttafel gearbeitet hat?
 
 <details>
-<summary>Hinweis 1 – Wörter zusammensetzen</summary>
+<summary>Hinweis 1: Woran sollte ich zuerst denken?</summary>
 
-Die Nachricht nennt zuerst den Sturm und danach das Licht. Setze beide Wörter
-ohne Leerzeichen zusammen.
+Nutze die Besitzer- und Gruppenspalten aus `ls -l`. Ein fremder Besitzer
+bedeutet nicht automatisch, dass du den Inhalt nicht lesen darfst; dafür ist
+dein zutreffender Rechteblock entscheidend.
 
 </details>
 
 <details>
-<summary>Hinweis 2 – Kennwort</summary>
+<summary>Hinweis 2: Wo könnte ich suchen?</summary>
 
-Das Kennwort lautet `sturmlicht`. Verwende:
+Untersuche die Dateien im aktuellen Schalttafelverzeichnis. Lies reguläre
+Textdateien, für die dein Rechteblock ein `r` enthält.
+
+</details>
+
+<details>
+<summary>Vollständiger Walkthrough</summary>
 
 ```bash
-su - nachtwache
+whoami
+pwd
+ls -l
+cat uebergabe-chat.log
 ```
 
-Während der Passworteingabe erscheinen keine Zeichen.
+Die Nachricht umschreibt das Übergabekennwort mit „erst der Sturm, dann das
+Licht“, ohne es direkt auszuschreiben.
 
 </details>

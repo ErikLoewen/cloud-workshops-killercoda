@@ -1,59 +1,55 @@
-# Abschlussprüfung: die letzte Nachricht
+# Abschlussmission: die letzte Nachricht
 
-Du arbeitest jetzt als `mrs_ah` in `/home/mrs_ah`. Löse den letzten Auftrag
-zunächst ohne vollständige Befehlsfolge:
+Führe die Untersuchung zu Ende:
 
-1. Kontrolliere Benutzer und Standort.
-2. Untersuche die Rechte von `letzte-nachricht`.
-3. Probiere die direkte Ausführung und ordne die erwartete Ablehnung ein.
-4. Ergänze ausschließlich das Ausführungsrecht des Besitzers.
-5. Kontrolliere die neue Rechteanzeige.
-6. Führe `letzte-nachricht` aus und lies die erstmals sichtbare Flag.
-7. Reiche die Flag mit `flag-einreichen 'GEFUNDENE_FLAG'` ein.
-8. Starte nach erfolgreicher Abgabe den CHECK.
+- vergewissere dich, dass du Rechte und Besitzverhältnisse an der
+  Schalttafel untersucht und die eigene gesperrte Signaldatei freigegeben
+  hast;
+- nutze die zugänglichen Protokolle, um die Spur über beide weiteren Konten
+  bis zur aktuellen Identität nachzuvollziehen;
+- kontrolliere deine aktuelle Identität und deinen Standort;
+- untersuche die erreichbaren Dateien sowie ihre Besitz- und Rechteangaben;
+- bestimme bei der letzten gesperrten eigenen Datei die notwendige minimale
+  Rechteänderung;
+- führe die Datei direkt aus;
+- reiche die dadurch erstmals sichtbare Flag ein;
+- starte danach den CHECK.
 
-Der CHECK bestätigt ausschließlich die korrekte Flag-Abgabe. Er prüft weder
-die frühere Ausführung von `signaltest` noch Befehlsreihenfolge oder
-Benutzerwechsel.
+Der CHECK bestätigt ausschließlich die korrekte Flag-Abgabe. Er bewertet
+weder Befehlsreihenfolge noch frühere Rechteänderungen oder Benutzerwechsel.
 
 <details>
-<summary>Hinweis 1 – Konzept</summary>
+<summary>Hinweis 1: Woran sollte ich zuerst denken?</summary>
 
-Eine lesbare Datei ist nicht automatisch ausführbar. Vergleiche im
-Besitzerblock, ob `x` vorhanden ist, und ergänze nur das fehlende Recht.
+Nutze die bekannte Kontrollroutine: Identität prüfen, Standort prüfen,
+Besitzer und Rechte lesen, fehlendes Recht bestimmen, Änderung kontrollieren.
 
 </details>
 
 <details>
-<summary>Hinweis 2 – Werkzeuge</summary>
+<summary>Hinweis 2: Wo könnte ich suchen?</summary>
 
-Du benötigst `whoami`, `pwd`, `ls -l`, `./dateiname`, `chmod u+x` und
-`flag-einreichen`.
-
-</details>
-
-<details>
-<summary>Hinweis 3 – Befehlsmuster</summary>
-
-```text
-ls -l DATEI
-./DATEI
-chmod u+x DATEI
-ls -l DATEI
-./DATEI
-flag-einreichen 'GEFUNDENE_FLAG'
-```
-
-Ersetze die Platzhalter durch Dateiname und vollständigen Flag-Text.
+Untersuche das Home des aktuellen Kontos mit `ls -l`. Die letzte Nachricht ist
+eine eigene reguläre Datei, der im Besitzerblock ein bekanntes Recht fehlt.
 
 </details>
 
 <details>
-<summary>Hinweis 4 – vollständiger Walkthrough</summary>
+<summary>Hinweis 3: Konkreter Lösungsansatz</summary>
+
+Versuche `letzte-nachricht` relativ auszuführen. Ergänze anschließend nur das
+Besitzer-Ausführungsrecht, kontrolliere den Rechteblock und wiederhole die
+Ausführung.
+
+</details>
+
+<details>
+<summary>Vollständiger Walkthrough</summary>
 
 ```bash
 whoami
 pwd
+ls -l
 ls -l letzte-nachricht
 ./letzte-nachricht
 chmod u+x letzte-nachricht
@@ -62,7 +58,7 @@ ls -l letzte-nachricht
 flag-einreichen 'GEFUNDENE_FLAG'
 ```
 
-Ersetze `GEFUNDENE_FLAG` durch den vollständigen Text aus der Ausgabe von
-`./letzte-nachricht`. Starte anschließend den CHECK.
+Ersetze `GEFUNDENE_FLAG` durch den vollständigen Flag-Text aus der Ausgabe.
+Starte nach der erfolgreichen Abgabe den CHECK.
 
 </details>
