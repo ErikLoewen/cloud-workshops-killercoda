@@ -16,6 +16,7 @@ su - nachtwache
 whoami
 pwd
 ls -l
+getent passwd | cut -d: -f1
 cat dienst-chat.log
 cat sicherheitsnotiz.log
 su - mrs_ah

@@ -16,7 +16,9 @@
 2. Besitzer, Gruppen und Ausgangsmodus beider ausführbaren Dateien prüfen.
 3. `signaltest` vor `chmod` ablehnen, danach ausführen.
 4. Mit Passwort `sturmlicht` zu `nachtwache` wechseln.
-5. Zweiten Hinweis lesen und mit `tabitha` zu `mrs_ah` wechseln.
+5. Besitzer der beiden Logs als `mrs_ah` und `waerter` erkennen, die
+   Kontonamen mit `getent passwd | cut -d: -f1` anzeigen und mit `tabitha` zu
+   `mrs_ah` wechseln.
 6. `letzte-nachricht` erst in der Abschlussprüfung vor `chmod` ablehnen,
    danach ausführen und die Flag erstmals anzeigen.
 7. Falsche Flag ablehnen, korrekte Flag annehmen und CHECK wiederholt bestehen.

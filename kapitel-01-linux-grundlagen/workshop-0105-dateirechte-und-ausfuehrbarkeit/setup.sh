@@ -31,8 +31,8 @@ Nachtwache: Tabitha, die Schalttafel hat deine letzte Nachricht übernommen.
 Mrs. A. H.: Gut. Ich prüfe sie später selbst.
 LOG
 cat >"/home/nachtwache/sicherheitsnotiz.log" <<'LOG'
-Waerter: An euch beide: Vornamen haben in Passwörtern nichts verloren.
-Ändert solche Kennwörter und schreibt Zugangsdaten nicht in Nachrichten.
+Waerter: An euch beide: Vornamen eignen sich nicht als Passworte.
+Verwendet sichere Kennworte und schreibt Zugangsdaten nicht in Nachrichten.
 LOG
 cat >"/home/mrs_ah/letzte-nachricht" <<'SCRIPT'
 #!/usr/bin/env bash
@@ -41,8 +41,9 @@ printf '%s\n' 'Die Schalttafel entriegelt die nächste Spur:'
 printf '%s\n' 'FLAG{mrs_a_h_war_nie_ihr_name}'
 SCRIPT
 chown waerter:waerter "${panel}/signaltest"
-chown nachtwache:nachtwache "${panel}/uebergabe-chat.log" \
-  "/home/nachtwache/dienst-chat.log" "/home/nachtwache/sicherheitsnotiz.log"
+chown nachtwache:nachtwache "${panel}/uebergabe-chat.log"
+chown mrs_ah:mrs_ah "/home/nachtwache/dienst-chat.log"
+chown waerter:waerter "/home/nachtwache/sicherheitsnotiz.log"
 chown mrs_ah:mrs_ah "/home/mrs_ah/letzte-nachricht"
 chmod 0644 "${panel}/signaltest" "${panel}/uebergabe-chat.log" \
   "/home/nachtwache/dienst-chat.log" "/home/nachtwache/sicherheitsnotiz.log" \
@@ -75,6 +76,10 @@ chown nachtwache:nachtwache /home/nachtwache/.bash_profile /home/nachtwache/.bas
 chown mrs_ah:mrs_ah /home/mrs_ah/.bash_profile /home/mrs_ah/.bashrc
 [[ "$(stat -c '%U:%G:%a' "${panel}/signaltest")" == "waerter:waerter:644" ]] ||
   fail "signaltest besitzt einen falschen Ausgangszustand."
+[[ "$(stat -c '%U:%G:%a' "/home/nachtwache/dienst-chat.log")" == "mrs_ah:mrs_ah:644" ]] ||
+  fail "dienst-chat.log besitzt einen falschen Ausgangszustand."
+[[ "$(stat -c '%U:%G:%a' "/home/nachtwache/sicherheitsnotiz.log")" == "waerter:waerter:644" ]] ||
+  fail "sicherheitsnotiz.log besitzt einen falschen Ausgangszustand."
 [[ "$(stat -c '%U:%G:%a' "/home/mrs_ah/letzte-nachricht")" == "mrs_ah:mrs_ah:644" ]] ||
   fail "letzte-nachricht besitzt einen falschen Ausgangszustand."
 clear 2>/dev/null || printf '\033[2J\033[H'
