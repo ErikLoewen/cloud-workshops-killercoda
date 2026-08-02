@@ -4,50 +4,60 @@
 
 | Nr. | Test | Erwartung |
 |---:|---|---|
-| 1 | Background-Setup erstmals ausführen | Exit 0; atomare Ready-Datei erst nach vollständiger Vorbereitung |
-| 2 | Setup erneut ausführen | alter Zustand bereinigt; wieder genau ein Störprozess |
-| 3 | Foreground vor Ready starten | wartet ohne technische Setup-Ausgaben |
-| 4 | sichtbaren Prompt und Benutzer prüfen | `waerter@leuchtturm`, `whoami` ergibt `waerter` |
-| 5 | Startverzeichnis mit `pwd` prüfen | `/home/waerter/leuchtturm/aussenstation` |
-| 6 | Startinhalt prüfen | `leuchtfeuer-start`, `status/` und Wartungsnotiz vorhanden |
-| 7 | Störprozess zählen | genau eine Instanz |
+| 1 | Setup erstmals ausführen | Umgebung ohne künstliche Wartezeit vorbereitet; keine technische Ausgabe |
+| 2 | sichtbaren Benutzer prüfen | `whoami` ergibt `waerter` |
+| 3 | Hostname prüfen | `leuchtturm`, soweit vom Backend erlaubt |
+| 4 | Startverzeichnis mit `pwd` prüfen | `/home/waerter/leuchtturm/aussenstation` |
+| 5 | Startinhalt prüfen | `leuchtfeuer-start`, `status/` und Wartungsnotiz vorhanden |
+| 6 | Intro und Step 1 prüfen | keine `beschwoerung`, kein Regler, kein Aktivierungsmarker |
+| 7 | `nproc`, `free -h`, `df -h /` | funktionieren ohne künstliche Last |
+
+## Step-2-Aktivierung
+
+| Nr. | Test | Erwartung |
+|---:|---|---|
+| 8 | Step 2 erstmals öffnen | Background-Skript startet genau eine `beschwoerung` |
+| 9 | Aktivierungsmarker prüfen | erst nach validiertem Worker und Regler atomar vorhanden |
+| 10 | Step 2 erneut öffnen | Exit 0; dieselbe PID; keine zweite Instanz |
+| 11 | Prozess regulär beenden und Step 2 erneut öffnen | kein Neustart; Marker bleibt vorhanden |
+| 12 | vollständiges Setup erneut ausführen | Prozesse und Marker entfernt; vor Step 2 keine Störung |
+| 13 | Step 2 nach vollständigem Setup öffnen | genau eine neue Instanz mit neu ermittelter PID |
 
 ## Ressourcenfresser
 
 | Nr. | Test | Erwartung |
 |---:|---|---|
-| 8 | `pgrep` und `top` prüfen | Prozessname und hohe CPU-Nutzung sichtbar |
-| 9 | reduzierte, sortierte `ps`-Ausgabe prüfen | auffälliger Eintrag steht weit oben |
-| 10 | CPU-Last nach mindestens fünf Sekunden mehrfach messen | ungefähr 50 bis 70 Prozent eines logischen Prozessors |
-| 11 | Priorität prüfen | Nice-Wert 15 |
-| 12 | `/proc/PID/comm` und Kommandozeile prüfen | exakt `beschwoerung`; ausführbare Datei ist der Workshoppfad |
-| 13 | Verzeichnisgrößen vor/nach Lasttest vergleichen | kein Disk-Wachstum |
-| 14 | RSS, `%MEM` und `free -h` beobachten | geringer RAM-Verbrauch |
-| 15 | Besitzer prüfen | Prozess gehört `waerter` |
-| 16 | reguläres `kill PID` | Prozess endet ohne `kill -9` |
+| 14 | `pgrep`, `top` und sortiertes `ps` prüfen | `beschwoerung` klar sichtbar und weit oben |
+| 15 | CPU-Last nach kurzer Einlaufzeit messen | ungefähr 10 bis 20 Prozent |
+| 16 | Priorität prüfen | Nice-Wert 15 |
+| 17 | `/proc/PID/comm` und Kommandozeile prüfen | exakt `beschwoerung`; ausführbare Datei ist der Workshoppfad |
+| 18 | Verzeichnisgrößen vor/nach Lasttest vergleichen | kein Disk-Wachstum |
+| 19 | RSS und `%MEM` beobachten | geringer RAM-Verbrauch |
+| 20 | Besitzer prüfen | Prozess gehört `waerter` |
+| 21 | reguläres `kill PID` | Worker und Regler enden ohne `kill -9` |
 
 ## Übungsprozess
 
 | Nr. | Test | Erwartung |
 |---:|---|---|
-| 17 | `sleep 300 &` starten | Shell bleibt nutzbar |
-| 18 | `pgrep -a sleep` | Übungsinstanz mit Befehlszeile `sleep 300` auffindbar |
-| 19 | gefundene PID regulär beenden | Übungsprozess endet |
-| 20 | dieselbe Suche wiederholen | Übungsinstanz nicht mehr vorhanden |
+| 22 | `sleep 300 &` starten | Shell bleibt nutzbar |
+| 23 | `pgrep -a sleep` | Übungsinstanz mit Befehlszeile `sleep 300` auffindbar |
+| 24 | gefundene PID regulär beenden | Übungsprozess endet |
+| 25 | dieselbe Suche wiederholen | Übungsinstanz nicht mehr vorhanden |
 
 ## Leuchtfeuer
 
 | Nr. | Test | Erwartung |
 |---:|---|---|
-| 21 | Start bei laufendem Störprozess | verweigert; keine Flag; kein Leuchtfeuer |
-| 22 | Start nach regulärem Beenden | erfolgreich |
-| 23 | `pgrep -a leuchtfeuer` | genau eine Instanz als `waerter` sichtbar |
-| 24 | zweiten Start versuchen | abgelehnt; weiterhin genau eine Instanz |
-| 25 | Erfolgsausgabe prüfen | korrekte Flag erscheint |
-| 26 | falsche Flag einreichen | abgelehnt; kein gültiger Abgabemarker |
-| 27 | korrekte Flag einreichen | atomarer Abgabemarker entsteht |
-| 28 | CHECK vor/nach Abgabe wiederholen | vorher Fehler, danach wiederholt Erfolg |
-| 29 | Setup erneut ausführen | beide alten Workshopprozesse entfernt; Ausgangszustand neu erstellt |
+| 26 | Start bei laufendem Störprozess | verweigert; keine Flag; kein Leuchtfeuer |
+| 27 | Start nach regulärem Beenden | erfolgreich |
+| 28 | `pgrep -a leuchtfeuer` | genau eine Instanz als `waerter` sichtbar |
+| 29 | zweiten Start versuchen | abgelehnt; weiterhin genau eine Instanz |
+| 30 | Erfolgsausgabe prüfen | korrekte Flag erscheint |
+| 31 | falsche Flag einreichen | abgelehnt; kein gültiger Abgabemarker |
+| 32 | korrekte Flag einreichen | atomarer Abgabemarker entsteht |
+| 33 | CHECK vor/nach Abgabe wiederholen | vorher Fehler, danach wiederholt Erfolg |
+| 34 | Setup erneut ausführen | alte Workshopprozesse und Marker entfernt |
 
 ## Texte und Didaktik
 
@@ -70,8 +80,8 @@
 
 ## Syntax und Referenzen
 
-- Alle vorhandenen Shellskripte einschließlich `foreground.sh` mit `bash -n`
-  prüfen.
+- Alle vorhandenen Shellskripte einschließlich `step2-background.sh` und
+  `assets/setup-workshop` mit `bash -n` prüfen.
 - Das von `setup.sh` erzeugte `leuchtfeuer-start` extrahieren und mit
   `bash -n` prüfen.
 - `index.json` mit `jq empty` validieren.

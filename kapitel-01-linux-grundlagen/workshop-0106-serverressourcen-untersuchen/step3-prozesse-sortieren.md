@@ -32,15 +32,15 @@ Der Befehl besteht hier aus wenigen relevanten Teilen:
 | `%MEM` | ungefährer Anteil am RAM |
 | `COMMAND` | Prozessname |
 
-`%CPU` ist auch hier ein Prozentwert. Eine Ausgabe von `0.6` bedeutet nur
-0,6 Prozent. Ein Prozess mit `60.0` beansprucht ungefähr 60 Prozent eines
-logischen Prozessors. Suche nicht einfach nach einem unbekannten Namen,
-sondern nach einem Prozess, der sich beim CPU-Wert deutlich von den übrigen
-Einträgen abhebt.
+`%CPU` ist auch hier ein Prozentwert. `0.6` bedeutet 0,6 Prozent, `15.0`
+ungefähr 15 Prozent und `60.0` ungefähr 60 Prozent. Suche nicht einfach nach
+einem unbekannten Namen, sondern nach einem Prozess, der sich beim CPU-Wert
+deutlich von den übrigen Einträgen abhebt.
 
 ```text
-0.6   → unauffällige geringe CPU-Nutzung
-60.0  → deutlich auffällige CPU-Nutzung
+0.6   → geringe CPU-Nutzung
+15.0  → deutlich auffällige CPU-Nutzung
+60.0  → sehr hohe CPU-Nutzung
 ```
 
 ## PID, Benutzer und Name zusammen prüfen
@@ -50,9 +50,9 @@ reicht für eine sichere Entscheidung noch nicht aus. Prüfe zusätzlich Benutze
 und Prozessname.
 
 Namen wie `bash`, `systemd` oder Prozesse der Laborumgebung können normal
-sein. Entscheidend ist nicht, ob ein Name unbekannt klingt, sondern ob
-Benutzer, CPU-Wert und Aufgabe zusammen auffällig sind. Normale
-Systemprozesse werden nicht verändert.
+sein; wir verändern sie in diesem Workshop nicht. Entscheidend ist nicht, ob
+ein Name unbekannt klingt, sondern ob deutlich höherer CPU-Wert, Prozessname
+und Benutzer zusammen auffällig sind.
 
 ## Arbeitsauftrag
 

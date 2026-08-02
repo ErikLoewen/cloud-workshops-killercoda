@@ -14,6 +14,10 @@ df -h /
 
 ## 2. Aktuelle Auslastung beobachten
 
+Beim ersten Öffnen von Step 2 startet die vorbereitete Störung unsichtbar im
+Hintergrund. Dafür ist kein Teilnehmerbefehl nötig. Ein erneutes Öffnen des
+Schritts startet sie in derselben Workshop-Sitzung nicht noch einmal.
+
 ```bash
 top
 ```

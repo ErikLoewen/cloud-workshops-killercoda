@@ -9,16 +9,12 @@ Erst jetzt siehst du den Leuchtturm von außen. Das Leuchtfeuer ist dunkel.
 Weit draußen tauchen zwischen den Wellen die Positionslichter eines Schiffes
 auf. Es hält auf die Küste zu.
 
-Im Turm läuft noch Technik, doch der Rechner reagiert träge. Aus dem Inneren
-dringt ein gleichmäßiges Brummen. Bevor du das Licht wieder starten kannst,
-musst du herausfinden, was das System blockiert.
+Im Turm läuft noch Technik, doch das Leuchtfeuer reagiert nicht wie erwartet.
+Aus dem Inneren dringt ein gleichmäßiges Brummen. Bevor du das Licht wieder
+starten kannst, musst du herausfinden, was das System blockiert.
 
 > Besitzt der Rechner zu wenig Ressourcen – oder verbraucht ein laufender
 > Prozess mehr, als er sollte?
-
-> **Hinweis:** Der vorbereitete Störprozess belastet den Rechner absichtlich.
-> Das Terminal kann deshalb etwas verzögert reagieren. Warte nach einer
-> Eingabe kurz, statt denselben Befehl mehrfach abzusenden.
 
 ![Dunkler Leuchtturm im schweren Sturm; am Horizont nähert sich ein Schiff.](./assets/0106-einstieg-leuchtturm-dunkel.png)
 

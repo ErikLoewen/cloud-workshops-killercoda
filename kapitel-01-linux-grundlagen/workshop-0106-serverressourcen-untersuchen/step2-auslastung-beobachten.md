@@ -6,6 +6,11 @@ aber nicht ausreichend, was gerade Rechenzeit verbraucht.
 Ein laufendes Programm erscheint unter Linux als Prozess. Prozesse nutzen CPU
 und RAM. Um Veränderungen live zu beobachten, verwenden wir `top`.
 
+> **Hinweis:** Für diesen Untersuchungsschritt wurde im Hintergrund eine
+> auffällige Systemlast vorbereitet. Das Terminal kann geringfügig verzögert
+> reagieren. Warte nach einer Eingabe kurz, statt denselben Befehl mehrfach
+> abzusenden.
+
 ```bash
 top
 ```{{exec}}
@@ -19,14 +24,15 @@ verstehen.
 | `COMMAND` | Welcher Prozess beziehungsweise Befehl ist es? |
 | `q` | `top` verlassen |
 
-`%CPU` ist ein Prozentwert: `0.6` bedeutet nur 0,6 Prozent. `60.0` bedeutet
-ungefähr 60 Prozent eines logischen Prozessors. In der zusammenfassenden
-CPU-Zeile steht `id` für *idle*, also unbeschäftigt. `99.7 id` bedeutet, dass
-die CPU zu ungefähr 99,7 Prozent untätig ist.
+`%CPU` ist ein Prozentwert: `0.6` bedeutet 0,6 Prozent, `15.0` ungefähr
+15 Prozent und `60.0` ungefähr 60 Prozent. In der zusammenfassenden CPU-Zeile
+steht `id` für *idle*, also unbeschäftigt. `99.7 id` bedeutet, dass die CPU
+ungefähr zu 99,7 Prozent untätig ist.
 
 ```text
-0.6   → unauffällige geringe CPU-Nutzung
-60.0  → deutlich auffällige CPU-Nutzung
+0.6   → geringe CPU-Nutzung
+15.0  → deutlich auffällige CPU-Nutzung
+60.0  → sehr hohe CPU-Nutzung
 ```
 
 Bei Programmen mit mehreren Threads können Werte über 100 Prozent auftreten.

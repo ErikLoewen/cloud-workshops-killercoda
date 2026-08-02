@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 2.0.0-dev – Step-spezifische Lastaktivierung
+
+- sichtbare Ready-Warteschleife mit bis zu 45 Sekunden Wartezeit vollständig
+  entfernt;
+- sichtbares Foreground-Skript auf einen kurzen, ausgabenlosen Setup-Aufruf
+  und den direkten Benutzerwechsel reduziert;
+- Benutzerstart wieder am bewährten Setup-Muster der Workshops 4 und 5
+  ausgerichtet;
+- globales Setup und Ressourcenfresser getrennt: Intro und Step 1 starten ohne
+  künstliche Last;
+- `beschwoerung` ausschließlich beim ersten Eintritt in Step 2 über ein
+  Background-Skript und einen sitzungsgebundenen Marker aktiviert;
+- CPU-Last auf einen moderaten 15/85-Millisekunden-Duty-Cycle reduziert;
+- sichtbare Erklärung der Prozentwerte um `15.0` ergänzt und Hinweis zur
+  höchstens geringfügigen Verzögerung nach Step 2 verschoben;
+- Lösungsweg, Trainerleitfaden und Testdokumentation aktualisiert.
+
 ## Version 2.0.0-dev – Reparatur des realen Killercoda-Laufs
 
 - technisches Setup als unsichtbaren Background-Prozess ausgeführt und die

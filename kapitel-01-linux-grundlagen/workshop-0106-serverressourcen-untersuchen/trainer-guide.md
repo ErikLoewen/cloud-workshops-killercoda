@@ -14,7 +14,7 @@
 | Abschnitt | Unterstützungsgrad | Lernfunktion |
 |---|---|---|
 | Step 1 | stark geführt | CPU, RAM und Dateisystemspeicher grob einordnen |
-| Step 2 | Beobachtung | Kapazität von aktueller Nutzung unterscheiden |
+| Step 2 | Beobachtung | Störung einmalig im Hintergrund aktivieren und aktuelle Nutzung unterscheiden |
 | Step 3 | teilgeführte Auswertung | reduzierte Prozessliste lesen und sortieren |
 | Step 4 | Worked Example | sicheres Beenden an `sleep 300` vollständig üben |
 | Step 5 | selbstständiger Transfer | bekannte Methode auf die echte Störung übertragen |
@@ -23,6 +23,16 @@
 
 Die Unterstützung nimmt bewusst ab. Step 4 ist das einzige stark geführte
 Beendigungsbeispiel. Step 5 soll nicht zu einer zweiten Demonstration werden.
+
+## Technischer Startzustand
+
+- Intro und Step 1 laufen ohne künstlichen Störprozess.
+- Der erste Eintritt in Step 2 aktiviert die Störung unsichtbar.
+- Erneutes Öffnen von Step 2 startet keine weitere Instanz – auch dann nicht,
+  wenn die erste Instanz bereits von den Lernenden beendet wurde.
+- Erwartet werden ungefähr 10 bis 20 Prozent CPU bei kleinem RAM-Verbrauch.
+- Das Terminal darf höchstens geringfügig verzögert reagieren. Starke Hänger
+  sind ein technischer Fehler und kein gewünschter Lernzustand.
 
 ## Betreuung
 
@@ -56,7 +66,8 @@ wirkt sie zunächst unauffällig? Keine exakten Werte protokollieren lassen.
 ### Bei `top`
 
 Nur auf `%CPU`, `COMMAND`, mehrere Aktualisierungen und das Verlassen mit `q`
-lenken. Keine weiteren Spalten oder Tastenkürzel vertiefen.
+lenken. Darauf achten, dass `0.6` als 0,6 Prozent gelesen wird. Keine weiteren
+Spalten oder Tastenkürzel vertiefen.
 
 ### Bei der Prozessauswahl
 

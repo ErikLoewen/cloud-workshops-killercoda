@@ -7,35 +7,35 @@ in einem frischen `ubuntu:latest`-Container mit Init-Prozess und dem Hostnamen
 
 ## Zusammenfassung
 
-Die technische Mission funktioniert nach der Reparatur vom synchronisierten
-Login bis zum wiederholbaren CHECK. Die sichtbare Shell startet erst nach dem
-atomaren Ready-Signal als `waerter@leuchtturm` im vorgesehenen Arbeitsbereich.
-Der Störprozess erscheint in `/proc`, `pgrep`, `ps` und `top` eindeutig als
-`beschwoerung` und lag in den Messungen stabil bei ungefähr 60 Prozent CPU.
+Die technische Mission funktioniert nach der Step-spezifischen Umstellung vom
+direkten Login bis zum wiederholbaren CHECK. Intro und Step 1 laufen ohne
+künstliche Last. Erst `step2-background.sh` aktiviert genau einmal die
+Störung. Der Prozess erscheint in `/proc`, `pgrep`, `ps` und `top` eindeutig
+als `beschwoerung` und lag im Messlauf bei ungefähr 17 Prozent CPU.
 
 ## Ursache des realen Fehlers
 
-Das bisherige `setup.sh` war zugleich technische Vorbereitung und
-Foreground-Shell. Es gab kein Ready-Signal zwischen einem unsichtbaren Setup
-und dem sichtbaren Teilnehmerterminal. Im realen Backend blieb deshalb die
-ursprüngliche Shell `root@ubuntu` sichtbar. Der Lastprozess war außerdem eine
-kopierte `yes`-Datei ohne Duty-Cycle. Sein mehrstufiger Launcher und Fortbestand
-waren nicht unabhängig vom Setup-Lebenszyklus abgesichert; die erwartete
-Prozessinstanz war im Browserlauf nicht vorhanden.
+Die vorherige Reparatur führte ein separates `foreground.sh` mit einer bis zu
+45 Sekunden sichtbaren Ready-Schleife ein. Killercoda speiste diese Schleife in
+das Teilnehmerterminal ein; dadurch blieb zunächst `root@ubuntu` sichtbar und
+der Benutzerwechsel hing von der parallelen Setup-Fertigstellung ab. Zudem
+startete das globale Setup den Ressourcenfresser bereits vor Intro und Step 1.
 
-Die neue Umsetzung trennt beide Lebenszyklen. `setup.sh` läuft im Background
-und schreibt die Ready-Datei erst nach allen technischen Selbstprüfungen.
-`foreground.sh` wartet darauf und startet anschließend die Login-Shell. Der
-Worker ist eine Kopie von Bash unter dem echten Dateinamen `beschwoerung`. Ein
-separat identifizierter Regler pausiert ihn jeweils 40 Millisekunden und lässt
-ihn anschließend 60 Millisekunden rechnen. Beide Prozesse werden mit
-`setsid --fork` vom kurzlebigen `runuser`-Launcher gelöst.
+Die neue Umsetzung verwendet wieder das im Repository vorhandene Muster der
+Workshops 4 und 5, reduziert das sichtbare `setup.sh` aber auf einen kurzen
+Wrapper: Das vorab ausgelieferte Asset `setup-workshop` bereitet die Umgebung
+ohne Terminalausgabe vor und beendet sich regulär; danach wechselt der Wrapper
+direkt in die Login-Shell von `waerter`. Es gibt keine Ready-Datei und keine
+Setup-Warteschleife. Der Worker wird nur vom Background-Skript des zweiten
+Schritts gestartet. Ein sitzungsgebundener Marker verhindert jeden weiteren
+Start bis zum vollständigen Workshopneustart. Der Lastregler pausiert den
+Worker jeweils 85 Millisekunden und lässt ihn danach 15 Millisekunden rechnen.
 
 ## Statische Prüfungen
 
 | Prüfung | Reales Ergebnis | Status |
 |---|---|---|
-| `bash -n` für Setup, Foreground, Verify und Flag-Werkzeug | keine Syntaxfehler | bestanden |
+| `bash -n` für Setup, Setup-Asset, Step-2-Background, Verify und Flag-Werkzeug | keine Syntaxfehler | bestanden |
 | JSON-Syntax von `index.json` | `jq empty` ohne Fehler | bestanden |
 | Dateien aus `index.json` | alle Text-, Background-, Foreground-, Verify- und Asset-Referenzen vorhanden | bestanden |
 | `git diff --check` im Workshop | keine Whitespacefehler | bestanden |
@@ -52,24 +52,28 @@ ihn anschließend 60 Millisekunden rechnen. Beide Prozesse werden mit
 
 | Prüfung | Reales Ergebnis | Status |
 |---|---|---|
-| Ready-Synchronisation | Foreground vor Setup gestartet; Login erst nach abgeschlossenem Setup | bestanden |
+| Setup und Login bis `exit` | 160 ms; außer Terminal-Clear keine technische Ausgabe | bestanden |
 | sichtbare Identität | `whoami` = `waerter`, Hostname = `leuchtturm` | bestanden |
 | Startverzeichnis | `/home/waerter/leuchtturm/aussenstation` | bestanden |
-| Anzahl Störprozesse | genau eine lebende Instanz | bestanden |
+| `nproc`, `free -h`, `df -h /` vor Step 2 | erfolgreich | bestanden |
+| Zustand vor Step 2 | kein Worker, kein Regler, kein Aktivierungsmarker | bestanden |
+| erster Step-2-Aufruf | eine Instanz; Marker erst nach validiertem Start | bestanden |
+| zweiter Step-2-Aufruf | gleiche PID 90; weiterhin genau eine Instanz | bestanden |
 | `/proc/PID/comm` | `beschwoerung` | bestanden |
 | `pgrep -a beschwoerung` | PID und Workshoppfad sichtbar | bestanden |
 | Besitzer und Priorität | `waerter`, Nice-Wert 15 | bestanden |
-| CPU-Last, erste Messung | 59,7 % | bestanden |
-| CPU-Last, zweite Messung | 59,5 % | bestanden |
-| CPU-Last in `top` | 61,0 % | bestanden |
-| RAM-Verbrauch | 3552 KiB RSS, 0,0 % MEM | bestanden |
+| CPU-Last in `ps` | 16,9 % im vollständigen Lauf; 17,2 % im finalen Wrapper-Lauf | bestanden |
+| CPU-Last in `top` | 17,0 % | bestanden |
+| RAM-Verbrauch | 3728 KiB RSS im vollständigen Lauf; 3716 KiB im finalen Wrapper-Lauf; jeweils 0,0 % MEM | bestanden |
 | Plattenwachstum über zehn Sekunden | 0 Byte | bestanden |
-| wiederholtes Setup | alte PID 74 entfernt, neue PID 176; genau eine Instanz und ein Regler | bestanden |
 | normales `kill PID` | Worker und zugehöriger Regler anschließend nicht mehr vorhanden | bestanden |
+| Step 2 nach `kill` erneut geöffnet | kein Neustart; Marker bleibt vorhanden | bestanden |
+| vollständiger Neustart | vor Step 2 keine Störung; danach neue PID 470 und genau eine Instanz | bestanden |
 
-`top` zeigte den Worker mit großem Abstand an erster Stelle. Nach dem regulären
-Beenden sanken Worker- und Regleranzahl auf null; damit entfiel die gemessene
-Lastquelle vollständig. Das Terminal blieb während aller Messungen bedienbar.
+`top` und das sortierte `ps` zeigten den Worker mit großem Abstand an erster
+Stelle. Nach dem regulären Beenden sanken Worker- und Regleranzahl auf null;
+damit entfiel die gemessene Lastquelle vollständig. Der Container blieb
+während der Messung flüssig bedienbar.
 
 ## Übungsprozess
 
@@ -98,16 +102,20 @@ Lastquelle vollständig. Das Terminal blieb während aller Messungen bedienbar.
 
 ## Finaler Teilnehmerweg
 
-Der End-to-End-Lauf bestand Ready-Warten, Login-Prüfung, zweimaliges Setup,
-Prozess- und Ressourcenmessung, verweigerten vorzeitigen Leuchtfeuerstart,
-reguläres Beenden von `beschwoerung`, erfolgreichen Leuchtfeuerstart, negative
-und positive Flag-Abgabe, zweimaligen erfolgreichen CHECK sowie finalen Reset.
-Ein vorzeitiger Start erzeugte weder Leuchtfeuer noch Flag.
+Der End-to-End-Lauf bestand direktem Login, Ressourcenbefehlen ohne Störung,
+zweimaligem Step-2-Aufruf, Prozess- und Ressourcenmessung, verweigertem
+vorzeitigen Leuchtfeuerstart, regulärem Beenden von `beschwoerung`, erneutem
+Step-2-Aufruf ohne Neustart, erfolgreichem Leuchtfeuerstart, negativer und
+positiver Flag-Abgabe, zweimaligem erfolgreichen CHECK sowie vollständigem
+Reset und neuer einmaliger Step-2-Aktivierung. Ein vorzeitiger Start erzeugte
+weder Leuchtfeuer noch Flag.
 
 ## Noch im Killercoda-Backend prüfen
 
 - Browserdarstellung des Prompts `waerter@leuchtturm` nach Killercodas
-  tatsächlichem Background-/Foreground-Start;
+  tatsächlicher Foreground-Ausführung von `setup.sh`;
+- bestätigen, dass Killercoda beim schnellen Setup keine Skriptzeilen in das
+  sichtbare Teilnehmerterminal einblendet;
 - Ressourcenverhalten über eine vollständige reale Labordauer;
 - vollständiger Browserdurchlauf einschließlich anklickbarer Codeblöcke und
   CHECK-Eingabe;
