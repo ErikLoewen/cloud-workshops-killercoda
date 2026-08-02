@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 2.0.0-dev – Leuchtfeuerdatei garantiert im globalen Setup
+
+- `leuchtfeuer-start`, Leuchtfeuer-Binärdatei, Flag-Werkzeug und
+  Wartungsnotiz direkt im globalen Setup erzeugt;
+- Abhängigkeit dieser Teilnehmerdateien von der Step-2-Background-Ausführung
+  entfernt;
+- nicht mehr benötigtes technisches Vorbereitungs-Asset entfernt.
+
 ## Version 2.0.0-dev – eigenständiger Step-2-Background-Prozess
 
 - Abhängigkeit des Background-Skripts vom extern erzeugten Prozessstarter und

@@ -83,6 +83,9 @@ Worker jeweils 85 Millisekunden und lässt ihn danach 15 Millisekunden rechnen.
 | Messung der eigenständigen Variante | 14,7 % CPU, 3824 KiB RSS, Nice 15, `comm` und Besitzer korrekt | bestanden |
 | Kill, erneutes Öffnen und Leuchtfeuer | kein Wiederanlauf nach `kill`; Leuchtfeuer anschließend erfolgreich | bestanden |
 | Reset der eigenständigen Variante | alte PID 98 entfernt; neue PID 236 erst nach Step 2 | bestanden |
+| `leuchtfeuer-start` direkt nach globalem Setup | vorhanden, ausführbar, Besitzer `waerter`, Größe 2193 Byte | bestanden |
+| Leuchtfeuer mit laufender Störung | Start verweigert | bestanden |
+| Leuchtfeuer nach regulärem `kill` | Flag ausgegeben; Prozess als `waerter`, 0,0 % CPU, 3760 KiB RSS | bestanden |
 
 `top` und das sortierte `ps` zeigten den Worker mit großem Abstand an erster
 Stelle. Nach dem regulären Beenden sanken Worker- und Regleranzahl auf null;
