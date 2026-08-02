@@ -25,7 +25,9 @@ Die neue Umsetzung verwendet wieder das im Repository vorhandene Muster der
 Workshops 4 und 5, reduziert das sichtbare `setup.sh` aber auf einen kurzen
 Wrapper: Das vorab ausgelieferte Asset `setup-workshop` bereitet die Umgebung
 ohne Terminalausgabe vor und beendet sich regulär; danach wechselt der Wrapper
-direkt in die Login-Shell von `waerter`. Es gibt keine Ready-Datei und keine
+mit `exec su - waerter` direkt in die Login-Shell. Der aktive Hostname wird nur
+noch bestmöglich gesetzt und kann das Setup nicht mehr vor dem Benutzerwechsel
+abbrechen. Es gibt keine Ready-Datei und keine
 Setup-Warteschleife. Der Worker wird nur vom Background-Skript des zweiten
 Schritts gestartet. Ein sitzungsgebundener Marker verhindert jeden weiteren
 Start bis zum vollständigen Workshopneustart. Der Lastregler pausiert den
@@ -69,6 +71,8 @@ Worker jeweils 85 Millisekunden und lässt ihn danach 15 Millisekunden rechnen.
 | normales `kill PID` | Worker und zugehöriger Regler anschließend nicht mehr vorhanden | bestanden |
 | Step 2 nach `kill` erneut geöffnet | kein Neustart; Marker bleibt vorhanden | bestanden |
 | vollständiger Neustart | vor Step 2 keine Störung; danach neue PID 470 und genau eine Instanz | bestanden |
+| Hotfix bei unveränderbarem Hostnamen `ubuntu` | Login weiterhin als `waerter` im richtigen Arbeitsverzeichnis; Step-2-Start erfolgreich | bestanden |
+| Hotfix-Messung unter Hostname `ubuntu` | 17,7 % CPU, 3668 KiB RSS, Nice 15, Besitzer `waerter` | bestanden |
 
 `top` und das sortierte `ps` zeigten den Worker mit großem Abstand an erster
 Stelle. Nach dem regulären Beenden sanken Worker- und Regleranzahl auf null;

@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 2.0.0-dev – Killercoda-Hotfix für Benutzerstart
+
+- Hostnamenwechsel als Best-effort behandelt, damit eine eingeschränkte
+  Killercoda-Umgebung das Setup nicht vorzeitig beendet;
+- Benutzerwechsel exakt auf das bewährte `exec su - waerter`-Muster der
+  Workshops 4 und 5 zurückgestellt;
+- dadurch sichergestellt, dass die technischen Hilfsprogramme vor Step 2
+  installiert werden und das Background-Skript nicht wegen eines abgebrochenen
+  Setups fehlt.
+
 ## Version 2.0.0-dev – Step-spezifische Lastaktivierung
 
 - sichtbare Ready-Warteschleife mit bis zu 45 Sekunden Wartezeit vollständig
