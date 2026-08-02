@@ -143,6 +143,8 @@ printf '%s\n' "$flag"
 LEUCHTFEUER_START
 chmod 0755 /usr/local/bin/leuchtfeuer-start
 chown root:root /usr/local/bin/leuchtfeuer-start
+install -m 0755 -o root -g root \
+  /tmp/workshop-0106-assets/flag-einreichen /usr/local/bin/flag-einreichen
 
 clear 2>/dev/null || printf '\033[2J\033[H'
 exec su - "$lab_user"
