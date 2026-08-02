@@ -80,8 +80,8 @@
 
 ## Syntax und Referenzen
 
-- Alle vorhandenen Shellskripte einschließlich `step2-background.sh` mit
-  `bash -n` prüfen.
+- Alle vorhandenen Shellskripte einschließlich `step2-background.sh` und
+  `assets/prepare-workshop` mit `bash -n` prüfen.
 - Das von `setup.sh` erzeugte `leuchtfeuer-start` extrahieren und mit
   `bash -n` prüfen.
 - `index.json` mit `jq empty` validieren.
