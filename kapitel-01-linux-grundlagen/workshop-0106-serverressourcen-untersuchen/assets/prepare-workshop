@@ -202,9 +202,16 @@ flock 9
 mapfile -t existing < <(matching_pids beschwoerung "$beschwoerung_bin")
 [[ ${#existing[@]} -eq 0 ]] || fail "Es läuft bereits eine Workshopstörung."
 
-runuser -u "$lab_user" -- /usr/bin/setsid --fork /usr/bin/nice -n 15 \
-  "$beschwoerung_bin" -c "trap 'exit 0' TERM INT; while :; do :; done" \
-  9>&- </dev/null >/dev/null 2>&1
+worker_command=(
+  /usr/bin/setsid --fork /usr/bin/nice -n 15
+  "$beschwoerung_bin" -c "trap 'exit 0' TERM INT; while :; do :; done"
+)
+if [[ "$(id -un)" == "$lab_user" ]]; then
+  "${worker_command[@]}" 9>&- </dev/null >/dev/null 2>&1
+else
+  runuser -u "$lab_user" -- "${worker_command[@]}" \
+    9>&- </dev/null >/dev/null 2>&1
+fi
 
 mapfile -t worker_pids < <(matching_pids beschwoerung "$beschwoerung_bin")
 for _ in {1..30}; do
@@ -219,8 +226,15 @@ worker_pid="${worker_pids[0]}"
 [[ "$(ps -o ni= -p "$worker_pid" | tr -d ' ')" == "15" ]] ||
   fail "beschwoerung läuft nicht mit Nice-Wert 15."
 
-runuser -u "$lab_user" -- /usr/bin/setsid --fork "$regulator_bin" \
-  "$regulator_script" "$worker_pid" 9>&- </dev/null >/dev/null 2>&1
+regulator_command=(
+  /usr/bin/setsid --fork "$regulator_bin" "$regulator_script" "$worker_pid"
+)
+if [[ "$(id -un)" == "$lab_user" ]]; then
+  "${regulator_command[@]}" 9>&- </dev/null >/dev/null 2>&1
+else
+  runuser -u "$lab_user" -- "${regulator_command[@]}" \
+    9>&- </dev/null >/dev/null 2>&1
+fi
 mapfile -t regulator_pids < <(matching_pids lastregler "$regulator_bin")
 for _ in {1..30}; do
   ((${#regulator_pids[@]} == 1)) && break

@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 2.0.0-dev – Background-Ausführung als Teilnehmer
+
+- rootpflichtige Installation der Hilfsprogramme vor den Benutzerwechsel
+  verlagert;
+- Step-2-Background-Skript auf den reinen Prozessstart reduziert;
+- Prozessstarter für eine direkte Ausführung als `waerter` erweitert, ohne in
+  diesem Kontext erneut `runuser` aufzurufen;
+- Benutzerwechsel bleibt auch bei einem technischen Vorbereitungsfehler
+  erhalten; Diagnoseausgabe wird intern protokolliert.
+
 ## Version 2.0.0-dev – entkoppelter Benutzerstart
 
 - `setup.sh` auf den bewährten Benutzer- und Verzeichnisstart der vorherigen

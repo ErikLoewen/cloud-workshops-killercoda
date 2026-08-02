@@ -61,5 +61,8 @@ BASHRC
 chown "$lab_user:$lab_user" "$lab_home/.bash_profile" "$lab_home/.bashrc"
 chmod 0644 "$lab_home/.bash_profile" "$lab_home/.bashrc"
 
+/tmp/workshop-0106-assets/prepare-workshop \
+  >/tmp/workshop-0106-prepare.log 2>&1 || true
+
 clear 2>/dev/null || printf '\033[2J\033[H'
 exec su - "$lab_user"
