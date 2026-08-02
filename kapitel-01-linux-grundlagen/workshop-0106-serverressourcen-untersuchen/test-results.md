@@ -79,6 +79,10 @@ Worker jeweils 85 Millisekunden und lässt ihn danach 15 Millisekunden rechnen.
 | Step-2-Background ausdrücklich als `waerter` | Exit 0; genau eine `beschwoerung` | bestanden |
 | Messung bei Background-Ausführung als `waerter` | 17,3 % CPU, 3664 KiB RSS, Nice 15, Besitzer und `comm` korrekt | bestanden |
 | wiederholte Background-Ausführung als `waerter` | weiterhin genau eine Instanz | bestanden |
+| eigenständiger Step-2-Background ohne externen Starter | Exit 0; Logdatei leer; genau eine Instanz | bestanden |
+| Messung der eigenständigen Variante | 14,7 % CPU, 3824 KiB RSS, Nice 15, `comm` und Besitzer korrekt | bestanden |
+| Kill, erneutes Öffnen und Leuchtfeuer | kein Wiederanlauf nach `kill`; Leuchtfeuer anschließend erfolgreich | bestanden |
+| Reset der eigenständigen Variante | alte PID 98 entfernt; neue PID 236 erst nach Step 2 | bestanden |
 
 `top` und das sortierte `ps` zeigten den Worker mit großem Abstand an erster
 Stelle. Nach dem regulären Beenden sanken Worker- und Regleranzahl auf null;

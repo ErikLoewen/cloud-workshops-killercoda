@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 2.0.0-dev – eigenständiger Step-2-Background-Prozess
+
+- Abhängigkeit des Background-Skripts vom extern erzeugten Prozessstarter und
+  Lastregler entfernt;
+- `beschwoerung` direkt im Step-2-Background mit integriertem moderatem
+  Rechen-/Schlaf-Duty-Cycle gestartet;
+- Background-Skript auf erfolgreichen, stillen Abschluss ausgelegt und
+  technische Diagnose in `/tmp/workshop-0106-step2-background.log` abgelegt.
+
 ## Version 2.0.0-dev – Background-Ausführung als Teilnehmer
 
 - rootpflichtige Installation der Hilfsprogramme vor den Benutzerwechsel
