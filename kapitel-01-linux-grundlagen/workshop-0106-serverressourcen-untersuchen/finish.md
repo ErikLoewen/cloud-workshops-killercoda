@@ -28,5 +28,3 @@ Die Maschine funktioniert. Ihre Einstellungen offenbar nicht.
 
 Im nächsten Workshop sicherst und bearbeitest du die Konfiguration des
 Leuchtfeuers mit einem Terminaleditor.
-
-**Vorgesehener Titel:** `01.07 – Falsches Signal: Konfigurationen mit Nano bearbeiten`
