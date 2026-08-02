@@ -1,0 +1,2 @@
+Der Rechner besitzt ausreichend Arbeitsspeicher und freien Speicherplatz.
+Die Ursache der Stoerung muss in den laufenden Prozessen gesucht werden.
