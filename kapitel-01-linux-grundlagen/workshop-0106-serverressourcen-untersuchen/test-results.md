@@ -22,8 +22,10 @@ der Benutzerwechsel hing von der parallelen Setup-Fertigstellung ab. Zudem
 startete das globale Setup den Ressourcenfresser bereits vor Intro und Step 1.
 
 Die neue Umsetzung verwendet wieder direkt das im Repository vorhandene
-`setup.sh`-Muster der Workshops 4 und 5. Das Setup bereitet die Umgebung vor
-und wechselt anschließend mit `exec su - waerter` in die Login-Shell. Der
+`setup.sh`-Muster der Workshops 4 und 5. Das Setup bereitet ausschließlich
+Benutzer, Arbeitsverzeichnis und Login vor und wechselt anschließend mit
+`exec su - waerter` in die Login-Shell. Die technische Prozessvorbereitung
+erfolgt erst durch Step 2. Der
 aktive Hostname wird nur noch bestmöglich gesetzt und kann das Setup nicht vor
 dem Benutzerwechsel abbrechen. Es gibt keine Ready-Datei und keine
 Setup-Warteschleife. Der Worker wird nur vom Background-Skript des zweiten
@@ -71,6 +73,9 @@ Worker jeweils 85 Millisekunden und lässt ihn danach 15 Millisekunden rechnen.
 | vollständiger Neustart | vor Step 2 keine Störung; danach neue PID 470 und genau eine Instanz | bestanden |
 | Hotfix bei unveränderbarem Hostnamen `ubuntu` | Login weiterhin als `waerter` im richtigen Arbeitsverzeichnis; Step-2-Start erfolgreich | bestanden |
 | Hotfix-Messung unter Hostname `ubuntu` | 17,7 % CPU, 3668 KiB RSS, Nice 15, Besitzer `waerter` | bestanden |
+| vollständig entkoppelter Start | Login als `waerter`, obwohl `start-beschwoerung` vor Step 2 noch nicht installiert ist | bestanden |
+| Step 2 nach entkoppeltem Start | PID 99, 17,7 % CPU, 3848 KiB RSS, Besitzer `waerter` | bestanden |
+| vollständiger Reset der entkoppelten Variante | alte PID 99 entfernt; Step 2 startet genau eine neue PID 322 | bestanden |
 
 `top` und das sortierte `ps` zeigten den Worker mit großem Abstand an erster
 Stelle. Nach dem regulären Beenden sanken Worker- und Regleranzahl auf null;

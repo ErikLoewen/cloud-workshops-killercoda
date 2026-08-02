@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 2.0.0-dev – entkoppelter Benutzerstart
+
+- `setup.sh` auf den bewährten Benutzer- und Verzeichnisstart der vorherigen
+  Workshops reduziert;
+- Benutzerwechsel vollständig von der technischen Prozessvorbereitung
+  entkoppelt;
+- Hilfsprogramme und `beschwoerung` erst durch den Background-Start von Step 2
+  vorbereitet beziehungsweise gestartet;
+- technische `usermod`-Ausgabe im Teilnehmerterminal unterdrückt.
+
 ## Version 2.0.0-dev – vereinfachter Workshopstart
 
 - zusätzlichen Setup-Wrapper und das Setup-Asset wieder entfernt;
