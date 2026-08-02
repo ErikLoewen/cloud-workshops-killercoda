@@ -1,23 +1,43 @@
 # Testprotokoll – 01.06 – Licht aus im Sturm: Was blockiert den Leuchtturm?
 
 **Datum:** 2. August 2026
-**Testumgebung:** Repository-Prüfungen auf dem Host, Funktionsprüfung in einem
-frischen, kurzlebigen `ubuntu:latest`-Container
+**Testumgebung:** Repository-Prüfungen auf dem Host; vollständiger Funktionslauf
+in einem frischen `ubuntu:latest`-Container mit Init-Prozess und dem Hostnamen
+`leuchtturm`
 
 ## Zusammenfassung
 
-Die technische Mission funktioniert vom Setup bis zum wiederholbaren CHECK. Die
-Shell- und JSON-Prüfungen bestehen ebenfalls. Die vier geplanten Bilddateien
-sind eingebunden und ihre relativen Pfade wurden statisch geprüft. Im offenen
-Lernendentext wird die konkrete Flag nicht vorweggenommen.
+Die technische Mission funktioniert nach der Reparatur vom synchronisierten
+Login bis zum wiederholbaren CHECK. Die sichtbare Shell startet erst nach dem
+atomaren Ready-Signal als `waerter@leuchtturm` im vorgesehenen Arbeitsbereich.
+Der Störprozess erscheint in `/proc`, `pgrep`, `ps` und `top` eindeutig als
+`beschwoerung` und lag in den Messungen stabil bei ungefähr 60 Prozent CPU.
+
+## Ursache des realen Fehlers
+
+Das bisherige `setup.sh` war zugleich technische Vorbereitung und
+Foreground-Shell. Es gab kein Ready-Signal zwischen einem unsichtbaren Setup
+und dem sichtbaren Teilnehmerterminal. Im realen Backend blieb deshalb die
+ursprüngliche Shell `root@ubuntu` sichtbar. Der Lastprozess war außerdem eine
+kopierte `yes`-Datei ohne Duty-Cycle. Sein mehrstufiger Launcher und Fortbestand
+waren nicht unabhängig vom Setup-Lebenszyklus abgesichert; die erwartete
+Prozessinstanz war im Browserlauf nicht vorhanden.
+
+Die neue Umsetzung trennt beide Lebenszyklen. `setup.sh` läuft im Background
+und schreibt die Ready-Datei erst nach allen technischen Selbstprüfungen.
+`foreground.sh` wartet darauf und startet anschließend die Login-Shell. Der
+Worker ist eine Kopie von Bash unter dem echten Dateinamen `beschwoerung`. Ein
+separat identifizierter Regler pausiert ihn jeweils 40 Millisekunden und lässt
+ihn anschließend 60 Millisekunden rechnen. Beide Prozesse werden mit
+`setsid --fork` vom kurzlebigen `runuser`-Launcher gelöst.
 
 ## Statische Prüfungen
 
 | Prüfung | Reales Ergebnis | Status |
 |---|---|---|
-| `bash -n` für `setup.sh` und `verify.sh` | keine Syntaxfehler | bestanden |
+| `bash -n` für Setup, Foreground, Verify und Flag-Werkzeug | keine Syntaxfehler | bestanden |
 | JSON-Syntax von `index.json` | `jq empty` ohne Fehler | bestanden |
-| Dateien aus `index.json` | alle acht referenzierten Dateien vorhanden | bestanden |
+| Dateien aus `index.json` | alle Text-, Background-, Foreground-, Verify- und Asset-Referenzen vorhanden | bestanden |
 | `git diff --check` im Workshop | keine Whitespacefehler | bestanden |
 | `beschwoerung` vor Step 5 | keine Nennung in Intro oder Step 1 bis 4 | bestanden |
 | Offen sichtbarer Teil von Step 5 | Prozessname erst im vierten Dropdown | bestanden |
@@ -32,24 +52,24 @@ Lernendentext wird die konkrete Flag nicht vorweggenommen.
 
 | Prüfung | Reales Ergebnis | Status |
 |---|---|---|
-| erster Setup-Start | ohne Fehler | bestanden |
-| Benutzer | `waerter` vorhanden | bestanden |
-| Hostname-Konfiguration | `/etc/hostname` enthält `leuchtturm` | bestanden |
-| Arbeitsbereich | `/home/waerter/leuchtturm/aussenstation` und ausführbares Startskript vorhanden | bestanden |
-| Anzahl Störprozesse | genau eine Instanz | bestanden |
-| Besitzer | `waerter` | bestanden |
-| Sichtbarkeit in `ps` | in der sortierten Ausgabe vorhanden | bestanden |
-| Sichtbarkeit in `top` | in der Batch-Ausgabe vorhanden | bestanden |
-| CPU-Last | in früherer Messreihe 90,9–100 % eines logischen Prozessors | bestanden |
-| Priorität | Nice-Wert 15 | bestanden |
-| CPU-Worker | auf maximal einen logischen Prozessor begrenzt | bestanden |
-| Plattenwachstum | 0 Byte im Kontrollintervall | bestanden |
-| RAM-Verbrauch | 3768 KiB RSS im finalen Lauf | bestanden |
-| wiederholtes Setup | danach wieder genau eine `beschwoerung`, altes `leuchtfeuer` entfernt | bestanden |
+| Ready-Synchronisation | Foreground vor Setup gestartet; Login erst nach abgeschlossenem Setup | bestanden |
+| sichtbare Identität | `whoami` = `waerter`, Hostname = `leuchtturm` | bestanden |
+| Startverzeichnis | `/home/waerter/leuchtturm/aussenstation` | bestanden |
+| Anzahl Störprozesse | genau eine lebende Instanz | bestanden |
+| `/proc/PID/comm` | `beschwoerung` | bestanden |
+| `pgrep -a beschwoerung` | PID und Workshoppfad sichtbar | bestanden |
+| Besitzer und Priorität | `waerter`, Nice-Wert 15 | bestanden |
+| CPU-Last, erste Messung | 59,7 % | bestanden |
+| CPU-Last, zweite Messung | 59,5 % | bestanden |
+| CPU-Last in `top` | 61,0 % | bestanden |
+| RAM-Verbrauch | 3552 KiB RSS, 0,0 % MEM | bestanden |
+| Plattenwachstum über zehn Sekunden | 0 Byte | bestanden |
+| wiederholtes Setup | alte PID 74 entfernt, neue PID 176; genau eine Instanz und ein Regler | bestanden |
+| normales `kill PID` | Worker und zugehöriger Regler anschließend nicht mehr vorhanden | bestanden |
 
-Der sichtbare Laufzeithostname kann in einem unprivilegierten Container nicht
-zuverlässig umgestellt werden. Die Hostdatei ist korrekt; die sichtbare
-Killercoda-Shell bleibt deshalb ein Backend-Testpunkt.
+`top` zeigte den Worker mit großem Abstand an erster Stelle. Nach dem regulären
+Beenden sanken Worker- und Regleranzahl auf null; damit entfiel die gemessene
+Lastquelle vollständig. Das Terminal blieb während aller Messungen bedienbar.
 
 ## Übungsprozess
 
@@ -74,20 +94,21 @@ Killercoda-Shell bleibt deshalb ein Backend-Testpunkt.
 | korrekte Flag | angenommen | bestanden |
 | `verify.sh` | CHECK erfolgreich | bestanden |
 | wiederholter CHECK | erneut erfolgreich | bestanden |
-| Reset | eine neue Störprozessinstanz, kein altes Leuchtfeuer | bestanden |
+| Reset | genau eine neue Störprozessinstanz und ein Regler; kein altes Leuchtfeuer oder Abgabemarker | bestanden |
 
 ## Finaler Teilnehmerweg
 
-Der abschließende End-to-End-Lauf am 1. August 2026 bestand alle zehn
-Stationen: Setup, `nproc`/`free -h`/`df -h /`, Beobachtung mit `top`, sortierte
-`ps`-Ausgabe, `sleep 300`-Übung, Identifikation und reguläres Beenden von
-`beschwoerung`, Leuchtfeuerstart, Flagausgabe, Flag-Abgabe mit wiederholtem
-CHECK sowie Reset. Ein vorzeitiger Start erzeugte weder Leuchtfeuer noch Flag.
+Der End-to-End-Lauf bestand Ready-Warten, Login-Prüfung, zweimaliges Setup,
+Prozess- und Ressourcenmessung, verweigerten vorzeitigen Leuchtfeuerstart,
+reguläres Beenden von `beschwoerung`, erfolgreichen Leuchtfeuerstart, negative
+und positive Flag-Abgabe, zweimaligen erfolgreichen CHECK sowie finalen Reset.
+Ein vorzeitiger Start erzeugte weder Leuchtfeuer noch Flag.
 
 ## Noch im Killercoda-Backend prüfen
 
-- sichtbarer Hostname und automatischer Startpfad der Lernenden-Shell;
-- Ressourcenverhalten über eine realistische Labordauer;
+- Browserdarstellung des Prompts `waerter@leuchtturm` nach Killercodas
+  tatsächlichem Background-/Foreground-Start;
+- Ressourcenverhalten über eine vollständige reale Labordauer;
 - vollständiger Browserdurchlauf einschließlich anklickbarer Codeblöcke und
   CHECK-Eingabe;
 - tatsächliche Bilddarstellung der vier Assets im Browser.

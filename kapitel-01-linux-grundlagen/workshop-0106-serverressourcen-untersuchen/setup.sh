@@ -7,7 +7,10 @@ readonly state_dir="/var/lib/labforge/serverressourcen-untersuchen"
 readonly install_dir="/usr/local/lib/leuchtturm"
 readonly install_marker="${install_dir}/.workshop-0106"
 readonly beschwoerung_bin="${install_dir}/beschwoerung"
+readonly regulator_bin="${install_dir}/lastregler"
+readonly regulator_script="${install_dir}/lastregler.sh"
 readonly leuchtfeuer_bin="${install_dir}/leuchtfeuer"
+readonly ready_file="${state_dir}/setup-ready"
 readonly flag_asset="/tmp/workshop-0106-assets/flag-einreichen"
 readonly expected_install_marker="LabForge Workshop 0106 process binaries"
 
@@ -60,7 +63,7 @@ atomic_write() {
   mv -f -- "$tmp" "$target"
 }
 
-for command_name in nice setsid runuser flock ps pgrep top; do
+for command_name in nice setsid runuser flock ps pgrep; do
   command -v "$command_name" >/dev/null 2>&1 ||
     fail "${command_name} ist nicht verfügbar."
 done
@@ -72,13 +75,34 @@ if ! id "$lab_user" >/dev/null 2>&1; then
   useradd --create-home --shell /bin/bash --gid "$lab_user" "$lab_user"
 fi
 usermod --shell /bin/bash --gid "$lab_user" "$lab_user" >/dev/null
+install -d -m 0750 -o "$lab_user" -g "$lab_user" "$lab_home"
 printf '%s\n' 'leuchtturm' >/etc/hostname
-hostname leuchtturm 2>/dev/null || true
+if [[ "$(hostname)" != "leuchtturm" ]]; then
+  if command -v hostnamectl >/dev/null 2>&1 &&
+    hostnamectl set-hostname leuchtturm >/dev/null 2>&1; then
+    :
+  elif command -v hostname >/dev/null 2>&1; then
+    hostname leuchtturm
+  else
+    fail "Der Hostname konnte nicht gesetzt werden."
+  fi
+fi
+[[ "$(hostname)" == "leuchtturm" ]] || fail "Der aktive Hostname ist nicht leuchtturm."
+if grep -qE '^[[:space:]]*127\.0\.1\.1[[:space:]]+' /etc/hosts; then
+  hosts_tmp="$(mktemp /tmp/workshop-0106-hosts.XXXXXX)"
+  awk '$1 == "127.0.1.1" { print "127.0.1.1 leuchtturm"; next } { print }' \
+    /etc/hosts >"$hosts_tmp"
+  cat "$hosts_tmp" >/etc/hosts
+  rm -f -- "$hosts_tmp"
+else
+  printf '%s\n' '127.0.1.1 leuchtturm' >>/etc/hosts
+fi
 
 if [[ -e "$install_dir" ]]; then
   [[ -f "$install_marker" ]] || fail "$install_dir existiert, gehört aber nicht zu Workshop 0106."
   [[ "$(<"$install_marker")" == "$expected_install_marker" ]] ||
     fail "$install_dir besitzt einen unerwarteten Workshopmarker."
+  stop_workshop_processes lastregler "$regulator_bin"
   stop_workshop_processes beschwoerung "$beschwoerung_bin"
   stop_workshop_processes leuchtfeuer "$leuchtfeuer_bin"
 else
@@ -86,15 +110,43 @@ else
 fi
 atomic_write "$install_marker" "$expected_install_marker"
 
-beschwoerung_mode="yes"
-if [[ -x /usr/bin/yes && ! -L /usr/bin/yes ]]; then
-  install -m 0755 -o root -g root /usr/bin/yes "$beschwoerung_bin"
-elif [[ -x /bin/bash ]]; then
-  install -m 0755 -o root -g root /bin/bash "$beschwoerung_bin"
-  beschwoerung_mode="bash-fallback"
-else
-  fail "Weder /usr/bin/yes noch /bin/bash ist als kontrollierter CPU-Worker verfügbar."
-fi
+[[ -x /bin/bash && ! -L /bin/bash ]] ||
+  fail "/bin/bash ist nicht als kopierbare Datei verfügbar."
+install -m 0755 -o root -g root /bin/bash "$beschwoerung_bin"
+install -m 0755 -o root -g root /bin/bash "$regulator_bin"
+cat >"$regulator_script" <<'REGULATOR'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly target_pid="$1"
+readonly expected_exe="/usr/local/lib/leuchtturm/beschwoerung"
+
+target_matches() {
+  local actual_exe
+  [[ "$target_pid" =~ ^[1-9][0-9]*$ ]] || return 1
+  [[ -r "/proc/${target_pid}/comm" && -r "/proc/${target_pid}/cmdline" ]] || return 1
+  [[ "$(<"/proc/${target_pid}/comm")" == "beschwoerung" ]] || return 1
+  IFS= read -r -d '' actual_exe <"/proc/${target_pid}/cmdline" || return 1
+  [[ "$actual_exe" == "$expected_exe" ]]
+}
+
+cleanup() {
+  kill -CONT "$target_pid" 2>/dev/null || true
+  exit 0
+}
+trap cleanup TERM INT
+
+while target_matches; do
+  kill -STOP "$target_pid" 2>/dev/null || break
+  sleep 0.04
+  target_matches || break
+  kill -CONT "$target_pid" 2>/dev/null || break
+  sleep 0.06
+done
+kill -CONT "$target_pid" 2>/dev/null || true
+REGULATOR
+chmod 0644 "$regulator_script"
+chown root:root "$regulator_script"
 leuchtfeuer_mode="sleep"
 if [[ -x /bin/sleep && ! -L /bin/sleep ]]; then
   install -m 0755 -o root -g root /bin/sleep "$leuchtfeuer_bin"
@@ -112,10 +164,9 @@ install -d -m 0755 -o "$lab_user" -g "$lab_user" \
   "$lab_home/leuchtturm" "$work_dir" "$work_dir/status"
 session_id="$(cat /proc/sys/kernel/random/uuid)"
 atomic_write "$state_dir/session-id" "$session_id" 0640
-atomic_write "$state_dir/beschwoerung-mode" "$beschwoerung_mode" 0640
 atomic_write "$state_dir/leuchtfeuer-mode" "$leuchtfeuer_mode" 0640
 chown "$lab_user:$lab_user" "$state_dir/session-id" \
-  "$state_dir/beschwoerung-mode" "$state_dir/leuchtfeuer-mode"
+  "$state_dir/leuchtfeuer-mode"
 
 cat >"$work_dir/leuchtfeuer-start" <<'SCRIPT'
 #!/usr/bin/env bash
@@ -223,22 +274,15 @@ clear 2>/dev/null || printf '\\033[2J\\033[H'
 PROFILE
 cat >"$lab_home/.bashrc" <<'BASHRC'
 PS1='\u@\h:\w\$ '
+if [[ $- == *i* ]]; then
+  bind 'set echo-control-characters off'
+fi
 BASHRC
 chown "$lab_user:$lab_user" "$lab_home/.bash_profile" "$lab_home/.bashrc"
 chmod 0644 "$lab_home/.bash_profile" "$lab_home/.bashrc"
 
-beschwoerung_command=("$beschwoerung_bin")
-if [[ "$beschwoerung_mode" == "bash-fallback" ]]; then
-  beschwoerung_command+=( -c "trap 'exit 0' TERM INT; while :; do :; done" )
-fi
-affinity_mode="single-worker-fallback"
-launcher=(/usr/bin/nice -n 15)
-if command -v taskset >/dev/null 2>&1 && taskset -c 0 /bin/true >/dev/null 2>&1; then
-  launcher+=(/usr/bin/taskset -c 0)
-  affinity_mode="taskset-cpu-0"
-fi
-launcher+=("${beschwoerung_command[@]}")
-runuser -u "$lab_user" -- /usr/bin/setsid --fork "${launcher[@]}" \
+runuser -u "$lab_user" -- /usr/bin/setsid --fork /usr/bin/nice -n 15 \
+  "$beschwoerung_bin" -c "trap 'exit 0' TERM INT; while :; do :; done" \
   </dev/null >/dev/null 2>&1
 
 mapfile -t beschwoerung_pids < <(matching_pids beschwoerung "$beschwoerung_bin")
@@ -253,16 +297,30 @@ beschwoerung_pid="${beschwoerung_pids[0]}"
   fail "beschwoerung gehört nicht dem Benutzer waerter."
 [[ "$(ps -o ni= -p "$beschwoerung_pid" | tr -d ' ')" == "15" ]] ||
   fail "beschwoerung läuft nicht mit Nice-Wert 15."
+
+runuser -u "$lab_user" -- /usr/bin/setsid --fork "$regulator_bin" \
+  "$regulator_script" "$beschwoerung_pid" \
+  </dev/null >/dev/null 2>&1
+mapfile -t regulator_pids < <(matching_pids lastregler "$regulator_bin")
+for _ in {1..30}; do
+  ((${#regulator_pids[@]} == 1)) && break
+  sleep 0.1
+  mapfile -t regulator_pids < <(matching_pids lastregler "$regulator_bin")
+done
+[[ ${#regulator_pids[@]} -eq 1 ]] || fail "Der Lastregler wurde nicht genau einmal gestartet."
+regulator_pid="${regulator_pids[0]}"
 atomic_write "$state_dir/beschwoerung-started.marker" \
   "session_id=${session_id}
 pid=${beschwoerung_pid}
-affinity=${affinity_mode}
+regulator_pid=${regulator_pid}
 nice=15" 0640
 chown "$lab_user:$lab_user" "$state_dir/beschwoerung-started.marker"
 rm -f -- "$state_dir/leuchtfeuer-started.marker" "$state_dir/flag-submitted.marker"
 pgrep -x beschwoerung >/dev/null || fail "beschwoerung ist mit pgrep nicht auffindbar."
 ps -p "$beschwoerung_pid" -o comm= | grep -qx 'beschwoerung' ||
   fail "beschwoerung ist mit ps nicht eindeutig sichtbar."
+[[ "$(<"/proc/${beschwoerung_pid}/comm")" == "beschwoerung" ]] ||
+  fail "Der Prozessname in /proc ist nicht beschwoerung."
 
-clear 2>/dev/null || printf '\033[2J\033[H'
-exec su - "$lab_user"
+atomic_write "$ready_file" "workshop-0106-ready:${session_id}" 0644
+exit 0

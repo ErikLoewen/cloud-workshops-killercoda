@@ -14,7 +14,8 @@
     "intro": {
       "title": "01.06 – Licht aus im Sturm: Was blockiert den Leuchtturm?",
       "text": "intro.md",
-      "foreground": "setup.sh"
+      "background": "setup.sh",
+      "foreground": "foreground.sh"
     },
     "steps": [
       {

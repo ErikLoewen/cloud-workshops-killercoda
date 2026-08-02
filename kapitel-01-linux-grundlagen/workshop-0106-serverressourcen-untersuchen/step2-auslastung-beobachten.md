@@ -19,6 +19,19 @@ verstehen.
 | `COMMAND` | Welcher Prozess beziehungsweise Befehl ist es? |
 | `q` | `top` verlassen |
 
+`%CPU` ist ein Prozentwert: `0.6` bedeutet nur 0,6 Prozent. `60.0` bedeutet
+ungefähr 60 Prozent eines logischen Prozessors. In der zusammenfassenden
+CPU-Zeile steht `id` für *idle*, also unbeschäftigt. `99.7 id` bedeutet, dass
+die CPU zu ungefähr 99,7 Prozent untätig ist.
+
+```text
+0.6   → unauffällige geringe CPU-Nutzung
+60.0  → deutlich auffällige CPU-Nutzung
+```
+
+Bei Programmen mit mehreren Threads können Werte über 100 Prozent auftreten.
+Für diese Aufgabe reicht die einfache Einordnung.
+
 ## Beobachtungsauftrag
 
 Beobachte mehrere Aktualisierungen.

@@ -4,11 +4,11 @@
 
 | Nr. | Test | Erwartung |
 |---:|---|---|
-| 1 | Setup erstmals ausführen | Exit 0; Umgebung vollständig vorbereitet |
+| 1 | Background-Setup erstmals ausführen | Exit 0; atomare Ready-Datei erst nach vollständiger Vorbereitung |
 | 2 | Setup erneut ausführen | alter Zustand bereinigt; wieder genau ein Störprozess |
-| 3 | sichtbaren Benutzer prüfen | `waerter` |
-| 4 | Hostname prüfen | `leuchtturm` |
-| 5 | Arbeitsbereich prüfen | `/home/waerter/leuchtturm/aussenstation` vorhanden |
+| 3 | Foreground vor Ready starten | wartet ohne technische Setup-Ausgaben |
+| 4 | sichtbaren Prompt und Benutzer prüfen | `waerter@leuchtturm`, `whoami` ergibt `waerter` |
+| 5 | Startverzeichnis mit `pwd` prüfen | `/home/waerter/leuchtturm/aussenstation` |
 | 6 | Startinhalt prüfen | `leuchtfeuer-start`, `status/` und Wartungsnotiz vorhanden |
 | 7 | Störprozess zählen | genau eine Instanz |
 
@@ -18,11 +18,11 @@
 |---:|---|---|
 | 8 | `pgrep` und `top` prüfen | Prozessname und hohe CPU-Nutzung sichtbar |
 | 9 | reduzierte, sortierte `ps`-Ausgabe prüfen | auffälliger Eintrag steht weit oben |
-| 10 | CPU-Last mehrfach messen | dauerhaft auffällig, ungefähr ein logischer Prozessor |
+| 10 | CPU-Last nach mindestens fünf Sekunden mehrfach messen | ungefähr 50 bis 70 Prozent eines logischen Prozessors |
 | 11 | Priorität prüfen | Nice-Wert 15 |
-| 12 | Workerzahl und CPU-Affinität prüfen | genau ein Worker; höchstens ein logischer Prozessor stark belastet |
+| 12 | `/proc/PID/comm` und Kommandozeile prüfen | exakt `beschwoerung`; ausführbare Datei ist der Workshoppfad |
 | 13 | Verzeichnisgrößen vor/nach Lasttest vergleichen | kein Disk-Wachstum |
-| 14 | RSS und `free -h` beobachten | kein relevanter RAM-Verbrauch |
+| 14 | RSS, `%MEM` und `free -h` beobachten | geringer RAM-Verbrauch |
 | 15 | Besitzer prüfen | Prozess gehört `waerter` |
 | 16 | reguläres `kill PID` | Prozess endet ohne `kill -9` |
 
@@ -65,10 +65,13 @@
   ausgelieferte Platzhalter dokumentiert sein.
 - Unterstützungsprogression und CHECK-Grenze müssen mit Trainerleitfaden und
   Challenge übereinstimmen.
+- Die sichtbare Prozentwert-Erklärung steht vor dem Arbeitsauftrag in Step 2
+  und Step 3; der Prozessname wird dabei nicht verraten.
 
 ## Syntax und Referenzen
 
-- Alle vorhandenen Shellskripte mit `bash -n` prüfen.
+- Alle vorhandenen Shellskripte einschließlich `foreground.sh` mit `bash -n`
+  prüfen.
 - Das von `setup.sh` erzeugte `leuchtfeuer-start` extrahieren und mit
   `bash -n` prüfen.
 - `index.json` mit `jq empty` validieren.

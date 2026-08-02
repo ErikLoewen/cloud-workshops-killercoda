@@ -16,6 +16,10 @@ musst du herausfinden, was das System blockiert.
 > Besitzt der Rechner zu wenig Ressourcen – oder verbraucht ein laufender
 > Prozess mehr, als er sollte?
 
+> **Hinweis:** Der vorbereitete Störprozess belastet den Rechner absichtlich.
+> Das Terminal kann deshalb etwas verzögert reagieren. Warte nach einer
+> Eingabe kurz, statt denselben Befehl mehrfach abzusenden.
+
 ![Dunkler Leuchtturm im schweren Sturm; am Horizont nähert sich ein Schiff.](./assets/0106-einstieg-leuchtturm-dunkel.png)
 
 ### Am Ende kannst du

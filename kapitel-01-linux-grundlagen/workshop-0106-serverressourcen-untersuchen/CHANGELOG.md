@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 2.0.0-dev – Reparatur des realen Killercoda-Laufs
+
+- technisches Setup als unsichtbaren Background-Prozess ausgeführt und die
+  sichtbare `waerter`-Shell über ein Ready-Signal synchronisiert;
+- Hostname und Startverzeichnis vor dem Öffnen der Teilnehmer-Shell geprüft;
+- bisherigen Volllastprozess durch eine eigenständig benannte Binärdatei mit
+  kontrolliertem 60/40-Millisekunden-Duty-Cycle ersetzt;
+- Cleanup auf exakt erkannte Workshopprozesse begrenzt und wiederholtes Setup
+  geprüft;
+- Prozentwerte, `idle` und erwartbare Terminalverzögerung anfängergerecht im
+  sichtbaren Teilnehmertext erklärt;
+- Testplan und Testprotokoll an die reale Fehlerkorrektur angepasst.
+
 ## Version 2.0.0-dev – Bildassets
 
 - vier gelieferte Workshopgrafiken konsistent benannt und in den Asset-Ordner
