@@ -8,11 +8,6 @@
           "file": "assets/flag-einreichen",
           "target": "/tmp/workshop-0106-assets",
           "chmod": "+x"
-        },
-        {
-          "file": "assets/setup-workshop",
-          "target": "/tmp/workshop-0106-assets",
-          "chmod": "+x"
         }
       ]
     },

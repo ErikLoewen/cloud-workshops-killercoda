@@ -21,13 +21,11 @@ das Teilnehmerterminal ein; dadurch blieb zunächst `root@ubuntu` sichtbar und
 der Benutzerwechsel hing von der parallelen Setup-Fertigstellung ab. Zudem
 startete das globale Setup den Ressourcenfresser bereits vor Intro und Step 1.
 
-Die neue Umsetzung verwendet wieder das im Repository vorhandene Muster der
-Workshops 4 und 5, reduziert das sichtbare `setup.sh` aber auf einen kurzen
-Wrapper: Das vorab ausgelieferte Asset `setup-workshop` bereitet die Umgebung
-ohne Terminalausgabe vor und beendet sich regulär; danach wechselt der Wrapper
-mit `exec su - waerter` direkt in die Login-Shell. Der aktive Hostname wird nur
-noch bestmöglich gesetzt und kann das Setup nicht mehr vor dem Benutzerwechsel
-abbrechen. Es gibt keine Ready-Datei und keine
+Die neue Umsetzung verwendet wieder direkt das im Repository vorhandene
+`setup.sh`-Muster der Workshops 4 und 5. Das Setup bereitet die Umgebung vor
+und wechselt anschließend mit `exec su - waerter` in die Login-Shell. Der
+aktive Hostname wird nur noch bestmöglich gesetzt und kann das Setup nicht vor
+dem Benutzerwechsel abbrechen. Es gibt keine Ready-Datei und keine
 Setup-Warteschleife. Der Worker wird nur vom Background-Skript des zweiten
 Schritts gestartet. Ein sitzungsgebundener Marker verhindert jeden weiteren
 Start bis zum vollständigen Workshopneustart. Der Lastregler pausiert den
@@ -37,7 +35,7 @@ Worker jeweils 85 Millisekunden und lässt ihn danach 15 Millisekunden rechnen.
 
 | Prüfung | Reales Ergebnis | Status |
 |---|---|---|
-| `bash -n` für Setup, Setup-Asset, Step-2-Background, Verify und Flag-Werkzeug | keine Syntaxfehler | bestanden |
+| `bash -n` für Setup, Step-2-Background, Verify und Flag-Werkzeug | keine Syntaxfehler | bestanden |
 | JSON-Syntax von `index.json` | `jq empty` ohne Fehler | bestanden |
 | Dateien aus `index.json` | alle Text-, Background-, Foreground-, Verify- und Asset-Referenzen vorhanden | bestanden |
 | `git diff --check` im Workshop | keine Whitespacefehler | bestanden |
@@ -64,9 +62,9 @@ Worker jeweils 85 Millisekunden und lässt ihn danach 15 Millisekunden rechnen.
 | `/proc/PID/comm` | `beschwoerung` | bestanden |
 | `pgrep -a beschwoerung` | PID und Workshoppfad sichtbar | bestanden |
 | Besitzer und Priorität | `waerter`, Nice-Wert 15 | bestanden |
-| CPU-Last in `ps` | 16,9 % im vollständigen Lauf; 17,2 % im finalen Wrapper-Lauf | bestanden |
+| CPU-Last in `ps` | 16,9 bis 17,2 % | bestanden |
 | CPU-Last in `top` | 17,0 % | bestanden |
-| RAM-Verbrauch | 3728 KiB RSS im vollständigen Lauf; 3716 KiB im finalen Wrapper-Lauf; jeweils 0,0 % MEM | bestanden |
+| RAM-Verbrauch | 3716 bis 3728 KiB RSS, jeweils 0,0 % MEM | bestanden |
 | Plattenwachstum über zehn Sekunden | 0 Byte | bestanden |
 | normales `kill PID` | Worker und zugehöriger Regler anschließend nicht mehr vorhanden | bestanden |
 | Step 2 nach `kill` erneut geöffnet | kein Neustart; Marker bleibt vorhanden | bestanden |

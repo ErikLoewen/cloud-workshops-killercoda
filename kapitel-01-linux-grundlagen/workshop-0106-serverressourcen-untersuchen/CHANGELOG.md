@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 2.0.0-dev – vereinfachter Workshopstart
+
+- zusätzlichen Setup-Wrapper und das Setup-Asset wieder entfernt;
+- Workshopstart exakt wie in Workshops 4 und 5 direkt in `setup.sh`
+  vorbereitet und mit `exec su - waerter` abgeschlossen;
+- Step-2-Background-Aktivierung als einzige Startstelle für `beschwoerung`
+  beibehalten.
+
 ## Version 2.0.0-dev – Killercoda-Hotfix für Benutzerstart
 
 - Hostnamenwechsel als Best-effort behandelt, damit eine eingeschränkte
