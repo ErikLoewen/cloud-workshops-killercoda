@@ -49,7 +49,7 @@ Die erste Suche soll keinen Eintrag liefern. Falls `leuchtfeuer` noch nicht
 läuft, starte es und kontrolliere erneut:
 
 ```bash
-./leuchtfeuer-start
+leuchtfeuer-start
 pgrep -a leuchtfeuer
 ```
 

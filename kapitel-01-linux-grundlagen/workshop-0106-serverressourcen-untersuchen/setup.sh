@@ -69,12 +69,80 @@ if [[ ! -x /usr/local/lib/leuchtturm/beschwoerung ]]; then
   install -m 0755 -o root -g root /bin/bash \
     /usr/local/lib/leuchtturm/beschwoerung
 fi
+install -m 0755 -o root -g root /bin/bash \
+  /usr/local/lib/leuchtturm/leuchtfeuer
 install -d -m 0750 -o "$lab_user" -g "$lab_user" "$state_dir"
 if [[ ! -s "$state_dir/session-id" ]]; then
   cat /proc/sys/kernel/random/uuid >"$state_dir/session-id"
   chown "$lab_user:$lab_user" "$state_dir/session-id"
   chmod 0640 "$state_dir/session-id"
 fi
+
+cat >/usr/local/bin/leuchtfeuer-start <<'LEUCHTFEUER_START'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly state_dir="/var/lib/labforge/serverressourcen-untersuchen"
+readonly worker="/usr/local/lib/leuchtturm/beschwoerung"
+readonly light="/usr/local/lib/leuchtturm/leuchtfeuer"
+readonly flag='FLAG{das_licht_brennt_wieder}'
+
+find_process() {
+  local expected_comm="$1" expected_exe="$2" proc pid actual_exe
+  for proc in /proc/[0-9]*; do
+    pid="${proc#/proc/}"
+    [[ -r "$proc/comm" && -r "$proc/cmdline" ]] || continue
+    [[ "$(<"$proc/comm")" == "$expected_comm" ]] || continue
+    IFS= read -r -d '' actual_exe <"$proc/cmdline" || continue
+    [[ "$actual_exe" == "$expected_exe" ]] || continue
+    [[ "$(stat -c '%U' "$proc")" == "waerter" ]] || continue
+    printf '%s\n' "$pid"
+    return 0
+  done
+  return 1
+}
+
+[[ "$(id -un)" == "waerter" ]] || {
+  printf '%s\n' 'Start abgebrochen: Der Befehl muss als waerter ausgeführt werden.' >&2
+  exit 1
+}
+if find_process beschwoerung "$worker" >/dev/null; then
+  printf '%s\n' 'Start verweigert: Das System steht weiterhin unter hoher Last.' >&2
+  exit 1
+fi
+if find_process leuchtfeuer "$light" >/dev/null; then
+  printf '%s\n' 'Start übersprungen: Das Leuchtfeuer läuft bereits.' >&2
+  exit 1
+fi
+
+/usr/bin/setsid --fork "$light" -c \
+  'trap "exit 0" TERM INT; while :; do sleep 3600; done' \
+  </dev/null >/dev/null 2>&1
+
+light_pid=""
+for _ in {1..30}; do
+  light_pid="$(find_process leuchtfeuer "$light" || true)"
+  [[ "$light_pid" =~ ^[1-9][0-9]*$ ]] && break
+  sleep 0.1
+done
+[[ "$light_pid" =~ ^[1-9][0-9]*$ ]] || {
+  printf '%s\n' 'Start fehlgeschlagen: Der Leuchtfeuerprozess wurde nicht aktiv.' >&2
+  exit 1
+}
+
+session_id="$(<"$state_dir/session-id")"
+tmp="$(mktemp "$state_dir/leuchtfeuer-started.marker.tmp.XXXXXX")"
+printf 'session_id=%s\npid=%s\nresult=started\n' \
+  "$session_id" "$light_pid" >"$tmp"
+chmod 0640 "$tmp"
+chown waerter:waerter "$tmp"
+mv -f -- "$tmp" "$state_dir/leuchtfeuer-started.marker"
+
+printf '%s\n' 'Das Leuchtfeuer fährt hoch. Ein Lichtstrahl schneidet durch den Nebel.'
+printf '%s\n' "$flag"
+LEUCHTFEUER_START
+chmod 0755 /usr/local/bin/leuchtfeuer-start
+chown root:root /usr/local/bin/leuchtfeuer-start
 
 clear 2>/dev/null || printf '\033[2J\033[H'
 exec su - "$lab_user"

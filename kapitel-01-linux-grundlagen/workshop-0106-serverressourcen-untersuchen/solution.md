@@ -77,7 +77,7 @@ Erwarteter Arbeitsbereich:
 ## 7. Leuchtfeuer starten und kontrollieren
 
 ```bash
-./leuchtfeuer-start
+leuchtfeuer-start
 pgrep -a leuchtfeuer
 ```
 
@@ -103,4 +103,4 @@ Flag-Abgabemarker.
 | `beschwoerung` läuft noch | Prozess erneut eindeutig identifizieren und regulär beenden. |
 | Leuchtfeuer doppelt gestartet | Keine weitere Instanz starten; den vorhandenen Prozess mit `pgrep -a leuchtfeuer` kontrollieren. |
 | Falsches Arbeitsverzeichnis | Mit `pwd` prüfen und in die Außenstation wechseln. |
-| Ausführungsdatei ohne `./` aufgerufen | Eine Datei aus dem aktuellen Verzeichnis mit `./leuchtfeuer-start` starten. |
+| Systembefehl nicht gefunden | Mit `command -v leuchtfeuer-start` prüfen, ob der Befehl installiert ist. |
