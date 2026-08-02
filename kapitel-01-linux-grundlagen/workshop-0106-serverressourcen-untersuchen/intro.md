@@ -1,56 +1,33 @@
-# Linux-Serverressourcen untersuchen
+# 01.06 – Licht aus im Sturm: Was blockiert den Leuchtturm?
 
-In diesem Workshop untersuchst du drei verschiedene Ressourcen einer Linux-Serverumgebung:
+Die schwere Eingangstür gibt nach. Draußen ist der Sturm noch stärker
+geworden. Regen zieht fast waagerecht über den Deich, und über dem Meer liegt
+dichter Nebel.
 
-- CPU beziehungsweise logische Prozessoren,
-- RAM beziehungsweise Arbeitsspeicher,
-- persistenten Speicherplatz auf einem Dateisystem.
+Erst jetzt siehst du den Leuchtturm von außen. Das Leuchtfeuer ist dunkel.
 
-Am Ende dokumentierst du fünf aktuelle Werte in einer kleinen Statusdatei.
+Weit draußen tauchen zwischen den Wellen die Positionslichter eines Schiffes
+auf. Es hält auf die Küste zu.
 
-## Zeitrahmen
+Im Turm läuft noch Technik, doch der Rechner reagiert träge. Aus dem Inneren
+dringt ein gleichmäßiges Brummen. Bevor du das Licht wieder starten kannst,
+musst du herausfinden, was das System blockiert.
 
-- geübte Teilnehmende: etwa 30–35 Minuten;
-- absolute Anfänger: etwa 38–45 Minuten;
-- mindestens 15 Minuten bleiben für Fragen, Tippfehler und Wiederholungen.
+> Besitzt der Rechner zu wenig Ressourcen – oder verbraucht ein laufender
+> Prozess mehr, als er sollte?
 
-Der Workshop wird nicht künstlich auf 60 Minuten verlängert.
+![Dunkler Leuchtturm im schweren Sturm; am Horizont nähert sich ein Schiff.](./assets/0106-einstieg-leuchtturm-dunkel.png)
 
-## Kurzer Abruf
+### Am Ende kannst du
 
-Beantworte vor dem Start:
+- CPU, RAM und Speicher grob voneinander unterscheiden,
+- aktuelle Auslastung von vorhandener Kapazität unterscheiden,
+- auffällige Prozesse in `top` und `ps` erkennen,
+- Benutzer, Prozessname und PID prüfen,
+- einen einzelnen Prozess kontrolliert beenden,
+- das Leuchtfeuer wieder starten.
 
-1. Welcher bekannte Befehl zeigt den Inhalt einer kleinen Textdatei?
-2. Welche bekannte Schreibweise leitet die Ausgabe von `echo` in eine Datei um?
-3. Ist `/root/ressourcenlabor/serverstatus.txt` nur ein Dateiname oder ein vollständiger Pfad?
+## Sicher arbeiten
 
-<details>
-<summary>Antworten anzeigen</summary>
-
-1. `cat`
-2. ein einzelnes `>`
-3. ein vollständiger absoluter Dateipfad
-
-</details>
-
-## Vorbereiteter Ausgangszustand
-
-Das Szenario hat diesen Ordner vorbereitet:
-
-```text
-/root/ressourcenlabor
-```
-
-Diese Datei existiert noch nicht:
-
-```text
-/root/ressourcenlabor/serverstatus.txt
-```
-
-Du erzeugst sie erst in der Abschlussaufgabe.
-
-## Zwei Arten der Prüfung
-
-Der technische CHECK kann später prüfen, ob die Statusdatei vorhanden und formal plausibel ist. Er kann aber nicht beweisen, dass du die Ausgaben manuell gelesen oder CPU, RAM und Dateisystemspeicher fachlich verstanden hast.
-
-Deshalb gehören zu diesem Workshop zusätzlich kurze Beobachtungs- und Erklärungsfragen.
+> Beende niemals einen Prozess nur deshalb, weil sein Name unbekannt aussieht.
+> Prüfe zuerst Benutzer, Namen und PID und kontrolliere danach das Ergebnis.

@@ -1,37 +1,54 @@
 {
-  "title": "01.06 – Was macht der Server eigentlich?",
-  "description": "CPU, Arbeitsspeicher und den Speicherplatz des Root-Dateisystems mit einfachen Linux-Befehlen untersuchen.",
+  "title": "01.06 – Licht aus im Sturm: Was blockiert den Leuchtturm?",
+  "description": "Untersuche die Ressourcen und laufenden Prozesse des Leuchtturmrechners, finde einen auffälligen CPU-Verbraucher, beende ihn kontrolliert und starte das Leuchtfeuer wieder.",
   "details": {
+    "assets": {
+      "host01": [
+        {
+          "file": "assets/flag-einreichen",
+          "target": "/tmp/workshop-0106-assets",
+          "chmod": "+x"
+        }
+      ]
+    },
     "intro": {
-      "title": "Serverressourcen untersuchen",
+      "title": "01.06 – Licht aus im Sturm: Was blockiert den Leuchtturm?",
       "text": "intro.md",
       "foreground": "setup.sh"
     },
     "steps": [
       {
-        "title": "Servermodell und CPU",
-        "text": "step1-servermodell-und-cpu.md"
+        "title": "Vorhandene Ressourcen einschätzen",
+        "text": "step1-ressourcen-pruefen.md"
       },
       {
-        "title": "Arbeitsspeicher untersuchen",
-        "text": "step2-arbeitsspeicher.md"
+        "title": "Aktuelle Auslastung beobachten",
+        "text": "step2-auslastung-beobachten.md"
       },
       {
-        "title": "Dateisystemspeicher untersuchen",
-        "text": "step3-dateisystemspeicher.md"
+        "title": "Prozessliste gezielt auswerten",
+        "text": "step3-prozesse-sortieren.md"
       },
       {
-        "title": "Ressourcen vergleichen",
-        "text": "step4-ressourcen-vergleichen.md"
+        "title": "Einen Prozess kontrolliert beenden",
+        "text": "step4-prozess-sicher-beenden.md"
       },
       {
-        "title": "Abschlussaufgabe",
+        "title": "Ursache der hohen Last eingrenzen",
+        "text": "step5-verursacher-finden.md"
+      },
+      {
+        "title": "Betriebsbereitschaft wiederherstellen",
+        "text": "step6-leuchtfeuer-starten.md"
+      },
+      {
+        "title": "Abschlusskontrolle und Flag-Abgabe",
         "text": "challenge.md",
         "verify": "verify.sh"
       }
     ],
     "finish": {
-      "title": "Ergebnis einordnen",
+      "title": "Das Licht brennt wieder",
       "text": "finish.md"
     }
   },
