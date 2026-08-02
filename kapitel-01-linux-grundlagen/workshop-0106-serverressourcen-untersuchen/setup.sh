@@ -143,8 +143,47 @@ printf '%s\n' "$flag"
 LEUCHTFEUER_START
 chmod 0755 /usr/local/bin/leuchtfeuer-start
 chown root:root /usr/local/bin/leuchtfeuer-start
-install -m 0755 -o root -g root \
-  /tmp/workshop-0106-assets/flag-einreichen /usr/local/bin/flag-einreichen
+
+cat >/usr/local/bin/flag-einreichen <<'FLAG_EINREICHEN'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly expected='FLAG{das_licht_brennt_wieder}'
+readonly state_dir='/var/lib/labforge/serverressourcen-untersuchen'
+readonly session_file="${state_dir}/session-id"
+readonly started="${state_dir}/leuchtfeuer-started.marker"
+readonly submitted="${state_dir}/flag-submitted.marker"
+
+(( $# == 1 )) || {
+  printf '%s\n' "Aufruf: flag-einreichen 'GEFUNDENE_FLAG'" >&2
+  exit 2
+}
+[[ -f "$started" && ! -L "$started" ]] || {
+  printf '%s\n' 'Das Leuchtfeuer wurde in dieser Sitzung noch nicht erfolgreich gestartet.' >&2
+  exit 1
+}
+[[ -f "$session_file" && ! -L "$session_file" ]] || {
+  printf '%s\n' 'Die aktuelle Workshop-Sitzung ist nicht vorbereitet.' >&2
+  exit 1
+}
+session_id="$(<"$session_file")"
+grep -qxF "session_id=${session_id}" "$started" || {
+  printf '%s\n' 'Der Leuchtfeuer-Nachweis gehört nicht zur aktuellen Sitzung.' >&2
+  exit 1
+}
+[[ "$1" == "$expected" ]] || {
+  printf '%s\n' 'Diese Flag ist nicht korrekt.' >&2
+  exit 1
+}
+
+tmp="$(mktemp "${state_dir}/flag-submitted.marker.tmp.XXXXXX")"
+printf '%s\n' 'workshop-0106-flag-submitted' >"$tmp"
+chmod 0640 "$tmp"
+mv -f -- "$tmp" "$submitted"
+printf '%s\n' 'Flag angenommen. Du kannst jetzt den CHECK ausführen.'
+FLAG_EINREICHEN
+chmod 0755 /usr/local/bin/flag-einreichen
+chown root:root /usr/local/bin/flag-einreichen
 
 clear 2>/dev/null || printf '\033[2J\033[H'
 exec su - "$lab_user"
