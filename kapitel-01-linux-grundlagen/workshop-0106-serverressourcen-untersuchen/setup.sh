@@ -69,20 +69,12 @@ if [[ ! -x /usr/local/lib/leuchtturm/beschwoerung ]]; then
   install -m 0755 -o root -g root /bin/bash \
     /usr/local/lib/leuchtturm/beschwoerung
 fi
-install -m 0755 -o root -g root /bin/bash \
-  /usr/local/lib/leuchtturm/leuchtfeuer
 install -d -m 0750 -o "$lab_user" -g "$lab_user" "$state_dir"
 if [[ ! -s "$state_dir/session-id" ]]; then
   cat /proc/sys/kernel/random/uuid >"$state_dir/session-id"
   chown "$lab_user:$lab_user" "$state_dir/session-id"
   chmod 0640 "$state_dir/session-id"
 fi
-install -m 0755 -o root -g root \
-  /tmp/workshop-0106-assets/flag-einreichen /usr/local/bin/flag-einreichen
-install -m 0755 -o "$lab_user" -g "$lab_user" \
-  /tmp/workshop-0106-assets/leuchtfeuer-start "$work_dir/leuchtfeuer-start"
-install -m 0644 -o "$lab_user" -g "$lab_user" \
-  /tmp/workshop-0106-assets/wartungsnotiz.txt "$work_dir/wartungsnotiz.txt"
 
 clear 2>/dev/null || printf '\033[2J\033[H'
 exec su - "$lab_user"

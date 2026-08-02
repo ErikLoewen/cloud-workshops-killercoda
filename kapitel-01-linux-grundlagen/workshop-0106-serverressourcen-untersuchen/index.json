@@ -13,15 +13,6 @@
           "file": "assets/prepare-workshop",
           "target": "/tmp/workshop-0106-assets",
           "chmod": "+x"
-        },
-        {
-          "file": "assets/leuchtfeuer-start",
-          "target": "/tmp/workshop-0106-assets",
-          "chmod": "+x"
-        },
-        {
-          "file": "assets/wartungsnotiz.txt",
-          "target": "/tmp/workshop-0106-assets"
         }
       ]
     },
