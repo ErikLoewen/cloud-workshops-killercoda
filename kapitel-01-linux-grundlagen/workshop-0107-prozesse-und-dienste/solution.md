@@ -1,65 +1,258 @@
-# Musterlösung – Prozesse und Dienste kontrollieren
+# Musterlösung – Die Konfiguration des Leuchtfeuers reparieren
 
-## Prozessablauf
+Diese Datei ist nicht in `index.json` referenziert. Sie dient Trainern,
+Entwicklern, technischen Tests und der Pflege der vollständigen
+Dropdown-Walkthroughs.
 
-Erster geführter Durchlauf:
+## 1. Benutzer und Standort prüfen
 
-```text
-lab-worker &
-ps
-pgrep lab-worker
+```bash
+whoami
+pwd
+ls
 ```
 
-`pgrep lab-worker` gibt eine dynamische PID aus. Angenommen, die aktuelle Ausgabe wäre **beispielsweise** `4281`:
+Erwartet werden der Benutzer `waerter` und das Arbeitsverzeichnis:
 
 ```text
-kill 4281
-pgrep lab-worker
+/home/waerter/leuchtturm/lichtsteuerung
 ```
 
-Die Beispiel-PID `4281` darf nur verwendet werden, wenn sie wirklich die gerade angezeigte PID ist. Andernfalls muss die eigene aktuelle Zahl eingesetzt werden. Die letzte Suche soll keine PID mehr ausgeben.
+Falls `pwd` einen anderen Standort zeigt, erst danach gezielt wechseln:
 
-## Dienstablauf
+```bash
+cd /home/waerter/leuchtturm/lichtsteuerung
+pwd
+ls
+```
+
+## 2. Betriebsprotokoll lesen
+
+```bash
+cd protokolle
+ls
+cat leuchtfeuer.log
+```
+
+Das Protokoll nennt `leuchtfeuer.conf`, den geladenen Zustand
+`ROTATION=impuls`, die Abweichung vom normalen Rundlauf und den Verweis auf
+die Wartungsdokumentation.
+
+## 3. Dokumentation und Konfiguration vergleichen
+
+```bash
+cd ../dokumentation
+ls
+cat wartungsanleitung.txt
+cd ..
+cat leuchtfeuer.conf
+```
+
+Die Wartungsanleitung beschreibt `kreis` als gleichmäßige Bewegung um den
+Turm. `GESCHWINDIGKEIT=langsam` und `BEREICH=meer` können bei der ersten
+Reparatur unverändert bleiben.
+
+## 4. Ausgangszustand sichern
+
+```bash
+cp leuchtfeuer.conf leuchtfeuer.conf.bak
+ls -l leuchtfeuer.conf leuchtfeuer.conf.bak
+cat leuchtfeuer.conf.bak
+```
+
+Die Sicherung muss den ursprünglichen Zustand enthalten:
+
+```ini
+# Konfiguration der Leuchtfeuersteuerung
+ROTATION=impuls
+GESCHWINDIGKEIT=langsam
+BEREICH=meer
+```
+
+## 5. Rotation mit Nano korrigieren
+
+```bash
+nano leuchtfeuer.conf
+```
+
+In Nano ausschließlich diese Zeile ändern:
 
 ```text
-systemctl status lab-demo.service
-systemctl stop lab-demo.service
-systemctl status lab-demo.service
+ROTATION=impuls
 ```
 
-Nach dem Stoppen muss die relevante Zeile `Active: inactive` enthalten.
-
-## Challenge
+zu:
 
 ```text
-lab-worker &
-pgrep lab-worker
-kill AKTUELLE_PID
-pgrep lab-worker
-systemctl start lab-demo.service
-systemctl status lab-demo.service
+ROTATION=kreis
 ```
 
-`AKTUELLE_PID` ist ein Platzhalter und wird durch die gerade ausgegebene Zahl ersetzt. Am Ende soll die Prozesssuche leer bleiben und die Dienststatuszeile `Active: active` zeigen.
+Danach:
 
-## Fachlich gültige Reihenfolgen
+1. `Strg+O` drücken;
+2. den angezeigten Dateinamen `leuchtfeuer.conf` mit `Enter` bestätigen;
+3. Nano mit `Strg+X` verlassen.
 
-Innerhalb des Prozessblocks muss die PID vor `kill` aktuell ermittelt werden. Die Kontrolle nach `kill` gehört zum Lernziel.
+## 6. Erste Änderung kontrollieren und anwenden
 
-In der Challenge dürfen Prozessblock und Dienststart grundsätzlich in vertauschter Reihenfolge bearbeitet werden, sofern beide Endzustände erreicht werden. Die Musterlösung verwendet die didaktisch eingeführte Reihenfolge.
+```bash
+cat leuchtfeuer.conf
+./konfiguration-pruefen
+./leuchtfeuer-neu-laden
+./leuchtfeuer-status
+```
 
-## Marker und ihre Grenzen
+Erwarteter angewendeter Zwischenzustand:
 
-Der Worker-Startmarker entsteht ausschließlich im tatsächlich gestarteten Lab-Programm. Er weist nach, dass dieses Programm in der aktuellen Sitzung mindestens einmal lief. Er weist nicht nach:
+```text
+LEUCHTFEUER=aktiv
+ROTATION=kreis
+GESCHWINDIGKEIT=langsam
+BEREICH=meer
+```
 
-- ob `&` verwendet wurde;
-- ob der Start im Hintergrund erfolgte;
-- ob `ps` oder `pgrep` verwendet wurden;
-- ob die PID eigenständig gelesen wurde;
-- ob `kill` verwendet wurde.
+## 7. Lichtbereich auf die Küste übertragen
 
-Ein Vordergrundstart mit anschließendem Ende könnte denselben technischen Prozessendzustand erzeugen.
+```bash
+nano leuchtfeuer.conf
+```
 
-Der Dienstnachweis ist stärker: Er verlangt einen initial aktiven Dienst, einen nach Aktivierung des Trackings registrierten geordneten Stop, einen späteren registrierten Start und einen aktuell aktiven eigenen Dienstprozess.
+In Nano ausschließlich diese Zeile ändern:
 
-Auch dieser Nachweis bewertet den Endzustand und die Lifecycle-Ereignisse, nicht die exakte sichtbare Teilnehmerbefehlsfolge.
+```text
+BEREICH=meer
+```
+
+zu:
+
+```text
+BEREICH=kueste
+```
+
+Wieder mit `Strg+O` speichern, den Dateinamen mit `Enter` bestätigen und Nano
+mit `Strg+X` verlassen.
+
+## 8. Abschlusszustand kontrollieren und anwenden
+
+```bash
+cat leuchtfeuer.conf
+./konfiguration-pruefen
+./leuchtfeuer-neu-laden
+./leuchtfeuer-status
+```
+
+Erwarteter angewendeter Endzustand:
+
+```text
+LEUCHTFEUER=aktiv
+ROTATION=kreis
+GESCHWINDIGKEIT=langsam
+BEREICH=kueste
+```
+
+Das erfolgreiche Neuladen gibt diese Flag aus und legt sie zusätzlich in
+`status/abschlussflagge` ab:
+
+```text
+FLAG{die_spur_fuehrt_vom_turm_fort}
+```
+
+## 9. Flag einreichen und CHECK starten
+
+```bash
+cat status/abschlussflagge
+flag-einreichen 'FLAG{die_spur_fuehrt_vom_turm_fort}'
+```
+
+Danach den CHECK starten. Er prüft ausschließlich den erfolgreichen
+Flag-Abgabemarker der aktuellen Workshop-Sitzung.
+
+## Vollständige Befehlsfolge
+
+```bash
+whoami
+pwd
+ls
+cd /home/waerter/leuchtturm/lichtsteuerung
+pwd
+ls
+cd protokolle
+cat leuchtfeuer.log
+cd ../dokumentation
+cat wartungsanleitung.txt
+cd ..
+cat leuchtfeuer.conf
+cp leuchtfeuer.conf leuchtfeuer.conf.bak
+ls -l leuchtfeuer.conf leuchtfeuer.conf.bak
+cat leuchtfeuer.conf.bak
+nano leuchtfeuer.conf
+cat leuchtfeuer.conf
+./konfiguration-pruefen
+./leuchtfeuer-neu-laden
+./leuchtfeuer-status
+nano leuchtfeuer.conf
+cat leuchtfeuer.conf
+./konfiguration-pruefen
+./leuchtfeuer-neu-laden
+./leuchtfeuer-status
+cat status/abschlussflagge
+flag-einreichen 'FLAG{die_spur_fuehrt_vom_turm_fort}'
+```
+
+Die absolute `cd`-Zeile ist im vollständigen Block absichtlich enthalten,
+wird aber erst nach `pwd` verwendet. Die beiden Nano-Änderungen entsprechen
+den Abschnitten 5 und 7.
+
+## Schneller technischer Testweg
+
+Dieser Weg ist ausschließlich für Trainer und automatisierte technische
+Kontrollen gedacht. Er ersetzt nicht die Nano-Lernhandlung.
+
+```bash
+cd /home/waerter/leuchtturm/lichtsteuerung
+cp leuchtfeuer.conf leuchtfeuer.conf.bak
+sed -i 's/^ROTATION=impuls$/ROTATION=kreis/' leuchtfeuer.conf
+./konfiguration-pruefen
+./leuchtfeuer-neu-laden
+./leuchtfeuer-status
+sed -i 's/^BEREICH=meer$/BEREICH=kueste/' leuchtfeuer.conf
+./konfiguration-pruefen
+./leuchtfeuer-neu-laden
+./leuchtfeuer-status
+cat status/abschlussflagge
+flag-einreichen 'FLAG{die_spur_fuehrt_vom_turm_fort}'
+```
+
+## Wiederherstellung aus der Sicherung
+
+Falls die Arbeitsdatei nicht mehr sinnvoll korrigiert werden kann:
+
+```bash
+cp leuchtfeuer.conf.bak leuchtfeuer.conf
+cat leuchtfeuer.conf
+./konfiguration-pruefen
+```
+
+Das Zurückkopieren verändert zunächst nur die Datei. Soll der gesicherte
+Zustand auch wieder angewendet werden, muss er danach bewusst neu geladen und
+kontrolliert werden.
+
+## Typische Fehler
+
+| Fehler | Einordnung und nächster Schritt |
+|---|---|
+| Nano ist nicht installiert | Das Setup muss Nano bereitstellen. `command -v nano` dient der technischen Diagnose; Lernende sollen keine Pakete selbst installieren. |
+| Falsches Arbeitsverzeichnis | Zuerst `pwd` prüfen und anschließend nach `/home/waerter/leuchtturm/lichtsteuerung` wechseln. |
+| Sicherung im falschen Verzeichnis | `leuchtfeuer.conf.bak` muss neben `leuchtfeuer.conf` liegen. |
+| `leuchtfeuer.conf.bak` überschrieben | Workshop neu starten, um den definierten Ausgangszustand wiederherzustellen, und die Sicherung vor der Bearbeitung neu anlegen. |
+| `kries` statt `kreis` | Fehlermeldung lesen und den Wert in Nano auf `kreis` korrigieren. |
+| `kuste` statt `kueste` | Den dokumentierten Wert `kueste` ohne Umlaut verwenden. |
+| Leerzeichen um `=` | Das Workshopformat verlangt exakt `SCHLUESSEL=WERT`. |
+| Schlüssel gelöscht | Den fehlenden Schlüssel anhand der Sicherung wiederherstellen. |
+| Falschen Dateinamen bei `Strg+O` bestätigt | Prüfen, welche Datei gespeichert wurde, und `leuchtfeuer.conf` erneut korrekt öffnen und speichern. |
+| Nano ohne Speichern verlassen | Datei erneut öffnen, Änderung wiederholen und mit `Strg+O`, `Enter`, `Strg+X` abschließen. |
+| Datei gespeichert, aber nicht validiert | `./konfiguration-pruefen` ausführen und mögliche Fehler korrigieren. |
+| Datei validiert, aber nicht neu geladen | `./leuchtfeuer-neu-laden` ausführen. |
+| Status mit Konfigurationsdatei verwechselt | `cat leuchtfeuer.conf` zeigt gespeicherten Text; `./leuchtfeuer-status` zeigt den angewendeten Zustand. |
+| Flag nicht notiert | `cat status/abschlussflagge` ausführen, solange der vollständige Missionszustand angewendet ist. |
+| Falsche Flag eingereicht | Den vollständigen Text ohne zusätzliche Leerzeichen aus `status/abschlussflagge` übernehmen. |

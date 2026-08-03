@@ -1,188 +1,441 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly asset_dir="/opt/labforge-workshop-07-assets"
-readonly state_dir="/var/lib/labforge/prozesse-und-dienste"
-readonly install_dir="/usr/local/lib/labforge"
-readonly unit_path="/etc/systemd/system/lab-demo.service"
-readonly worker_path="/usr/local/bin/lab-worker"
-readonly wrapper_path="/usr/local/bin/systemctl"
-readonly real_systemctl="/usr/bin/systemctl"
+readonly lab_user="waerter"
+readonly lab_home="/home/${lab_user}"
+readonly lighthouse_dir="${lab_home}/leuchtturm"
+readonly work_dir="${lighthouse_dir}/lichtsteuerung"
+readonly docs_dir="${work_dir}/dokumentation"
+readonly logs_dir="${work_dir}/protokolle"
+readonly status_dir="${work_dir}/status"
+readonly state_dir="/var/lib/labforge/leuchtfeuer-konfiguration"
+readonly internal_dir="/usr/local/lib/labforge/workshop-0107"
+readonly nano_log="${state_dir}/nano-install.log"
 
 fail() {
-  echo "Vorbereitung fehlgeschlagen: $*" >&2
+  printf 'Setup-Fehler: %s\n' "$1" >&2
   exit 1
 }
 
-require_file() {
-  [[ -f "$1" ]] || fail "Benötigte Asset-Datei fehlt: $1"
+ensure_nano() {
+  command -v nano >/dev/null 2>&1 && return 0
+  command -v apt-get >/dev/null 2>&1 ||
+    fail "Nano fehlt und apt-get ist nicht verfügbar."
+
+  export DEBIAN_FRONTEND=noninteractive
+  : >"$nano_log"
+  if ! apt-get update -qq >>"$nano_log" 2>&1; then
+    fail "Die Paketlisten für Nano konnten nicht aktualisiert werden. Details: ${nano_log}"
+  fi
+  if ! apt-get install -y -qq nano >>"$nano_log" 2>&1; then
+    fail "Nano konnte nicht installiert werden. Details: ${nano_log}"
+  fi
+  command -v nano >/dev/null 2>&1 || fail "Nano ist nach der Installation nicht verfügbar."
 }
 
-is_our_unit_file() {
-  [[ -f "$1" ]] && grep -qx '# LabForge Workshop 7 isolated service' "$1"
+getent group "$lab_user" >/dev/null 2>&1 || groupadd "$lab_user"
+if ! id "$lab_user" >/dev/null 2>&1; then
+  useradd --create-home --home-dir "$lab_home" --shell /bin/bash \
+    --gid "$lab_user" "$lab_user"
+fi
+usermod --home "$lab_home" --shell /bin/bash --gid "$lab_user" \
+  "$lab_user" >/dev/null
+
+install -d -m 0755 -o root -g root /var/lib/labforge
+install -d -m 0755 -o root -g root "$state_dir"
+install -d -m 0755 -o root -g root "$internal_dir"
+ensure_nano
+
+rm -rf -- "$work_dir"
+rm -f -- \
+  "$state_dir/session-id" \
+  "$state_dir/configuration-applied.marker" \
+  "$state_dir/flag-submitted.marker" \
+  "$state_dir/success.marker"
+
+install -d -m 0750 -o "$lab_user" -g "$lab_user" "$lab_home"
+install -d -m 0755 -o "$lab_user" -g "$lab_user" \
+  "$lighthouse_dir" "$work_dir" "$docs_dir" "$logs_dir" "$status_dir"
+
+printf '%s\n' 'leuchtturm' >/etc/hostname
+hostname leuchtturm >/dev/null 2>&1 || true
+
+cat >"$work_dir/leuchtfeuer.conf" <<'CONFIG'
+# Konfiguration der Leuchtfeuersteuerung
+ROTATION=impuls
+GESCHWINDIGKEIT=langsam
+BEREICH=meer
+CONFIG
+
+cat >"$docs_dir/wartungsanleitung.txt" <<'DOCS'
+WARTUNGSANLEITUNG – LEUCHTFEUERSTEUERUNG
+========================================
+
+Die Lichtsteuerung liest ihre Einstellungen aus:
+
+    leuchtfeuer.conf
+
+Die Datei verwendet Einträge im Format:
+
+    SCHLUESSEL=WERT
+
+Zeilen, die mit # beginnen, sind Kommentare.
+Sie dienen als Hinweise für Menschen und werden von der Steuerung ignoriert.
+
+
+ROTATION
+--------
+
+stop
+    Der Lichtstrahl bleibt in seiner aktuellen Position stehen.
+
+impuls
+    Das Leuchtfeuer sendet einzelne Lichtimpulse.
+
+kreis
+    Der Lichtstrahl bewegt sich gleichmäßig um den Turm.
+
+
+GESCHWINDIGKEIT
+---------------
+
+langsam
+    Langsame, gut sichtbare Bewegung.
+
+normal
+    Reguläre Betriebsgeschwindigkeit.
+
+
+BEREICH
+-------
+
+meer
+    Der Lichtstrahl wird hauptsächlich über das Meer geführt.
+
+kueste
+    Der Lichtstrahl sucht Deich und Küstenlinie ab.
+
+
+SICHERES VORGEHEN
+-----------------
+
+1. Aktuelle Konfiguration lesen.
+2. Vor einer Änderung eine Sicherungskopie anlegen.
+3. Nur die benötigte Einstellung bearbeiten.
+4. Datei speichern und den Editor schließen.
+5. Konfiguration prüfen.
+6. Konfiguration neu laden.
+7. Betriebszustand kontrollieren.
+
+Eine gespeicherte Datei ist nicht automatisch eine gültige Konfiguration.
+DOCS
+
+cat >"$logs_dir/leuchtfeuer.log" <<'LOG'
+LEUCHTTURM – BETRIEBSPROTOKOLL
+==============================
+
+[23:41:08] Leuchtfeuerprozess gestartet
+[23:41:09] Konfiguration geladen: leuchtfeuer.conf
+[23:41:09] ROTATION=impuls
+[23:41:09] GESCHWINDIGKEIT=langsam
+[23:41:09] BEREICH=meer
+[23:41:12] WARNUNG: Lichtsignal entspricht nicht dem regulären Rundlauf
+[23:41:12] HINWEIS: Zulässige Einstellungen stehen in der Wartungsdokumentation
+LOG
+
+cat >"$internal_dir/konfiguration-parser" <<'PARSER'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+usage() {
+  printf '%s\n' 'Interner Aufruf: konfiguration-parser [--values] DATEI' >&2
+  exit 2
 }
 
-is_our_script_file() {
-  local file="$1"
-  local marker="$2"
-  [[ -f "$file" ]] && grep -qF "$marker" "$file"
+invalid() {
+  printf '%s\n' 'Konfiguration ungültig:' >&2
+  printf '%s\n' "$1" >&2
+  if (( $# == 2 )); then
+    printf '\n%s\n' "$2" >&2
+  fi
+  exit 1
 }
 
-is_our_process() {
-  local pid="$1"
-  [[ "$pid" =~ ^[0-9]+$ ]] || return 1
-  [[ -r "/proc/$pid/comm" && -r "/proc/$pid/cmdline" ]] || return 1
+emit_values=false
+if [[ "${1:-}" == "--values" ]]; then
+  emit_values=true
+  shift
+fi
+(( $# == 1 )) || usage
+readonly config_file="$1"
 
-  local comm cmdline
-  comm="$(<"/proc/$pid/comm")"
-  [[ "$comm" == "lab-worker" ]] || return 1
-  cmdline="$(tr '\0' ' ' <"/proc/$pid/cmdline")"
-  [[ "$cmdline" == *"/usr/local/lib/labforge/lab-worker.py"* ]]
-}
+[[ -e "$config_file" ]] || invalid "Die Konfigurationsdatei ${config_file} fehlt."
+[[ -f "$config_file" && ! -L "$config_file" ]] ||
+  invalid "${config_file} ist keine reguläre Konfigurationsdatei."
+[[ -r "$config_file" ]] || invalid "Die Konfigurationsdatei ${config_file} ist nicht lesbar."
 
-stop_old_own_workers() {
-  local proc pid
-  for proc in /proc/[0-9]*; do
-    pid="${proc##*/}"
-    if is_our_process "$pid"; then
-      kill "$pid" 2>/dev/null || true
-    fi
-  done
+declare -A values=()
+line_number=0
+while IFS= read -r line || [[ -n "$line" ]]; do
+  ((line_number += 1))
+  [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
 
-  for _ in {1..30}; do
-    local found=0
-    for proc in /proc/[0-9]*; do
-      pid="${proc##*/}"
-      if is_our_process "$pid"; then
-        found=1
-        break
-      fi
-    done
-    (( found == 0 )) && return 0
-    sleep 0.1
-  done
+  if [[ "$line" =~ ^([A-Z_]+)=$ ]]; then
+    invalid "Die Einstellung ${BASH_REMATCH[1]} besitzt keinen Wert."
+  fi
+  [[ "$line" =~ ^([A-Z_]+)=([^[:space:]#=]+)$ ]] ||
+    invalid \
+      "Zeile ${line_number} besitzt nicht das erwartete Format SCHLUESSEL=WERT." \
+      "Verwende keine Leerzeichen um das Gleichheitszeichen."
 
-  fail "Eine alte eigene lab-worker-Instanz ließ sich nicht normal beenden."
-}
+  key="${BASH_REMATCH[1]}"
+  value="${BASH_REMATCH[2]}"
+  case "$key" in
+    ROTATION|GESCHWINDIGKEIT|BEREICH) ;;
+    *) invalid "Die Einstellung ${key} ist unbekannt." ;;
+  esac
+  [[ ! -v "values[$key]" ]] || invalid "Die Einstellung ${key} kommt mehrfach vor."
+  values["$key"]="$value"
+done <"$config_file"
 
-atomic_write() {
-  local target="$1"
-  local content="$2"
-  local tmp
-  tmp="$(mktemp "${target}.tmp.XXXXXX")"
-  printf '%s\n' "$content" >"$tmp"
-  chmod 0644 "$tmp"
-  mv -f "$tmp" "$target"
-}
-
-[[ -x "$real_systemctl" ]] || fail "/usr/bin/systemctl ist nicht verfügbar."
-[[ -x /usr/bin/python3 ]] || fail "/usr/bin/python3 ist nicht verfügbar."
-command -v ps >/dev/null 2>&1 || fail "ps ist nicht verfügbar."
-command -v pgrep >/dev/null 2>&1 || fail "pgrep ist nicht verfügbar."
-command -v kill >/dev/null 2>&1 || fail "kill ist nicht verfügbar."
-
-for asset in \
-  lab-worker \
-  lab-worker.py \
-  lab-demo-runner.py \
-  lab-demo-event.py \
-  lab-demo.service \
-  systemctl-no-pager-wrapper; do
-  require_file "$asset_dir/$asset"
+for key in ROTATION GESCHWINDIGKEIT BEREICH; do
+  [[ -v "values[$key]" ]] || invalid "Die Einstellung ${key} fehlt."
 done
 
-mkdir -p "$state_dir" "$install_dir"
-chmod 0755 "$state_dir" "$install_dir"
+case "${values[ROTATION]}" in
+  stop|impuls|kreis) ;;
+  *) invalid \
+    "ROTATION kennt den Wert \"${values[ROTATION]}\" nicht." \
+    "Zulässig: stop, impuls, kreis" ;;
+esac
+case "${values[GESCHWINDIGKEIT]}" in
+  langsam|normal) ;;
+  *) invalid \
+    "GESCHWINDIGKEIT kennt den Wert \"${values[GESCHWINDIGKEIT]}\" nicht." \
+    "Zulässig: langsam, normal" ;;
+esac
+case "${values[BEREICH]}" in
+  meer|kueste) ;;
+  *) invalid \
+    "BEREICH kennt den Wert \"${values[BEREICH]}\" nicht." \
+    "Zulässig: meer, kueste" ;;
+esac
 
-# Ein zweiter erfolgreicher Aufruf innerhalb derselben Sitzung ist ein No-op.
-# So kann ein versehentlicher erneuter Aufruf keinen Lernzustand zurücksetzen.
-if [[ -s "$state_dir/setup-complete.marker" && -s "$state_dir/session-id" ]]; then
-  completed_session="$(sed -n 's/^session_id=//p' "$state_dir/setup-complete.marker" | head -n 1)"
-  current_session="$(<"$state_dir/session-id")"
-  if [[ -n "$completed_session" && "$completed_session" == "$current_session" ]]; then
-    echo "Die isolierte Workshopumgebung ist bereits vorbereitet."
-    exit 0
-  fi
+if [[ "$emit_values" == true ]]; then
+  printf 'ROTATION=%s\n' "${values[ROTATION]}"
+  printf 'GESCHWINDIGKEIT=%s\n' "${values[GESCHWINDIGKEIT]}"
+  printf 'BEREICH=%s\n' "${values[BEREICH]}"
+else
+  printf '%s\n\n' 'Konfiguration ist gültig.'
+  printf 'ROTATION=%s\n' "${values[ROTATION]}"
+  printf 'GESCHWINDIGKEIT=%s\n' "${values[GESCHWINDIGKEIT]}"
+  printf 'BEREICH=%s\n' "${values[BEREICH]}"
+fi
+PARSER
+chmod 0755 "$internal_dir/konfiguration-parser"
+chown root:root "$internal_dir/konfiguration-parser"
+
+cat >"$work_dir/konfiguration-pruefen" <<'VALIDATOR'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly config_file="${1:-./leuchtfeuer.conf}"
+exec /usr/local/lib/labforge/workshop-0107/konfiguration-parser "$config_file"
+VALIDATOR
+
+cat >"$work_dir/leuchtfeuer-neu-laden" <<'RELOAD'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly work_dir="/home/waerter/leuchtturm/lichtsteuerung"
+readonly config_file="${work_dir}/leuchtfeuer.conf"
+readonly backup_file="${work_dir}/leuchtfeuer.conf.bak"
+readonly applied_file="${work_dir}/status/angewendete-konfiguration"
+readonly flag_file="${work_dir}/status/abschlussflagge"
+readonly log_file="${work_dir}/protokolle/leuchtfeuer.log"
+readonly parser="/usr/local/lib/labforge/workshop-0107/konfiguration-parser"
+readonly flag='FLAG{die_spur_fuehrt_vom_turm_fort}'
+
+parsed="$(mktemp)"
+backup_parsed="$(mktemp)"
+applied_tmp=""
+log_tmp=""
+flag_tmp=""
+cleanup() {
+  rm -f -- "$parsed" "$backup_parsed"
+  [[ -z "$applied_tmp" ]] || rm -f -- "$applied_tmp"
+  [[ -z "$log_tmp" ]] || rm -f -- "$log_tmp"
+  [[ -z "$flag_tmp" ]] || rm -f -- "$flag_tmp"
+}
+trap cleanup EXIT
+"$parser" --values "$config_file" >"$parsed"
+
+declare -A values=()
+while IFS='=' read -r key value; do
+  values["$key"]="$value"
+done <"$parsed"
+
+applied_tmp="$(mktemp "${applied_file}.tmp.XXXXXX")"
+printf 'LEUCHTFEUER=aktiv\nROTATION=%s\nGESCHWINDIGKEIT=%s\nBEREICH=%s\n' \
+  "${values[ROTATION]}" "${values[GESCHWINDIGKEIT]}" "${values[BEREICH]}" >"$applied_tmp"
+chmod 0644 "$applied_tmp"
+
+timestamp="$(date '+%Y-%m-%d %H:%M:%S')"
+log_tmp="$(mktemp "${log_file}.tmp.XXXXXX")"
+cat "$log_file" >"$log_tmp"
+printf '[%s] Konfiguration erfolgreich geprüft\n' "$timestamp" >>"$log_tmp"
+printf '[%s] ROTATION=%s\n' "$timestamp" "${values[ROTATION]}" >>"$log_tmp"
+printf '[%s] GESCHWINDIGKEIT=%s\n' "$timestamp" "${values[GESCHWINDIGKEIT]}" >>"$log_tmp"
+printf '[%s] BEREICH=%s\n' "$timestamp" "${values[BEREICH]}" >>"$log_tmp"
+printf '[%s] Konfiguration angewendet\n' "$timestamp" >>"$log_tmp"
+if [[ "${values[BEREICH]}" == "kueste" ]]; then
+  printf '[%s] Suchbereich auf Küste eingestellt\n' "$timestamp" >>"$log_tmp"
+  printf '[%s] Unbekanntes Objekt am Deich erkannt\n' "$timestamp" >>"$log_tmp"
+fi
+chmod 0644 "$log_tmp"
+
+mv -f -- "$applied_tmp" "$applied_file"
+applied_tmp=""
+mv -f -- "$log_tmp" "$log_file"
+log_tmp=""
+rm -f -- "$flag_file"
+
+backup_is_original=false
+if [[ -f "$backup_file" && ! -L "$backup_file" && -r "$backup_file" ]] &&
+  "$parser" --values "$backup_file" >"$backup_parsed" 2>/dev/null &&
+  grep -qx 'ROTATION=impuls' "$backup_parsed" &&
+  grep -qx 'GESCHWINDIGKEIT=langsam' "$backup_parsed" &&
+  grep -qx 'BEREICH=meer' "$backup_parsed"; then
+  backup_is_original=true
 fi
 
-# Ein vorhandener gleichnamiger, aber fremder Dienst wird niemals verändert.
-if [[ -e "$unit_path" ]] && ! is_our_unit_file "$unit_path"; then
-  fail "$unit_path existiert, gehört aber nicht zu diesem Workshop."
+printf '%s\n' 'Die Leuchtfeuersteuerung übernimmt die geprüfte Konfiguration.'
+if [[ "${values[ROTATION]}" == "kreis" &&
+  "${values[GESCHWINDIGKEIT]}" == "langsam" &&
+  "${values[BEREICH]}" == "meer" ]]; then
+  printf '%s\n' 'Der Lichtstrahl zieht wieder gleichmäßig über das Meer.'
+elif [[ "${values[ROTATION]}" == "kreis" &&
+  "${values[GESCHWINDIGKEIT]}" == "langsam" &&
+  "${values[BEREICH]}" == "kueste" ]]; then
+  printf '%s\n' 'Der Lichtstrahl folgt ruhig der Küstenlinie.'
 fi
 
-# Lifecycle-Tracking vor jeder technischen Bereinigung deaktivieren.
-rm -f "$state_dir/service-tracking.enabled"
-
-if is_our_unit_file "$unit_path"; then
-  "$real_systemctl" stop lab-demo.service >/dev/null 2>&1 || true
+if [[ "${values[ROTATION]}" == "kreis" &&
+  "${values[GESCHWINDIGKEIT]}" == "langsam" &&
+  "${values[BEREICH]}" == "kueste" &&
+  "$backup_is_original" == true ]]; then
+  flag_tmp="$(mktemp "${flag_file}.tmp.XXXXXX")"
+  printf '%s\n' "$flag" >"$flag_tmp"
+  chmod 0644 "$flag_tmp"
+  mv -f -- "$flag_tmp" "$flag_file"
+  flag_tmp=""
+  printf '%s\n' 'Am Deich wird eine eingeritzte Kennung sichtbar:'
+  printf '%s\n' "$flag"
+elif [[ "${values[ROTATION]}" == "kreis" &&
+  "${values[GESCHWINDIGKEIT]}" == "langsam" &&
+  "${values[BEREICH]}" == "kueste" ]]; then
+  printf '%s\n' 'Die Küstenkonfiguration ist aktiv, aber die vorgeschriebene Ausgangssicherung fehlt.'
 fi
+RELOAD
 
-stop_old_own_workers
+cat >"$work_dir/leuchtfeuer-status" <<'STATUS'
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
-# Gleichnamige fremde Programme oder Wrapper werden nicht überschrieben.
-if [[ -e "$worker_path" ]] && ! is_our_script_file "$worker_path" "LabForge Workshop 7 lab-worker launcher"; then
-  fail "$worker_path existiert, gehört aber nicht zu diesem Workshop."
-fi
+readonly applied_file="/home/waerter/leuchtturm/lichtsteuerung/status/angewendete-konfiguration"
+[[ -f "$applied_file" && ! -L "$applied_file" ]] || {
+  printf '%s\n' 'Der angewendete Zustand ist nicht verfügbar.' >&2
+  exit 1
+}
+cat "$applied_file"
+STATUS
 
-if [[ -e "$wrapper_path" ]] && ! is_our_script_file "$wrapper_path" "LabForge Workshop 7 no-pager wrapper"; then
-  fail "$wrapper_path existiert, gehört aber nicht zu diesem Workshop."
-fi
+cat >/usr/local/bin/flag-einreichen <<'FLAG_SUBMIT'
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
-install -m 0755 "$asset_dir/lab-worker" "$worker_path"
-install -m 0755 "$asset_dir/lab-worker.py" "$install_dir/lab-worker.py"
-install -m 0755 "$asset_dir/lab-demo-runner.py" "$install_dir/lab-demo-runner.py"
-install -m 0755 "$asset_dir/lab-demo-event.py" "$install_dir/lab-demo-event.py"
-install -m 0644 "$asset_dir/lab-demo.service" "$unit_path"
-install -m 0755 "$asset_dir/systemctl-no-pager-wrapper" "$wrapper_path"
+readonly expected='FLAG{die_spur_fuehrt_vom_turm_fort}'
+readonly work_dir='/home/waerter/leuchtturm/lichtsteuerung'
+readonly state_dir='/var/lib/labforge/leuchtfeuer-konfiguration'
+readonly session_file="${state_dir}/session-id"
+readonly flag_file="${work_dir}/status/abschlussflagge"
+readonly submitted="${work_dir}/status/flag-submitted.marker"
 
-session_id="$(cat /proc/sys/kernel/random/uuid)"
-atomic_write "$state_dir/session-id" "$session_id"
+(( $# == 1 )) || {
+  printf '%s\n' "Aufruf: flag-einreichen 'GEFUNDENE_FLAG'" >&2
+  exit 2
+}
+[[ -f "$session_file" && ! -L "$session_file" ]] || {
+  printf '%s\n' 'Die aktuelle Workshop-Sitzung ist nicht vorbereitet.' >&2
+  exit 1
+}
+[[ -f "$flag_file" && ! -L "$flag_file" ]] &&
+  [[ "$(<"$flag_file")" == "$expected" ]] || {
+    printf '%s\n' 'Die Abschlussflagge wurde in dieser Sitzung noch nicht freigelegt.' >&2
+    exit 1
+  }
+[[ "$1" == "$expected" ]] || {
+  printf '%s\n' 'Diese Flag ist nicht korrekt.' >&2
+  exit 1
+}
 
-rm -f \
-  "$state_dir/worker-start.marker" \
-  "$state_dir/worker.lock" \
-  "$state_dir/service-initial-active.marker" \
-  "$state_dir/service-stop.marker" \
-  "$state_dir/service-start-after-stop.marker" \
-  "$state_dir/service-stop.pending" \
-  "$state_dir/runner-term.marker" \
-  "$state_dir/service-events.lock" \
-  "$state_dir/setup-complete.marker"
+session_id="$(<"$session_file")"
+tmp="$(mktemp "${submitted}.tmp.XXXXXX")"
+printf 'session_id=%s\nresult=workshop-0107-flag-submitted\n' "$session_id" >"$tmp"
+chmod 0644 "$tmp"
+mv -f -- "$tmp" "$submitted"
+printf '%s\n' 'Flag angenommen. Du kannst jetzt den CHECK ausführen.'
+FLAG_SUBMIT
+chmod 0755 /usr/local/bin/flag-einreichen
+chown root:root /usr/local/bin/flag-einreichen
 
-atomic_write "$state_dir/service-event-counter" "0"
+cat >"$status_dir/angewendete-konfiguration" <<'APPLIED'
+LEUCHTFEUER=aktiv
+ROTATION=impuls
+GESCHWINDIGKEIT=langsam
+BEREICH=meer
+APPLIED
 
-"$real_systemctl" daemon-reload
-"$real_systemctl" start lab-demo.service
+rm -f -- \
+  "$work_dir/leuchtfeuer.conf.bak" \
+  "$status_dir/abschlussflagge" \
+  "$status_dir/flag-submitted.marker" \
+  "$status_dir/erfolg.marker"
 
-active_state=""
-main_pid=""
-for _ in {1..50}; do
-  active_state="$("$real_systemctl" show -p ActiveState --value lab-demo.service 2>/dev/null || true)"
-  main_pid="$("$real_systemctl" show -p MainPID --value lab-demo.service 2>/dev/null || true)"
-  if [[ "$active_state" == "active" && "$main_pid" =~ ^[1-9][0-9]*$ && -r "/proc/$main_pid/cmdline" ]]; then
-    break
-  fi
-  sleep 0.1
-done
+chown -R "$lab_user:$lab_user" "$work_dir"
+find "$work_dir" -type d -exec chmod 0755 {} +
+find "$work_dir" -type f -exec chmod 0644 {} +
+chmod 0755 \
+  "$work_dir/konfiguration-pruefen" \
+  "$work_dir/leuchtfeuer-neu-laden" \
+  "$work_dir/leuchtfeuer-status"
 
-[[ "$active_state" == "active" ]] || fail "lab-demo.service wurde nicht aktiv."
-[[ "$main_pid" =~ ^[1-9][0-9]*$ ]] || fail "lab-demo.service besitzt keine gültige Main PID."
+cat /proc/sys/kernel/random/uuid >"$state_dir/session-id"
+chmod 0644 "$state_dir/session-id"
 
-runner_comm="$(<"/proc/$main_pid/comm")"
-runner_cmdline="$(tr '\0' ' ' <"/proc/$main_pid/cmdline")"
-[[ "$runner_comm" == "lab-demo-svc" ]] || fail "Der Demo-Prozess besitzt nicht den erwarteten Namen."
-[[ "$runner_cmdline" == *"/usr/local/lib/labforge/lab-demo-runner.py"* ]] || fail "Die Main PID gehört nicht zum eigenen Demo-Runner."
+cat >"$lab_home/.bash_profile" <<PROFILE
+if [[ -f "\${HOME}/.bashrc" ]]; then source "\${HOME}/.bashrc"; fi
+cd "$work_dir"
+clear 2>/dev/null || printf '\\033[2J\\033[H'
+PROFILE
+cat >"$lab_home/.bashrc" <<'BASHRC'
+PS1='\u@\h:\w\$ '
+BASHRC
+chown "$lab_user:$lab_user" "$lab_home/.bash_profile" "$lab_home/.bashrc"
+chmod 0644 "$lab_home/.bash_profile" "$lab_home/.bashrc"
 
-atomic_write "$state_dir/service-initial-active.marker" "session_id=$session_id
-main_pid=$main_pid"
+[[ "$(id -un "$lab_user")" == "$lab_user" ]] || fail "Der Benutzer waerter fehlt."
+[[ "$(getent passwd "$lab_user" | cut -d: -f6)" == "$lab_home" ]] ||
+  fail "Das Home-Verzeichnis von waerter ist falsch."
+[[ -x "$(command -v nano)" ]] || fail "Nano ist nicht ausführbar."
+[[ "$(stat -c '%U:%G:%a' "$work_dir/leuchtfeuer.conf")" == "waerter:waerter:644" ]] ||
+  fail "Die Ausgangskonfiguration besitzt falsche Rechte."
+[[ "$(stat -c '%U:%G:%a' "$work_dir/konfiguration-pruefen")" == "waerter:waerter:755" ]] ||
+  fail "Das Prüfskript besitzt falsche Rechte."
+[[ "$(stat -c '%U:%G:%a' "$internal_dir/konfiguration-parser")" == "root:root:755" ]] ||
+  fail "Der interne Konfigurationsparser besitzt falsche Rechte."
+[[ "$(stat -c '%U:%G:%a' /usr/local/bin/flag-einreichen)" == "root:root:755" ]] ||
+  fail "Das Werkzeug flag-einreichen besitzt falsche Rechte."
 
-# Erst nach dem bestätigten aktiven Ausgangszustand wird Tracking aktiviert.
-atomic_write "$state_dir/service-tracking.enabled" "session_id=$session_id"
-
-# Das Setup startet den Teilnehmerprozess nicht und erzeugt keinen Worker-Startmarker.
-[[ ! -e "$state_dir/worker-start.marker" ]] || fail "Das Setup darf keinen Worker-Startmarker erzeugen."
-[[ ! -e "$state_dir/service-stop.marker" ]] || fail "Das Setup darf keinen Stopmarker erzeugen."
-[[ ! -e "$state_dir/service-start-after-stop.marker" ]] || fail "Das Setup darf keinen Start-nach-Stop-Marker erzeugen."
-
-atomic_write "$state_dir/setup-complete.marker" "session_id=$session_id"
-echo "Die isolierte Workshopumgebung ist vorbereitet."
+clear 2>/dev/null || printf '\033[2J\033[H'
+exec su - "$lab_user"

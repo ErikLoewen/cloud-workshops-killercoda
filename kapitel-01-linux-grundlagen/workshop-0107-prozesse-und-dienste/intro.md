@@ -1,27 +1,41 @@
-# Prozesse und Dienste kontrollieren
+# 01.07 – Falsches Signal: Die Konfiguration des Leuchtfeuers reparieren
 
-In diesem Workshop steuerst du ausschließlich zwei vorbereitete Lab-Komponenten:
+Der Sturm hat nicht nachgelassen. Über dem Meer verschwindet das Schiff
+langsam hinter Regen und Nebel.
 
-- das ungefährliche Übungsprogramm `lab-worker`;
-- die isolierte Service-Unit `lab-demo.service`.
+Das Leuchtfeuer brennt wieder – aber der Strahl dreht sich nicht gleichmäßig.
+Drei kurze Impulse, eine lange Pause, dann beginnt das Muster erneut.
 
-Du veränderst keine produktiven oder bereits vorhandenen Systemdienste.
+Die Mechanik arbeitet. Der Prozess läuft. Trotzdem stimmt das Signal nicht.
 
-## Ziel
+Auf dem Kontrollpult leuchtet eine neue Meldung:
 
-Am Ende kannst du:
+> **LICHTMECHANIK BETRIEBSBEREIT**
+>
+> **KONFIGURATION PRÜFEN**
 
-- einen laufenden Prozess anhand seines Namens und seiner PID identifizieren;
-- ein Lab-Programm im Hintergrund starten;
-- genau diesen Prozess kontrolliert beenden;
-- Prozess und systemverwalteten Dienst unterscheiden;
-- den Demo-Dienst stoppen und wieder starten;
-- den erreichten Endzustand mit einem CHECK prüfen.
+In der Lichtsteuerung wurden ein Betriebsprotokoll, eine Wartungsanleitung und
+die aktuelle Konfiguration hinterlassen.
 
-## Zeitrahmen
+![Im dunklen Leuchtturm greift eine Hand nach einer Laterne, während draußen der Sturm über das Meer zieht.](./assets/0107-einstieg-falsches-signal.png)
 
-- geübte Teilnehmende: 34–40 Minuten;
-- absolute Anfänger: 43–49 Minuten;
-- mindestens 11 Minuten bleiben für Fragen, Tippfehler und technische Verzögerungen.
+## Leitfrage
 
-Die Umgebung wird vor der ersten Aufgabe automatisch vorbereitet. `setup.sh` läuft dabei genau an dieser Stelle. Spätere Schritte und CHECKs führen das Setup nicht erneut aus.
+> Was ist falsch eingestellt, und wie lässt sich die Konfiguration ändern,
+> ohne den bisherigen Zustand zu verlieren?
+
+## Sicher arbeiten
+
+> Konfigurationsdateien werden nicht blind verändert. Zuerst liest du den
+> aktuellen Zustand, dann sicherst du die Datei, änderst gezielt einen Wert
+> und prüfst das Ergebnis.
+
+## Am Ende kannst du
+
+- eine einfache Logdatei als Informationsquelle nutzen,
+- Dokumentation und Konfiguration unterscheiden,
+- Schlüssel, Werte und Kommentare erkennen,
+- eine Konfigurationsdatei sichern,
+- eine Datei mit Nano bearbeiten,
+- Änderungen speichern und kontrollieren,
+- eine Konfiguration prüfen und anwenden.

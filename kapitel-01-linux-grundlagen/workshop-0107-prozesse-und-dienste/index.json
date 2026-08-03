@@ -1,80 +1,49 @@
 {
-  "title": "01.07 – Prozesse und Dienste unter Kontrolle",
-  "description": "Einen isolierten Übungsprozess im Hintergrund starten, gezielt beenden und einen vorbereiteten Demo-Dienst stoppen und wieder starten.",
+  "title": "01.07 – Falsches Signal: Die Konfiguration des Leuchtfeuers reparieren",
+  "description": "Untersuche das Betriebsprotokoll der Lichtsteuerung, sichere und bearbeite eine Konfigurationsdatei mit Nano, prüfe die Änderung und richte das Leuchtfeuer auf die Küste.",
   "details": {
-    "assets": {
-      "host01": [
-        {
-          "file": "assets/lab-worker",
-          "target": "/opt/labforge-workshop-07-assets",
-          "chmod": "+x"
-        },
-        {
-          "file": "assets/lab-worker.py",
-          "target": "/opt/labforge-workshop-07-assets",
-          "chmod": "+x"
-        },
-        {
-          "file": "assets/lab-demo-runner.py",
-          "target": "/opt/labforge-workshop-07-assets",
-          "chmod": "+x"
-        },
-        {
-          "file": "assets/lab-demo-event.py",
-          "target": "/opt/labforge-workshop-07-assets",
-          "chmod": "+x"
-        },
-        {
-          "file": "assets/lab-demo.service",
-          "target": "/opt/labforge-workshop-07-assets"
-        },
-        {
-          "file": "assets/systemctl-no-pager-wrapper",
-          "target": "/opt/labforge-workshop-07-assets",
-          "chmod": "+x"
-        }
-      ]
-    },
     "intro": {
-      "title": "Workshop vorbereiten",
+      "title": "Falsches Signal am Leuchtturm",
       "text": "intro.md",
       "foreground": "setup.sh"
     },
     "steps": [
       {
-        "title": "1. Orientierung und Vorwissen",
-        "text": "step1-orientierung.md"
+        "title": "Was meldet die Lichtsteuerung?",
+        "text": "step1-betriebsprotokoll.md"
       },
       {
-        "title": "2. Einen Prozess im Hintergrund starten",
-        "text": "step2-hintergrundprozess.md"
+        "title": "Welche Einstellungen versteht das Leuchtfeuer?",
+        "text": "step2-dokumentation-konfiguration.md"
       },
       {
-        "title": "3. Prozess finden und beenden",
-        "text": "step3-prozess-finden-und-beenden.md",
-        "verify": "verify-process.sh"
+        "title": "Wie kehrst du zum alten Zustand zurück?",
+        "text": "step3-konfiguration-sichern.md"
       },
       {
-        "title": "4. Prozess und Dienst unterscheiden",
-        "text": "step4-prozess-und-dienst.md"
+        "title": "Wie bedienst du Nano?",
+        "text": "step4-nano-kennenlernen.md"
       },
       {
-        "title": "5. Dienststatus untersuchen",
-        "text": "step5-dienststatus.md"
+        "title": "Wie änderst du genau eine Einstellung?",
+        "text": "step5-rotation-korrigieren.md"
       },
       {
-        "title": "6. Dienst stoppen",
-        "text": "step6-dienst-stoppen.md",
-        "verify": "verify-service-inactive.sh"
+        "title": "Ist die Konfiguration wirklich gültig?",
+        "text": "step6-konfiguration-pruefen.md"
       },
       {
-        "title": "Abschlussaufgabe",
+        "title": "Wie übernimmt das Leuchtfeuer die neue Einstellung?",
+        "text": "step7-konfiguration-anwenden.md"
+      },
+      {
+        "title": "Wo ist der Wärter geblieben?",
         "text": "challenge.md",
         "verify": "verify.sh"
       }
     ],
     "finish": {
-      "title": "Abschluss",
+      "title": "Das Signal folgt wieder seinem Kurs",
       "text": "finish.md"
     }
   },

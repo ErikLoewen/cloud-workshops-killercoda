@@ -1,176 +1,229 @@
-# Dozentenleitfaden – Workshop 7
+# Trainerleitfaden – Falsches Signal
 
 ## Metadaten
 
-- Titel: Prozesse und Dienste kontrollieren
-- Slug: `prozesse-und-dienste`
-- Ordner: `workshop-0107-prozesse-und-dienste`
-- geübte Teilnehmende: 34–40 Minuten
-- absolute Anfänger: 43–49 Minuten
-- Mindestpuffer: 11 Minuten
+- Workshop: `01.07 – Falsches Signal: Die Konfiguration des Leuchtfeuers reparieren`
+- Zielgruppe: Linux-Anfänger nach Workshops 0101 bis 0106
+- Arbeitskonto: `waerter`
+- Arbeitsbereich: `/home/waerter/leuchtturm/lichtsteuerung`
+- Richtwert: ungefähr 60 Minuten einschließlich Fehlerkorrektur und Reflexion
+- CHECK-Grenze: ausschließlich erfolgreiche Flag-Abgabe der aktuellen Sitzung
 
-Der Workshop bleibt zunächst kombiniert. Die verbindlichen Teilungskriterien werden erst nach Pilotdaten ausgewertet und dürfen nicht abgeschwächt werden.
+## Didaktisches Gesamtziel
 
-## Menschlich zu prüfende Lernziele
-
-Direkt beobachten oder durch kurze Fragen prüfen:
-
-- Prozess als laufende Programminstanz beschreiben;
-- Prozessname und PID unterscheiden;
-- PID als momentane Kennung erklären;
-- `&` tatsächlich beim Hintergrundstart verwenden;
-- zurückgekehrten Prompt nicht mit Prozessende verwechseln;
-- PID eigenständig aus `pgrep` übernehmen;
-- keine Beispiel-PID ungeprüft verwenden;
-- leere `pgrep`-Ausgabe als erwartetes Prozessende einordnen;
-- Prozess, Dienst und Service-Unit unterscheiden;
-- Unit-Name und PID unterscheiden;
-- `active` und `inactive` erklären;
-- passende Aktion `status`, `stop` oder `start` auswählen.
-
-## Direkte Beobachtung von `&`
-
-Nur der erste vollständige Start ist anklickbar. In der Challenge muss `lab-worker &` selbstständig eingegeben werden.
-
-Der technische CHECK kann die Verwendung von `&` nicht beweisen. Ein Vordergrundstart mit anschließendem Ende kann denselben technischen Endzustand herstellen. Erfolgsmeldung und Abschlussseite nennen diese Grenze ausdrücklich.
-
-## Eigenständige PID-Übernahme
-
-Beobachten:
-
-1. Führt die Person `pgrep lab-worker` aus?
-2. Liest sie die aktuelle Zahl?
-3. Setzt sie genau diese Zahl als Argument für `kill` ein?
-4. Ermittelt sie bei einem neuen Start eine neue PID, statt eine alte Zahl wiederzuverwenden?
-
-## Typische Verwechslungen
-
-- Zahl in eckigen Klammern wird für die gesuchte PID gehalten;
-- Prozessname wird als PID verwendet;
-- `kill PID` wird wörtlich eingegeben;
-- fehlende Ausgabe von `kill` wird als Fehler interpretiert;
-- leere `pgrep`-Ausgabe wird als Defekt interpretiert;
-- Unit-Name wird mit einer Prozess-PID gleichgesetzt;
-- `inactive` wird nach dem beabsichtigten Stop als Szenariofehler bewertet;
-- zurückgekehrter Prompt wird mit Prozessende gleichgesetzt.
-
-## Prozess- und Dienstmodell
-
-Prozess:
+Die Lernenden führen erstmals einen vollständigen, aber stark reduzierten
+Konfigurationsablauf aus:
 
 ```text
-Programm → laufende Instanz → Prozessname + momentane PID
+lesen → sichern → ändern → kontrollieren → prüfen → anwenden → Status kontrollieren
 ```
 
-Dienst:
+Der Workshop verbindet bekannte Datei- und Navigationsbefehle mit drei neuen
+Elementen: Dokumentation als Entscheidungshilfe, Nano als Terminaleditor und
+die Trennung zwischen gespeichertem, gültigem und angewendetem Zustand.
+
+## Didaktische Progression
+
+### Intro – Problem und Leitfrage
+
+**Funktion:** Das fehlerhafte Lichtsignal wird sichtbar, obwohl Mechanik und
+Prozess funktionieren. Damit entsteht ein plausibler Anlass, Einstellungen zu
+untersuchen.
+
+**Trainerfokus:** Die Leitfrage etablieren und noch keine Nano-Tasten oder
+Lösungswerte nennen. Die Sicherheitsroutine soll vor der ersten Bearbeitung
+mental verfügbar sein.
+
+### Step 1 – Betriebsprotokoll lesen
+
+**Funktion:** `pwd`, `ls`, `cd` und `cat` werden abgerufen. Neu ist nur die
+Logdatei als chronologische Informationsquelle. Der Schritt ist stark geführt,
+damit die neue Dateirolle nicht mit neuer Befehlssyntax konkurriert.
+
+**Beobachten:** Finden die Lernenden den Hinweis auf die geladene
+Konfiguration, den aktuellen Rotationswert, die Warnung und den Verweis auf die
+Dokumentation?
+
+### Step 2 – Dokumentation und Konfiguration unterscheiden
+
+**Funktion:** Log, Dokumentation und Konfiguration erhalten klar getrennte
+Rollen. Das Modell `SCHLUESSEL=WERT` sowie Kommentarzeilen werden geführt
+eingeführt.
+
+**Trainerfokus:** Nicht direkt `ROTATION=kreis` nennen. Zuerst auf den Abschnitt
+`ROTATION` in der Wartungsanleitung zurückverweisen und die Beschreibung mit
+dem beobachteten Signal vergleichen lassen.
+
+### Step 3 – Sicherungsroutine aufbauen
+
+**Funktion:** Eine einzelne Datei wird vor der Änderung kopiert. Quelle,
+Zielkopie und `.bak`-Benennung werden nachvollziehbar gemacht.
+
+**Abgrenzung:** Dies ist kein allgemeiner Backupkurs. Aufbewahrung,
+Versionierung, externe Datenträger und Wiederherstellungsstrategien werden
+nicht vertieft.
+
+### Step 4 – Nano gefahrlos kennenlernen
+
+**Funktion:** Dies ist das einzige vollständige Worked Example zur
+Nano-Grundbedienung. Die Datei wird geöffnet, der Cursor bewegt und Nano ohne
+beabsichtigte Änderung verlassen.
+
+**Trainerfokus:** Editorangst reduzieren. `^` als Strg-Taste erklären und die
+Tasten `Strg+O`, `Enter`, `Strg+X` bei Bedarf einzeln wiederholen. Keine
+weiteren Nano-Funktionen ergänzen.
+
+### Step 5 – Eine begrenzte Änderung
+
+**Funktion:** Die bekannte Nano-Bedienung wird auf genau einen fachlich
+begründeten Wert übertragen. Geschwindigkeit und Bereich bleiben unverändert.
+
+**Guidance Fading:** Der Hauptauftrag beschreibt nur die gewünschte Wirkung.
+Die gestuften Hinweise nennen nacheinander Schlüssel, Zielwert, Speicherfolge
+und vollständigen Ablauf. Den letzten Hinweis erst nach einem eigenen Versuch
+öffnen lassen.
+
+### Step 6 – Kontrollieren und validieren
+
+**Funktion:** Die Lernenden unterscheiden:
 
 ```text
-Service-Unit → systemverwalteter Dienst → eigener Prozess mit momentaner PID
+gespeichert ≠ gültig ≠ angewendet
 ```
 
-Der Unit-Name bleibt stabil. Die Prozess-PID kann sich nach einem neuen Start ändern.
+Die Sichtkontrolle mit `cat` und die technische Validierung sind getrennte
+Handlungen. Fehlermeldungen werden als Hilfe zur Korrektur genutzt.
 
-## Regeln für Hinweise
+**Trainerfokus:** Fehlermeldungen laut und vollständig lesen lassen. Keine
+Datei automatisch reparieren. Nach einer Korrektur erneut lesen und prüfen.
 
-Hinweise nur nach einem eigenen Versuch öffnen lassen:
+### Step 7 – Anwenden und Laufzeitstatus kontrollieren
 
-1. Zustände und Konzepte;
-2. passende Werkzeuge;
-3. fast vollständige Struktur mit Lücken;
-4. vollständiger Musterablauf mit ausdrücklich beispielhafter PID.
+**Funktion:** Eine gültige Datei wird bewusst angewendet. Anschließend wird der
+tatsächlich geladene Zustand mit dem gespeicherten Text verglichen.
 
-Die Beispiel-PID darf nie als tatsächlich einzusetzender Wert dargestellt werden.
+**Trainerfokus:** Nachfragen, ob die Steuerung den neuen Wert bereits verwendet
+oder ob bislang nur die Datei verändert wurde. Der Status ist der Nachweis für
+den angewendeten Zustand.
 
-## Getrennte Zeitmesspunkte
+### Challenge – Selbstständiger Transfer
 
-Dokumentieren:
+**Funktion:** Der vollständige Wartungsablauf wird auf einen zweiten Wert
+übertragen. Es kommt keine neue Syntax hinzu. Die Lernenden bestimmen den
+passenden Bereich aus der Dokumentation und arbeiten mit reduzierter Hilfe.
 
-- Beginn des Workshops;
-- Abschluss des Prozess-Teilchecks;
-- Beginn des Dienstteils;
-- Abschluss des Dienst-Inaktiv-Teilchecks;
-- Abschluss der Challenge;
-- Ende der Reflexion.
+**Trainerfokus:** Zuerst nur auf das Suchgebiet und später auf den Schlüssel
+`BEREICH` lenken. Den Wert `kueste` erst über die vorgesehene zweite
+Hinweisstufe nennen. Der vollständige Walkthrough bleibt die letzte Hilfe.
 
-Für absolute Anfänger müssen nach dem Prozess-Teilcheck noch mindestens 15 Minuten echte Dienstlernzeit verbleiben. Planerisch sind etwa 20,5–23 Minuten vorgesehen.
+## Zentrale Trainerfragen
+
+- Was sagt das Log über den aktuellen Zustand?
+- Woher weißt du, welche Werte zulässig sind?
+- Welche Datei enthält den aktuell gespeicherten Konfigurationstext?
+- Welche Datei dient als Sicherung?
+- Was bedeutet `^O` in Nano?
+- Hast du die Datei nur gespeichert oder auch geprüft?
+- Welche konkrete Information liefert die Fehlermeldung?
+- Verwendet die Steuerung bereits den neuen Wert?
+- Woran erkennst du den angewendeten Zustand?
+- Welche Einstellung bestimmt das Suchgebiet?
+- Warum wird der Status nach dem Anwenden erneut kontrolliert?
+
+## Unterstützungsverhalten
+
+1. Zuerst nach dem aktuell sichtbaren Zustand fragen.
+2. Bei fachlichen Unsicherheiten auf Log und Dokumentation verweisen.
+3. Nano-Tasten nur einzeln und passend zum aktuellen Dialog wiederholen.
+4. Fehlermeldungen laut lesen und Schlüssel, Wert oder Format benennen lassen.
+5. Keine Datei für die Lernenden automatisch korrigieren.
+6. Nach jeder Korrektur erneut Dateiinhalt und Validatorausgabe prüfen lassen.
+7. Vollständige Walkthroughs erst nach einem eigenen Versuch und den früheren
+   Hinweisstufen öffnen lassen.
+
+Die Lösung nicht durch sofortiges Nennen von `ROTATION=kreis` vorwegnehmen.
+
+## Häufige Lernprobleme
+
+| Beobachtung | Didaktische Reaktion |
+|---|---|
+| `cat` wird mit einem Editor verwechselt | Fragen, ob der Befehl nur anzeigt oder den Text zur Bearbeitung öffnet. |
+| `^` wird als einzugebendes Zeichen verstanden | Erneut erklären: `^O` bedeutet die Tastenkombination `Strg+O`. |
+| Bei `Strg+O` wird der Dateiname überschrieben | Den angezeigten Namen prüfen und unverändert mit `Enter` bestätigen lassen. |
+| Wert oder Schlüssel enthält einen Tippfehler | Validatorausgabe vollständig lesen und nur die betroffene Stelle korrigieren lassen. |
+| Speichern wird mit Anwenden verwechselt | Gespeicherte Datei und Laufzeitstatus direkt vergleichen lassen. |
+| Statusdatei wird mit der Konfigurationsdatei verwechselt | Nach der Rolle beider Dateien fragen: gewünschter Text gegenüber angewendetem Zustand. |
+| Sicherung wurde vergessen | Vor jeder Bearbeitung zur Wartungsroutine zurückkehren. |
+| Sicherung wurde nach der Änderung überschrieben | Workshopzustand zurücksetzen und die Sicherung erneut vor der Bearbeitung anlegen. |
+
+RAM, CPU-Auslastung und Prozessdiagnose stammen aus Workshop 6 und sind für
+dieses Problem irrelevant. Diese Themen nicht erneut eröffnen.
+
+## Bewusste fachliche Reduktionen
+
+Nicht behandelt werden:
+
+- Vim oder andere Editoren,
+- YAML und JSON,
+- systemd und Serviceverwaltung,
+- Konfigurationen unter `/etc`,
+- `sudo nano`,
+- Kubernetes-Manifeste,
+- komplexe Logs und Logging-Infrastruktur,
+- `grep` und `tail`,
+- das Laden von Konfigurationsdateien mit Shell-Sourcing,
+- komplexe Backup- und Rollbacksysteme.
+
+Diese Reduktion hält den Fokus auf einem kleinen, sicheren und vollständig
+beobachtbaren Konfigurationsablauf.
+
+## Sicherheitsaspekte
+
+- Ausschließlich Dateien im vorbereiteten Workshopbereich bearbeiten.
+- Keine fremden Systemdateien verändern.
+- Für sämtliche Lernhandlungen ist kein Rootzugriff erforderlich.
+- Vor der ersten Änderung die Ausgangsdatei sichern.
+- Nach der Bearbeitung erst kontrollieren und validieren, dann anwenden.
+- Der interne Parser behandelt die Konfiguration als nicht vertrauenswürdige
+  Daten. Er verwendet weder `source` noch `eval` und führt Werte nicht als
+  Shellcode aus.
+- Der CHECK verändert keine Dateien und bestätigt ausschließlich den
+  sitzungsgebundenen Flag-Abgabemarker.
 
 ## Technische und menschliche Prüfung
 
 Technisch prüfbar:
 
-- Worker-Startmarker der aktuellen Sitzung;
-- keine eigene Worker-Instanz läuft;
-- initial aktiver Demo-Dienst;
-- gültiger geordneter Stop nach Tracking-Aktivierung;
-- späterer gültiger Start;
-- richtige Ereignisreihenfolge;
-- aktuell aktiver eigener Dienstprozess.
+- vollständiger Missionszustand wurde vom Neuladeskript erkannt,
+- Flagdatei wurde freigelegt,
+- korrekte Flag wurde für die aktuelle Sitzung eingereicht,
+- Flag-only-CHECK ist erfolgreich.
 
-Nur menschlich beziehungsweise formativ prüfbar:
+Nur durch Beobachtung oder Gespräch prüfbar:
 
-- Verwendung von `&`;
-- Verwendung von `ps`, `pgrep` und `kill`;
-- eigenständiges Ablesen der PID;
-- Verständnis der Begriffe;
-- fachliche Erklärung der Zustandsänderungen.
+- Log, Dokumentation und Konfiguration korrekt unterscheiden,
+- Sicherung bewusst vor der Änderung anlegen,
+- Nano selbstständig bedienen,
+- Fehlermeldungen verstehen,
+- gespeichert, gültig und angewendet erklären,
+- Status als Laufzeitnachweis interpretieren.
 
-## Eingriffskriterien
+## Zeitplanung
 
-Eingreifen, wenn:
+| Abschnitt | Richtwert | Schwerpunkt |
+|---|---:|---|
+| Intro | 4 Min. | Problem und Leitfrage |
+| Step 1 | 5 Min. | Logdatei finden und lesen |
+| Step 2 | 7 Min. | Dokumentation und Konfigurationsmodell |
+| Step 3 | 5 Min. | Sicherung erstellen und kontrollieren |
+| Step 4 | 7 Min. | Nano gefahrlos kennenlernen |
+| Step 5 | 6 Min. | Rotation gezielt ändern |
+| Step 6 | 6 Min. | Sichtkontrolle und Validierung |
+| Step 7 | 5 Min. | Anwenden und Status prüfen |
+| Challenge | 9 Min. | Selbstständiger Transfer und Flag-Abgabe |
+| Finish und Reflexion | 3 Min. | Abruf und Ausblick |
 
-- ein Teilnehmer einen nicht isolierten Systemdienst verändern möchte;
-- wiederholt eine alte oder beispielhafte PID verwendet wird;
-- ein fremder Prozess betroffen sein könnte;
-- das Terminal in einem Pager hängen bleibt;
-- einfaches `ps` den Worker im Killercoda-Pilot nicht zeigt;
-- systemd oder die Service-Unit nicht reproduzierbar funktionieren;
-- nach dem Prozessteil weniger als zehn Minuten verbleiben.
-
-Ein auftretender Pager ist ein technischer Szenariofehler. Keine Pagerbedienung lehren.
-
-## Verbindliche Teilungskriterien
-
-Kritisch – Teilung bei mindestens einem Kriterium:
-
-- weniger als 70 Prozent erreichen beide Endzustände innerhalb von 50 Minuten;
-- mehr als 30 Prozent unterscheiden Prozess und Dienst nicht;
-- mehr als 30 Prozent verwechseln PID, Prozessname und Dienstname;
-- mehr als 30 Prozent erklären `&` falsch oder starten wiederholt im Vordergrund;
-- für mindestens 25 Prozent bleiben weniger als zehn Minuten echte Dienstübungszeit;
-- der Demo-Dienst ist in weniger als 95 Prozent frischer Starts reproduzierbar;
-- das Budget verhindert selbstständigen Transfer.
-
-Regulär – Teilung bei mindestens zwei Kriterien:
-
-- Prozess-Teilcheck unter 80 Prozent ohne Hinweisstufe 4;
-- Dienst-Teilcheck unter 80 Prozent ohne Hinweisstufe 4;
-- mehr als 30 Prozent benötigen in beiden Teilen Hinweisstufe 3 oder 4;
-- Anfänger-Median über 49 Minuten;
-- mehr als 20 Prozent benötigen ohne technische Störung über 50 Minuten;
-- Mehrheit führt Befehle aus, kann Zustandsänderungen aber nicht erklären;
-- Übergang zum Dienstmodell erzeugt anhaltende Fehlannahmen;
-- `&` verdrängt die Lernzeit für den Prozess-Dienst-Unterschied.
-
-## Pagerlösung
-
-Ein transparentes `/usr/local/bin/systemctl`-Wrapperprogramm ergänzt intern ausschließlich `--no-pager` und delegiert mit `exec` an `/usr/bin/systemctl`. Diese Lösung ist nötig, weil ein Setup-Kindprozess die Umgebung einer bereits laufenden Teilnehmer-Shell nicht nachträglich ändern kann. Der Wrapper verändert weder Aktion noch Unit und gibt Ausgabe, Fehlerausgabe und Exit-Code des echten Werkzeugs unverändert weiter.
-
-Setup und Verify rufen ausdrücklich `/usr/bin/systemctl` auf. Erscheint im Killercoda-Pilot dennoch ein Pager, ist die Veröffentlichung blockiert.
-
-## Dienstmarker und systemd-Ergebnis
-
-Der Stop wird zweistufig bewertet:
-
-1. `ExecStop` fordert ausschließlich den eigenen Runner normal zum Beenden auf und erzeugt nur einen vorläufigen Nachweis.
-2. `ExecStopPost` wertet `SERVICE_RESULT`, `EXIT_CODE` und `EXIT_STATUS` aus.
-
-Ein gültiger Stopmarker entsteht nur bei bestätigtem `success`, `exited` und Status `0`. Ein unerwarteter Prozessabsturz oder ein fehlgeschlagener Stop darf dadurch nicht als erfolgreicher Teilnehmer-Stop gelten. Das reale Verhalten dieser Ergebniswerte muss im Killercoda-Pilot bestätigt werden.
-
-## Veröffentlichungsblocker
-
-- systemd in der realen Killercoda-Umgebung unzuverlässig;
-- einfacher `ps` zeigt `lab-worker` nicht zuverlässig;
-- Pager erscheint trotz transparenter Deaktivierung;
-- Lifecycle-Marker akzeptieren einen technischen Absturz als gültigen Stop;
-- Verify verändert Marker, Zähler, Prozesse oder Dienstzustand;
-- weniger als 95 Prozent erfolgreiche technische Frischstarts.
+Gesamt: ungefähr 57 Minuten. Die verbleibenden Minuten dienen als Puffer für
+Nano-Dialoge, Tippfehler und Rückfragen. Wenn mehrere Lernende bereits in Step
+4 deutlich mehr als zehn Minuten benötigen, die Challenge-Hinweise früher
+staffeln, aber nicht die Datei für sie bearbeiten.

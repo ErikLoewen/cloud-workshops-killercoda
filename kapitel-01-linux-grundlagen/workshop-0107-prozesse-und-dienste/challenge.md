@@ -1,89 +1,103 @@
-# Abschlussaufgabe
+# Wo ist der Wärter geblieben?
 
-## Ausgangslage
+Der Rundlauf funktioniert wieder. Das Schiff ist inzwischen hinter dem
+Regenschleier verschwunden.
 
-- `lab-worker` läuft nicht mehr.
-- Das Lab-Programm wurde im geführten Teil bereits einmal gestartet.
-- `lab-demo.service` ist inaktiv.
-- Ein gültiger Stop wurde registriert.
+Vom Wärter fehlt weiterhin jede Spur.
 
-## Ziel
+In der Wartungsanleitung hast du gelesen, dass der Lichtbereich nicht nur auf
+das Meer, sondern auch auf die Küste gerichtet werden kann. Nutze das
+Leuchtfeuer, um Deich und Strand systematisch abzusuchen.
 
-Stelle selbstständig diesen Endzustand her:
+## Auftrag
 
-1. Starte `lab-worker` erneut mit `&` im Hintergrund.
-2. Ermittle die aktuelle PID mit `pgrep`.
-3. Beende den Prozess mit `kill` und deiner tatsächlich angezeigten PID.
-4. Prüfe, dass `pgrep` keinen Treffer mehr liefert.
-5. Starte `lab-demo.service`.
-6. Prüfe mit `systemctl status`, dass die Unit wieder `active` ist.
-7. Löse danach den Abschluss-CHECK aus.
+Stelle die Küstensuche selbstständig her:
 
-Es gibt in dieser Aufgabe keine anklickbaren Lösungsbefehle. Verwende nur die bereits eingeführten Befehle, Aktionen und die bekannte Syntax.
+1. Lies die aktuelle Konfiguration.
+2. Prüfe, ob deine Sicherungskopie vorhanden ist.
+3. Bestimme die passende Einstellung für die Küstensuche.
+4. Bearbeite die Konfiguration mit Nano.
+5. Speichere die Datei und verlasse Nano.
+6. Kontrolliere den gespeicherten Inhalt.
+7. Validiere die Konfiguration.
+8. Wende sie an.
+9. Kontrolliere den angewendeten Status.
+10. Lies die freigelegte Flag und reiche sie ein.
 
-## Erfolgskriterien
-
-- Das Lab-Programm wurde in dieser Sitzung gestartet.
-- Keine eigene `lab-worker`-Instanz läuft mehr.
-- Der Demo-Dienst wurde nach dem gültigen Stop erneut gestartet.
-- Das Startereignis liegt nach dem Stopereignis.
-- `lab-demo.service` ist aktuell aktiv.
-- Der zugehörige Prozess gehört zum isolierten Demo-Dienst.
+Der CHECK bestätigt ausschließlich die erfolgreiche Flag-Abgabe. Er bewertet
+weder die verwendeten Befehle noch die Reihenfolge deiner Arbeitsschritte.
 
 <details>
-<summary>Hinweis 1 – Zustände und Konzepte</summary>
+<summary>Hinweis 1 – Suchgebiet</summary>
 
-Du brauchst zuerst einen kurzzeitig laufenden Hintergrundprozess und am Ende keinen laufenden `lab-worker`. Der aktuell inaktive Dienst muss am Ende wieder aktiv sein.
+Der vom Lichtstrahl abgesuchte Bereich wird durch den Schlüssel `BEREICH`
+gesteuert.
 
 </details>
 
 <details>
-<summary>Hinweis 2 – Passende Werkzeuge</summary>
+<summary>Hinweis 2 – Zulässiger Wert</summary>
 
-Nutze `&` für den Hintergrundstart, `pgrep` für die aktuelle PID, `kill` zum Beenden und die bekannte `systemctl`-Aktion zum Starten der Unit. Kontrolliere beide Endzustände.
+Die Wartungsanleitung nennt `kueste` als Wert für die Suche entlang von Deich
+und Küstenlinie.
 
 </details>
 
 <details>
-<summary>Hinweis 3 – Struktur mit Lücken</summary>
+<summary>Hinweis 3 – Sichere Reihenfolge</summary>
 
 ```text
-lab-worker __
-
-pgrep lab-worker
-
-kill [hier deine aktuelle Zahl einsetzen]
-
-pgrep lab-worker
-
-systemctl _____ lab-demo.service
-
-systemctl status lab-demo.service
+lesen
+→ Sicherung prüfen
+→ ändern
+→ kontrollieren
+→ prüfen
+→ anwenden
+→ Status kontrollieren
 ```
 
 </details>
 
 <details>
-<summary>Hinweis 4 – Vollständiger Musterablauf</summary>
+<summary>Vollständiger Walkthrough</summary>
 
-```text
-lab-worker &
-pgrep lab-worker
+Lies zuerst den aktuellen Zustand und kontrolliere die Sicherung:
+
+```bash
+cat leuchtfeuer.conf
+ls -l leuchtfeuer.conf.bak
+nano leuchtfeuer.conf
 ```
 
-Angenommen, deine aktuelle Ausgabe wäre **beispielsweise** `4281`. Nur dann würde der nächste Befehl `kill 4281` lauten. Verwende immer deine eigene aktuelle PID.
+Ändere in Nano:
 
-```text
-kill 4281
-pgrep lab-worker
-systemctl start lab-demo.service
-systemctl status lab-demo.service
+```ini
+BEREICH=meer
 ```
 
-Die zweite Suche nach `lab-worker` soll keine PID mehr ausgeben. In der Dienststatusausgabe soll `Active: active` stehen.
+zu:
+
+```ini
+BEREICH=kueste
+```
+
+Speichere und verlasse Nano. Kontrolliere und übernimm danach den Zustand:
+
+```bash
+cat leuchtfeuer.conf
+./konfiguration-pruefen
+./leuchtfeuer-neu-laden
+./leuchtfeuer-status
+```
+
+Lies anschließend die technisch freigelegte Flagdatei, reiche den angezeigten
+Wert ein und starte danach den CHECK:
+
+```bash
+cat status/abschlussflagge
+flag-einreichen 'GEFUNDENE_FLAG'
+```
+
+Ersetze `GEFUNDENE_FLAG` durch den vollständigen Text aus der Flagdatei.
 
 </details>
-
-## Abschluss-CHECK
-
-Der technische CHECK prüft den beschriebenen Endzustand. Er liest nur und verändert weder Prozesse, Dienstzustand noch Marker.
