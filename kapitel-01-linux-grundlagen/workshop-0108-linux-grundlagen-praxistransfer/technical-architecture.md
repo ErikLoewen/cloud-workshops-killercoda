@@ -548,13 +548,12 @@ und anschließend mit `stat` geprüft.
 
 ## 16. Geplante Bildassets
 
-Die folgenden Dateinamen sind reserviert. Nur tatsächlich vorhandene Assets
-werden aus sichtbarem Markdown referenziert:
+Die folgenden Bildassets sind vorhanden und werden aus dem sichtbaren
+Markdown referenziert:
 
 - `assets/0108-einstieg-fragmentiertes-archiv.png`;
-- `assets/0108-pipe-und-grep.png` – vorhanden und in Step 3 eingebunden;
+- `assets/0108-pipe-und-grep.png`;
 - `assets/0108-abschluss-identitaet.png`;
-- optional `assets/0108-archivstruktur.png`.
 
 ## 17. Implementierungsstand
 
@@ -571,9 +570,7 @@ Technisch vorbereitet sind:
 - vollständige Lerntexte mit gestuften Dropdowns;
 - Challenge, Flag-Abgabe und Flag-only-CHECK;
 - Lösung, Trainerleitfaden, Testplan und ausgeführter lokaler Testbericht;
-- Pipe-und-grep-Grafik.
+- Einstiegs-, Pipe-und-grep- sowie Abschlussgrafik.
 
-Noch nicht umgesetzt sind:
-
-- Einstiegs- und Abschlussbild als reale Assets;
-- reale Killercoda-Browser-, TTY-, Nano- und Pilottests.
+Noch nicht umgesetzt sind reale Killercoda-Browser-, TTY-, Nano- und
+Pilottests.

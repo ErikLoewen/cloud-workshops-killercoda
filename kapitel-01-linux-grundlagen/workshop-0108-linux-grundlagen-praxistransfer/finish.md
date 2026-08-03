@@ -10,11 +10,7 @@ Der Regen fällt wieder nur außerhalb des Turms.
 Der Leuchtturm steht fest. Nicht alles wirkt deshalb gewöhnlich, aber die
 Erinnerung bleibt klar genug für den Identitätsabgleich.
 
-> **Bildplatzhalter:** `assets/0108-abschluss-identitaet.png`
->
-> *Der stabilisierte, aber weiterhin unwirkliche Leuchtturm; eine einzelne
-> Figur erkennt sich schemenhaft in der reflektierenden Scheibe des
-> Laternenraums.*
+![Der stabilisierte, aber weiterhin unwirkliche Leuchtturm; eine einzelne Figur erkennt sich schemenhaft in der reflektierenden Scheibe des Laternenraums.](./assets/0108-abschluss-identitaet.png)
 
 ## Identitätsabgleich
 

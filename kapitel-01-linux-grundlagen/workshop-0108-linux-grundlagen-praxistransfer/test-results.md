@@ -95,10 +95,10 @@ ps -eo user,pid,comm | grep altes_echo
 ```
 
 Eine normale `grep`-Zeile besitzt in `comm` nur den Wert `grep` und enthält
-damit den Suchtext `altes_echo` nicht. Lerntext, Grafik, Lösung, Testplan und
-Trainerleitfaden wurden im Abschlussreview an dieses tatsächlich gemessene
-Verhalten angepasst. Die didaktische Reduktion auf `USER`, `PID` und
-`COMMAND` bleibt erhalten.
+damit den Suchtext `altes_echo` nicht. Der Lerntext erklärt dieses gemessene
+Verhalten. Die später hochgeladene Grafik verwendet spoilerfrei `UNKNOWN` und
+zeigt die grep-Zeile nur schematisch als allgemeinen Warnhinweis. Die
+didaktische Reduktion auf `USER`, `PID` und `COMMAND` bleibt erhalten.
 
 ## 4. Archivschlüssel
 
@@ -250,7 +250,8 @@ Vierzehn Prüfgruppen wurden ausgeführt und bestanden:
 - rekursive Setup-Löschung nur nach exaktem Pfadwächter;
 - kein globales `pkill` oder `killall`;
 - alle gerenderten Assetreferenzen vorhanden;
-- Pipe-und-grep-PNG als gültiges Bild mit 1600 × 900 Pixeln;
+- alle drei Workshopbilder als gültige PNG-Dateien (Einstieg 1448 × 1086,
+  Diagramm und Abschluss jeweils 1672 × 941 Pixel);
 - technische Dateinamen ohne Leerzeichen oder Umlaute;
 - 28 sichtbare `<details>`-Dropdowns mit 28 schließenden Tags.
 

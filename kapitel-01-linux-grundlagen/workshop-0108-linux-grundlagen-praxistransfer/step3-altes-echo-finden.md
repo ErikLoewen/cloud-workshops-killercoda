@@ -6,44 +6,46 @@ Die entfernte Datei ist zurückgekehrt. Lies sie noch einmal vollständig:
 cat erinnerungen/ERINNERUNG_KEHRT_ZURUECK.txt
 ```
 
-Die letzte Zeile nennt ihre Herkunft:
-
-```text
-Erstellt durch: altes_echo
-```
-
-Eine Datei kann sich nicht selbst neu erzeugen. Suche deshalb jetzt nach dem
-laufenden Vorgang mit diesem Namen.
+Eine Datei kann sich nicht selbst neu erzeugen. Untersuche besonders die
+letzte Zeile: Sie nennt den Vorgang, nach dem du in der Prozessliste suchen
+sollst. Notiere diesen Namen, ohne ihn aus einem Hinweis zu übernehmen.
 
 ## Prozessliste mit `grep` filtern
 
-Verwende diesen Pflichtweg:
+Setze den selbst gefundenen Namen anstelle von `SUCHTEXT` ein:
 
 ```bash
-ps -eo user,pid,comm | grep altes_echo
+ps -eo user,pid,comm | grep SUCHTEXT
 ```
 
 `grep` zeigt nur Zeilen, die einen bestimmten Suchtext enthalten.
 `|` leitet die Ausgabe des linken Befehls an den rechten Befehl weiter.
 
-![Eine Prozessliste fließt durch eine Pipe zu grep; am Ende bleiben nur Zeilen mit dem Suchbegriff altes_echo übrig.](./assets/0108-pipe-und-grep.png)
+![Eine Prozessliste fließt durch eine Pipe zu grep; UNKNOWN steht dabei für einen noch zu ermittelnden Prozessnamen.](./assets/0108-pipe-und-grep.png)
+
+`UNKNOWN` ist in der Grafik absichtlich nur ein Platzhalter. Ersetze ihn im
+Terminal durch den Namen, den du in der Datei gefunden hast.
 
 ## Prozessidentität prüfen
 
-Die gefilterte Ausgabe zeigt den gesuchten Vorgang, zum Beispiel:
+Die gefilterte Ausgabe zeigt den gesuchten Vorgang, schematisch zum Beispiel:
 
 ```text
-waerter  1842 altes_echo
+waerter  1842 GEFUNDENER_NAME
 ```
 
-Entscheidend ist die Spalte `COMMAND`. Verwende ausschließlich eine Zeile mit
-`COMMAND` gleich `altes_echo`.
+Entscheidend ist die Spalte `COMMAND`. Verwende ausschließlich eine Zeile, in
+der `COMMAND` exakt dem Namen aus der untersuchten Datei entspricht.
 
 Prüfe vor dem Beenden alle drei Angaben:
 
 - `USER` ist `waerter`;
 - `PID` ist eine eindeutige Zahl;
-- `COMMAND` ist exakt `altes_echo`.
+- `COMMAND` entspricht exakt dem gefundenen Namen.
+
+Abhängig von der Art der Prozessausgabe kann auch der Suchvorgang `grep`
+selbst erscheinen. Diese Zeile ist nicht das Ziel. Beim hier verwendeten
+Feld `comm` bleibt sie normalerweise aus, weil dort nur `grep` steht.
 
 ## Prozess kontrolliert beenden
 
@@ -59,24 +61,24 @@ ohne zusätzliche Zeichen ein.
 Kontrolliere danach erneut:
 
 ```bash
-ps -eo user,pid,comm | grep altes_echo
+ps -eo user,pid,comm | grep SUCHTEXT
 ```
 
 Alternativ kannst du den bereits bekannten, namensbezogenen Kontrollbefehl
 verwenden:
 
 ```bash
-pgrep -a altes_echo
+pgrep -a SUCHTEXT
 ```
 
-Nur eine Zeile, deren Prozessname tatsächlich `altes_echo` ist, weist auf den
-erzeugenden Vorgang hin. Bleibt die gefilterte Ausgabe leer, wurde kein
-passender Prozess gefunden.
+Nur eine Zeile, deren Prozessname tatsächlich dem Hinweis aus der Datei
+entspricht, weist auf den erzeugenden Vorgang hin. Bleibt die gefilterte
+Ausgabe leer, wurde kein passender Prozess gefunden.
 
 ## Erinnerung endgültig entfernen
 
-Wenn die Kontrolle keinen laufenden Prozess `altes_echo` mehr zeigt, entferne
-die zurückgebliebene Datei:
+Wenn die Kontrolle keinen laufenden Prozess mit dem gefundenen Namen mehr
+zeigt, entferne die zurückgebliebene Datei:
 
 ```bash
 rm erinnerungen/ERINNERUNG_KEHRT_ZURUECK.txt
@@ -106,7 +108,8 @@ Filter ihrer jeweiligen Beschriftung zu.
 <summary>Hinweis 3 – richtige PID auswählen</summary>
 
 Vergleiche nicht nur die Zahl. Verwende ausschließlich die Zeile, in der
-gleichzeitig `USER` gleich `waerter` und `COMMAND` gleich `altes_echo` ist.
+gleichzeitig `USER` gleich `waerter` und `COMMAND` gleich dem selbst
+ermittelten Prozessnamen ist.
 
 </details>
 

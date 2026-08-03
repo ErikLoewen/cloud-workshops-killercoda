@@ -70,7 +70,7 @@ nicht fest vorgegeben.
 | D01 | isoliert | `ps -eo user,pid,comm | grep altes_echo` bei laufendem Prozess ausführen. | Mindestens die Zeile `waerter <dynamische PID> altes_echo` ist sichtbar. |
 | D02 | isoliert | USER-, PID- und COMMAND-Spalten gegen `/proc` und `pgrep` vergleichen. | Die `altes_echo`-Zeile ist eindeutig identifizierbar; PID wird nicht fest erwartet. |
 | D03 | isoliert | Pflichtbefehl wiederholt ausführen und Ausgabe prüfen. | Wegen der `comm`-Spalte bleibt nur die Zeile mit dem Suchtext im Prozessnamen; keine normale `COMMAND=grep`-Zeile. |
-| D04 | statisch | Step 3 und Grafik prüfen. | Exakt ein Pflichtbefehl; zwei kurze Erklärungssätze; Grafik zeigt korrekt die reduzierte Vorher-/Nachher-Ausgabe. |
+| D04 | statisch | Step 3 und Grafik prüfen. | Der offene Text und die Grafik verwenden vor der eigenen Ermittlung nur `SUCHTEXT` beziehungsweise `UNKNOWN`; der technische Hinweis grenzt die schematische grep-Zeile vom konkreten `comm`-Verhalten ab. |
 | D05 | manuell | Gefilterte Prozesszeile auswerten lassen. | Lernende prüfen `USER`, dynamische `PID` und `COMMAND=altes_echo` gemeinsam. |
 | D06 | isoliert | Speedrun ohne Ausführung eines grep-Befehls durchführen. | Speedrun und CHECK funktionieren; `grep` ist keine technische Speedrun-Voraussetzung. |
 
@@ -203,7 +203,7 @@ erklärt.
 | L09 | statisch | Löschlogik nach `rm -rf`, Wildcards und Pfadwächtern untersuchen. | Kein unvalidierter rekursiver Löschpfad; Setup löscht nur exakt geschützte statische Bäume; Lernweg nennt konkrete Ziele. |
 | L10 | statisch | Nach globalem `pkill`, `killall`, ungequoteten Pfaden und `eval` suchen. | Keine unsichere Prozess- oder Shellausführung. |
 | L11 | statisch | Alle Markdown-Bildreferenzen auf vorhandene Dateien prüfen. | Jede gerenderte Referenz existiert; fehlende geplante Bilder bleiben nicht rendernde Platzhalter. |
-| L12 | statisch/manuell | `0108-pipe-und-grep.png` prüfen. | PNG 1600 × 900; exakte Befehle und Prozesszeilen; lesbarer Alt-Text; keine fachfremden Konzepte. |
+| L12 | statisch/manuell | Alle drei Workshopbilder prüfen. | Gültige PNG-Dateien; Einstieg und Abschluss passend zu Story und Alt-Text; Pipe-Grafik auf exakte Befehle und Prozesszeilen prüfen. |
 | L13 | statisch | Technische Dateinamen prüfen. | Keine Leerzeichen oder Umlaute in neuen Datei- und Assetnamen. |
 | L14 | Killercoda | Vollständigen Browserlauf mit Nano, Pipe-Zeichen, Dropdowns, Grafik und CHECK durchführen. | Darstellung und Terminalinteraktion funktionieren ohne sichtbare Setup-Artefakte. |
 

@@ -16,11 +16,7 @@ Räume wirken, als wären ihre Teile falsch zusammengesetzt.
 Du kannst nicht mehr sicher sagen, ob du den Turm gerade betrittst oder an
 einen Ort zurückkehrst, den du schon kennst.
 
-> **Bildplatzhalter:** `assets/0108-einstieg-fragmentiertes-archiv.png`
->
-> *Ein zunehmend abstraktes Archiv unter dem Leuchtturm, in dem schwarze und
-> weiße Schlieren sowie unmögliche Farbspektren Räume und Gegenstände
-> überlagern.*
+![Ein zunehmend abstraktes Archiv unter dem Leuchtturm, in dem schwarze und weiße Schlieren sowie unmögliche Farbspektren Räume und Gegenstände überlagern.](./assets/0108-einstieg-fragmentiertes-archiv.png)
 
 ## Ein überprüfbarer Zustand
 

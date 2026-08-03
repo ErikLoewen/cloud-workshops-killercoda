@@ -75,14 +75,18 @@ Pipe und `grep` sind das einzige neue kleine Syntaxkonzept dieses Workshops.
 Befehls an den rechten Befehl weiter.
 
 Verwenden Sie für die Erklärung die Grafik
-`assets/0108-pipe-und-grep.png`. Sie visualisiert ausschließlich:
+`assets/0108-pipe-und-grep.png`. `UNKNOWN` ist dort bewusst ein Platzhalter,
+damit die Grafik den Prozessnamen nicht vor der Dateiuntersuchung verrät:
 
 ```bash
-ps -eo user,pid,comm | grep altes_echo
+ps -eo user,pid,comm | grep SUCHTEXT
 ```
 
-Die Lernenden prüfen an der gefilterten Zeile weiterhin `USER`, dynamische
-`PID` und `COMMAND=altes_echo`, bevor sie den Prozess beenden.
+Die Lernenden ersetzen `SUCHTEXT` selbst durch den Hinweis aus der Datei und
+prüfen an der gefilterten Zeile weiterhin `USER`, dynamische `PID` und den
+exakt passenden Wert in `COMMAND`, bevor sie den Prozess beenden. Die
+schematische `grep`-Zeile der Grafik ist nur ein allgemeiner Warnhinweis; beim
+konkreten `comm`-Befehl bleibt sie normalerweise aus.
 
 Reguläre Ausdrücke, grep-Optionen, mehrere Pipes und weitere Textwerkzeuge
 gehören nicht zu diesem Workshop.

@@ -343,3 +343,16 @@
   einzig lokale Nano-/Browserprüfung bleibt offen.
 - Abschließenden frischen Kernreview mit Setup-Idempotenz, 30 Pipe-Läufen,
   regulärem Erfolg, Injectionabwehr, Flag-only-CHECK und Speedrun bestanden.
+
+## Version 3.0.3-dev – finale Bildassets
+
+- Die hochgeladenen Dateien `intro.png`, `diagram.png` und `outro.png` den
+  vorgesehenen Workshoppositionen zugeordnet und ohne Umlaute als
+  `0108-einstieg-fragmentiertes-archiv.png`, `0108-pipe-und-grep.png` und
+  `0108-abschluss-identitaet.png` benannt.
+- Einstiegs- und Abschlussplatzhalter durch echte Markdown-Bildreferenzen mit
+  den vorgesehenen Alt-Texten ersetzt.
+- Das bisherige Pipe-/grep-Bild durch das hochgeladene Diagramm ersetzt.
+- Den offenen Lerntext in Step 3 an den spoilerfreien Platzhalter `UNKNOWN`
+  angepasst: Der Prozessname muss nun zuerst aus der wiederkehrenden Datei
+  ermittelt werden; die konkrete Befehlsfolge bleibt im letzten Hinweis.
