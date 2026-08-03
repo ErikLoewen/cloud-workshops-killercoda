@@ -1,57 +1,73 @@
-# Linux-Grundlagen praktisch anwenden
+# 01.08 – Das fragmentierte Archiv
 
-Dies ist Workshop 10 von 10 und der praktische Abschluss des Kapitels
-„Linux-Grundlagen“.
+Der Lichtstrahl wandert über Deich und Küste. Im Regen wird eine verlassene
+Laterne sichtbar. Daneben führen Fußspuren vom Leuchtturm fort.
 
-Du bearbeitest einen zusammenhängenden Mini-Serverauftrag. Dabei kombinierst
-du ausschließlich Befehle und Handlungen aus den Workshops 1 bis 9. Es werden
-keine neuen Befehle, Optionen oder Shellregeln eingeführt.
+Du folgst ihnen. Sie enden vor einer Wand am Fundament des Turms – an einem
+Zugang, der dort zuvor nicht zu sehen war. Dahinter führt eine Treppe in ein
+Archiv unter dem Leuchtturm.
 
-## Charakter der Aufgabe
+Je tiefer du hinabsteigst, desto weniger stimmen deine Wahrnehmungen überein.
+Schwarze und weiße Schlieren überlagern sich. Regenbogenfarben brechen durch
+Wände, obwohl es hier keine Lichtquelle gibt. An einigen Stellen fällt Regen
+innerhalb des Turms. Entfernungen und Winkel passen nicht zusammen. Bekannte
+Räume wirken, als wären ihre Teile falsch zusammengesetzt.
 
-- Die Aufgabe ist ein Praxistransfer.
-- Der technische CHECK ist formativ und darf wiederholt werden.
-- Es gibt keine Punkte, Note oder Zertifikatsentscheidung.
-- Der CHECK bestätigt nur den beobachtbaren Endzustand.
-- Die Planung, die Sicherheitsroutine und dein Verständnis werden zusätzlich
-  durch deine eigenen Erklärungen sichtbar.
+Du kannst nicht mehr sicher sagen, ob du den Turm gerade betrittst oder an
+einen Ort zurückkehrst, den du schon kennst.
 
-## Zeitrahmen
+> **Bildplatzhalter:** `assets/0108-einstieg-fragmentiertes-archiv.png`
+>
+> *Ein zunehmend abstraktes Archiv unter dem Leuchtturm, in dem schwarze und
+> weiße Schlieren sowie unmögliche Farbspektren Räume und Gegenstände
+> überlagern.*
 
-Geübte Teilnehmende benötigen voraussichtlich 36 bis 40 Minuten. Absolute
-Anfänger sollen innerhalb von 45 bis 50 Minuten fertig werden. Mindestens
-10 Minuten bleiben für Tippfehler, Fragen, Wiederholung und Fehlersuche.
+## Ein überprüfbarer Zustand
 
-## Drei Bereichsrollen
+Im Archiv findest du einen Stabilisierungsplan, ein ausführbares
+Stabilisierungskommando, widersprüchliche Dateien und mehrere fremde
+Fragmentbereiche.
 
-**Quellenbereich**
+Die Wahrnehmung liefert keine verlässliche Reihenfolge mehr. Die Dateien und
+Prozesse des Systems lassen sich dagegen beobachten und erneut prüfen.
 
-`/root/abschlusslabor/vorlage`
+> Wenn die Wahrnehmung unzuverlässig wird, beginne mit einem überprüfbaren
+> Zustand.
 
-Die Vorlage darf gelesen und kopiert, aber nicht verändert oder entfernt
-werden.
+## Deine Mission
 
-**Arbeitsbereiche**
+Stelle eine eindeutige Archivstruktur her und stabilisiere den Leuchtturm.
+Das Stabilisierungskommando untersucht immer den aktuellen Zustand. Es
+repariert nichts selbst, sondern meldet den nächsten erkannten Fehler. Nach
+jeder begründeten Korrektur führst du es erneut aus.
 
-- `/root/abschlusslabor/web`
-- `/root/abschlusslabor/pruefung`
-- `/root/abschlusslabor/dokumentation`
+Dies ist die Abschlussmission des Kapitels „Linux-Grundlagen“. Du kombinierst
+Werkzeuge aus den bisherigen Workshops und entscheidest selbst, welches davon
+zum beobachteten Problem passt. Neu kommt nur eine kleine Kombination hinzu:
+Du leitest eine Prozessausgabe mit einer Pipe an `grep` weiter, um passende
+Zeilen herauszufiltern.
 
-Nur hier werden die im Auftrag verlangten Änderungen vorgenommen.
+> Dieser Workshop führt dich weniger stark als die bisherigen Übungen. Lies
+> Fehlermeldungen vollständig, prüfe den aktuellen Zustand und entscheide,
+> welches bekannte Werkzeug zum Problem passt.
 
-**Schutzbereich**
+## Lernziele
 
-`/root/abschlusslabor/schutzbereich`
+Am Ende kannst du:
 
-Dieser Bereich muss während der gesamten Aufgabe vollständig unverändert
-bleiben.
+- einen dokumentierten Sollzustand mit dem aktuellen Istzustand vergleichen,
+- auffällige Dateien und Verzeichnisse kontrolliert untersuchen,
+- Fehlermeldungen als nächsten Arbeitsauftrag nutzen,
+- einen verursachenden Prozess identifizieren,
+- Prozessausgaben mit `grep` filtern,
+- Dateien ihrem vorgesehenen Bereich richtig zuordnen,
+- den Besitzer einer Datei als Metadatum verwenden,
+- eine Konfiguration sichern und gezielt bearbeiten,
+- den Gesamtzustand nach jeder Änderung erneut prüfen.
 
-## Zielbild
+## Erste Diagnose
 
-Am Ende besteht eine eigenständige Webkopie, die Altobjekte sind entfernt,
-die Prüfdatei wurde mit minimaler Rechteänderung ausgeführt, die dynamischen
-Systemwerte sind dokumentiert und ein lokaler HTTP-Server liefert die
-Webdatei über `127.0.0.1:9090` aus.
+Du startest als `waerter@leuchtturm` direkt im Archiv. Führe jetzt erstmals
+das zentrale Diagnosekommando aus und lies seine vollständige Ausgabe:
 
-Alle Befehle werden selbst eingegeben. Im Workshop gibt es keine
-anklickbaren Ausführungsbefehle.
+`./leuchtturm-stabilisieren`{{exec}}

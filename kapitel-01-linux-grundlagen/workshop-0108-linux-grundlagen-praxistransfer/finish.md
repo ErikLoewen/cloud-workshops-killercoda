@@ -1,72 +1,81 @@
-# Kapitelabschluss
+# Der Wärter
 
-Du hast bekannte Linux-Grundlagen in einem zusammenhängenden Auftrag
-kombiniert.
+Die schwarzen und weißen Schlieren ziehen sich zurück. Die unmöglichen Farben
+verlieren ihre Form und verschwinden aus den Wänden. Entfernungen stimmen
+wieder überein, Türen führen in jeweils einen Raum und die Teile des Archivs
+ordnen sich zu einer eindeutigen Struktur.
 
-## Wirkungskette
+Der Regen fällt wieder nur außerhalb des Turms.
 
-```text
-Vorlagendatei
-      ↓
-eigenständige Kopie als index.html
-      ↓
-bereinigter Webarbeitsbereich
-      ↓
-gezielt ausführbar gemachte Prüfdatei
-      ↓
-ausgeführter Systemcheck
-      ↓
-dokumentierte CPU- und Netzwerkinformation
-      ↓
-Python-HTTP-Serverprozess
-      ↓
-Arbeitsverzeichnis /root/abschlusslabor/web
-      ↓
-Bind-Adresse 127.0.0.1
-      +
-TCP-Port 9090
-      ↓
-lokale HTTP-Anfrage
-      ↓
-HTTP-Antwort mit dem Inhalt von index.html
-```
+Der Leuchtturm steht fest. Nicht alles wirkt deshalb gewöhnlich, aber die
+Erinnerung bleibt klar genug für den Identitätsabgleich.
 
-Parallel dazu blieb der Schutzbereich
-`/root/abschlusslabor/schutzbereich` vollständig unverändert.
+> **Bildplatzhalter:** `assets/0108-abschluss-identitaet.png`
+>
+> *Der stabilisierte, aber weiterhin unwirkliche Leuchtturm; eine einzelne
+> Figur erkennt sich schemenhaft in der reflektierenden Scheibe des
+> Laternenraums.*
 
-## Abruffragen
+## Identitätsabgleich
 
-1. Warum muss die Vorlage trotz der Webkopie erhalten bleiben?
-2. Warum benötigen einzelne Datei, leeres Verzeichnis und nicht leeres
-   Verzeichnis unterschiedliche bekannte Löschhandlungen?
-3. Warum erhält ausschließlich der Besitzer das Ausführungsrecht?
-4. Welche Bedeutung hat **./** beim Start der Prüfdatei?
-5. Warum werden CPU-Anzahl und Schnittstellenname nicht fest vorgegeben?
-6. Warum muss der Server aus dem Webverzeichnis gestartet werden?
-7. Warum beweist ein Listener noch nicht den richtigen HTTP-Inhalt?
-8. Welche drei Angaben müssen zwischen Serverstart, Listener und Anfrage
-   zusammenpassen?
+Die Kennung der aktiven Sitzung lautet weiterhin `waerter`. Du hast sie seit
+dem ersten Prompt gesehen, bei der Prozessprüfung bestätigt und mit dem
+Besitzer der gültigen Nachricht verglichen.
 
-## Grenzen des technischen CHECKs
+Erst jetzt erhält sie eine andere Bedeutung.
 
-Der CHECK kann den Endzustand untersuchen. Er beweist nicht:
+> Du hast den Wärter nicht gesucht.
+>
+> Du hast versucht, dich zu erinnern.
 
-- dass du die Aufgabe selbstständig geplant hast
-- dass du eine bestimmte Befehlsfolge verwendet hast
-- dass du die Sicherheitsroutine bewusst angewendet hast
-- dass du bestimmte Befehle verwendet hast
-- dass du die Wirkungskette vollständig verstanden hast
+Der Abgleich beantwortet nicht, ob du tatsächlich dieselbe Person bist, die
+den Leuchtturm zuvor bedient hat. Vielleicht bezeichnet `waerter` nur eine
+Rolle. Vielleicht überschreibt der Leuchtturm Erinnerungen. Vielleicht ist
+dieser Ablauf schon einmal geschehen und beginnt später erneut.
 
-Die lokalen HTTP-Anfragen des CHECKs können eine kurz sichtbare Zugriffszeile
-im laufenden Serverprozess erzeugen. Sie verändern keine Teilnehmerdatei.
+Der stabilisierte Zustand macht diese Möglichkeiten unterscheidbar. Er
+entscheidet nicht, welche davon wahr ist.
 
-## Formative Selbsteinschätzung
+## Was du technisch getan hast
 
-- Ich konnte den Auftrag ohne inhaltlichen Hinweis planen.
-- Ich benötigte nur eine Erinnerung an die Teilziele.
-- Ich benötigte den Befehlspool.
-- Ich benötigte Befehlsstrukturen.
-- Ich benötigte die nahezu vollständige Methode.
+Du hast:
 
-Diese Einordnung ist keine Note. Sie zeigt, welche Grundlagen du weiter
-üben solltest.
+- einen dokumentierten Sollzustand mit dem beobachteten Istzustand verglichen,
+- Fehlermeldungen als schrittweise Diagnose verwendet,
+- bestätigte Dateien und Verzeichnisse kontrolliert gelöscht,
+- eine wiederkehrende Datei auf einen laufenden Prozess zurückgeführt,
+- Prozessausgaben mit einer Pipe und `grep` gefiltert,
+- Benutzer, PID und Prozessnamen vor dem Eingriff geprüft,
+- den eindeutig identifizierten Prozess kontrolliert beendet,
+- eine Datei anhand ihres dokumentierten Zielbereichs verschoben,
+- Dateibesitzer als Metadaten verglichen,
+- eine Konfiguration gelesen, gesichert und gezielt bearbeitet,
+- den Gesamtzustand nach den Änderungen erneut validiert.
+
+Dabei war kein einzelner Befehl die vollständige Lösung. Entscheidend war die
+Reihenfolge aus Beobachten, Begründen, Handeln und Kontrollieren.
+
+## Kapitelabschluss
+
+> Du hast nicht nur einzelne Befehle ausgeführt. Du hast Zustände untersucht,
+> Ursachen voneinander getrennt und bekannte Werkzeuge passend zum Problem
+> ausgewählt.
+
+Damit ist das Kapitel „Linux-Grundlagen“ abgeschlossen. Die verwendeten
+Werkzeuge bilden die Grundlage für umfangreichere Aufgaben, bei denen mehrere
+Systembereiche gleichzeitig verstanden und sicher verändert werden müssen.
+
+## Ausblick
+
+Auf diesem Arbeitsprinzip können spätere Kapitel aufbauen, zum Beispiel bei:
+
+- systematischer Administration,
+- Netzwerken,
+- Servern,
+- Containern,
+- Cloud-Systemen,
+- Incident Response.
+
+Welche konkrete Aufgabe als Nächstes wartet, bleibt offen. Der grundlegende
+Ablauf bleibt derselbe: erst einen überprüfbaren Zustand herstellen, dann die
+Ursache eingrenzen und gezielt handeln.

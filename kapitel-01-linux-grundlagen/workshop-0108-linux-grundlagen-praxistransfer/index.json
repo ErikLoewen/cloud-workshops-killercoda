@@ -1,6 +1,6 @@
 {
-  "title": "01.08 – Abschlussmission: Ordnung auf dem Deichserver",
-  "description": "Integrativer und formativer Praxistransfer zu Pfaden, Dateien, Rechten, Systeminformationen, Netzwerk, Prozessen, Ports und HTTP.",
+  "title": "01.08 – Das fragmentierte Archiv",
+  "description": "Stabilisiere den zerfallenden Leuchtturm, indem du fremde Dateifragmente entfernst, einen wiederkehrenden Prozess stoppst, einen Archivschlüssel richtig zuordnest und die echte letzte Nachricht anhand ihrer Metadaten identifizierst.",
   "details": {
     "intro": {
       "text": "intro.md",
@@ -8,19 +8,31 @@
     },
     "steps": [
       {
-        "title": "Auftrag und Zielzustand",
-        "text": "step1-auftrag-und-zielzustand.md"
+        "title": "Was verhindert die Stabilisierung?",
+        "text": "step1-stabilisierung-starten.md"
       },
       {
-        "title": "Lösungsplan und Schutzgrenzen",
-        "text": "step2-loesungsplan-und-schutzgrenzen.md"
+        "title": "Was gehört nicht zur Ordnung?",
+        "text": "step2-fragmente-aufraeumen.md"
       },
       {
-        "title": "Eigene Prüfreihenfolge",
-        "text": "step3-pruefplan.md"
+        "title": "Welcher Vorgang erzeugt die Erinnerung?",
+        "text": "step3-altes-echo-finden.md"
       },
       {
-        "title": "Praxistransfer",
+        "title": "Wo gehört der Schlüssel hin?",
+        "text": "step4-archivschluessel-verschieben.md"
+      },
+      {
+        "title": "Welche Nachricht stammt aus der richtigen Quelle?",
+        "text": "step5-letzte-nachricht-finden.md"
+      },
+      {
+        "title": "Wie wird die Erinnerung klar?",
+        "text": "step6-erinnerung-klaeren.md"
+      },
+      {
+        "title": "Stabilisiere den Leuchtturm",
         "text": "challenge.md",
         "verify": "verify.sh"
       }

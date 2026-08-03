@@ -1,266 +1,126 @@
-# Challenge: Mini-Serverauftrag
+# Stabilisiere den Leuchtturm
 
-Bearbeite den vollständigen Auftrag möglichst selbstständig. Verwende die
-Hinweise erst, wenn dein eigener Plan nicht weiterführt.
+Alle bekannten Teilzustände sind vorbereitet. Führe jetzt die finale
+Stabilisierung aus:
 
-## Vollständiger Auftrag
+`./leuchtturm-stabilisieren`{{exec}}
 
-1. Wechsle nach `/root/abschlusslabor`.
-2. Untersuche die vorbereitete Struktur.
-3. Ordne Vorlage, Arbeitsbereiche und Schutzbereich zu.
-4. Kopiere `vorlage/startseite.txt` als eigenständige Datei
-   `web/index.html`.
-5. Kontrolliere Quelle und Kopie.
-6. Entferne `web/alt.txt` als einzelne Datei.
-7. Entferne `web/leeres-archiv` als leeres Verzeichnis.
-8. Entferne ausschließlich `web/temp-build` rekursiv.
-9. Kontrolliere Vorlage und Schutzbereich.
-10. Untersuche die Rechte von `pruefung/systemcheck`.
-11. Ergänze ausschließlich das Besitzer-Ausführungsrecht.
-12. Kontrolliere die neue Rechteanzeige.
-13. Wechsle in das Verzeichnis `pruefung`.
-14. Führe die Datei mit folgender relativer Form aus:
+Lies die gesamte Ausgabe. Wenn die Stabilisierung erfolgreich ist, notiere
+die dort angezeigte Flag vollständig und reiche sie ein:
 
 ```bash
-./systemcheck
+flag-einreichen 'GEFUNDENE_FLAG'
 ```
 
-15. Beobachte die festgelegte Erfolgsmeldung.
-16. Kehre nach `/root/abschlusslabor` zurück.
-17. Bestimme die aktuelle Anzahl logischer Prozessoren:
+Ersetze `GEFUNDENE_FLAG` durch den exakten Text aus der Erfolgsausgabe. Die
+einfachen Anführungszeichen bleiben stehen. Starte nach der angenommenen
+Eingabe den CHECK.
 
-```bash
-nproc
-```
+Der CHECK bestätigt ausschließlich, dass du die richtige Flag eingereicht
+hast. Er bewertet weder deine Befehlsreihenfolge noch den aktuellen Zustand
+einzelner Missionsdateien oder Prozesse.
 
-18. Zeige die aktuellen Routen:
+## Wenn die Stabilisierung noch fehlschlägt
 
-```bash
-ip route
-```
-
-19. Finde die eindeutig verwendbare Zeile mit `default` und übernimm den
-    Schnittstellennamen direkt hinter `dev`.
-20. Erzeuge `dokumentation/status.txt` in dieser Form:
-
-```bash
-echo "CPU: <ANZAHL>, Schnittstelle: <NAME>" > dokumentation/status.txt
-```
-
-`<ANZAHL>` und `<NAME>` sind Platzhalter. Die spitzen Klammern werden
-nicht eingegeben. Setze die tatsächlich beobachteten Werte ein. Die gesamte
-Zeile steht in doppelten Anführungszeichen. Verwende genau ein
-Größer-als-Zeichen. Eine Ergänzung an eine bestehende Datei ist nicht nötig.
-
-21. Kontrolliere die Statusdatei mit **cat**.
-22. Kontrolliere den Schutzbereich erneut.
-23. Wechsle nach `/root/abschlusslabor/web`.
-24. Starte den Server als letzten verändernden Kernschritt:
-
-```bash
-python3 -m http.server --bind 127.0.0.1 9090 &
-```
-
-25. Prüfe den Listener:
-
-```bash
-ss -ltn
-```
-
-26. Prüfe den ausgelieferten Inhalt:
-
-```bash
-curl http://localhost:9090/
-```
-
-27. Löse anschließend den technischen CHECK aus.
-28. Erkläre nach erfolgreichem CHECK die Wirkungskette.
-
-Der technische CHECK akzeptiert fachlich gültige alternative Reihenfolgen,
-sofern alle Voraussetzungen erfüllt sind, nur freigegebene Ziele verändert
-werden und der vollständige Endzustand erreicht wird.
-
-## Erfolgskriterien
-
-- Vorlage und Schutzbereich sind unverändert.
-- `index.html` ist eine eigenständige Kopie und kein Link.
-- Alle drei freigegebenen Altobjekte fehlen.
-- Die Prüfdatei besitzt nur das zusätzlich geforderte Besitzerrecht.
-- Der Systemcheck wurde ausgeführt.
-- Die Statusdatei enthält genau die aktuellen dynamischen Werte.
-- Der Serverprozess läuft aus dem richtigen Webverzeichnis.
-- Er lauscht ausschließlich an `127.0.0.1:9090`.
-- Beide lokalen HTTP-Prüfungen des CHECKs liefern den Inhalt von
-  `index.html`.
+Eine Fehlermeldung ist weiterhin eine Zustandsdiagnose. Lies sie vollständig,
+kontrolliere den aktuell genannten Bereich und kehre zu dem vorherigen Step
+zurück, der genau diesen Zustand behandelt. Führe die Stabilisierung erst nach
+der begründeten Korrektur erneut aus.
 
 <details>
-<summary>Hinweis 1 – Teilziele anzeigen</summary>
+<summary>Hinweis 1 – Konfiguration prüfen</summary>
 
-- Vorlage kopieren
-- drei Altobjekte passend zur Objektart entfernen
-- Prüfdatei minimal ausführbar machen und ausführen
-- CPU und primäre Schnittstelle dokumentieren
-- lokalen Server starten
-- Listener und Antwort prüfen
-- Schutzbereich unverändert lassen
+Kontrolliere den gespeicherten Inhalt und führe das vorgesehene Prüfwerkzeug
+aus:
+
+```bash
+cat steuerung/archiv.conf
+./steuerung/archiv-pruefen
+```
+
+Bei einem falschen bekannten Wert kehrst du zur Prüfung der Nachrichtenquelle
+zurück.
 
 </details>
 
 <details>
-<summary>Hinweis 2 – Befehlspool anzeigen</summary>
+<summary>Hinweis 2 – Archivschlüssel kontrollieren</summary>
 
-**Dateien**
+Zeige den Steuerungsbereich an. Dort soll genau ein unveränderter
+`archivschluessel.txt` liegen. Die Diagnose nennt einen fehlenden, falschen
+oder mehrdeutigen Ort getrennt.
 
-- cp
-- rm
-- rmdir
-- rm -r
-
-**Rechte**
-
-- ls -l
-- chmod u+x
-- ./dateiname
-
-**System und Netzwerk**
-
-- nproc
-- ip route
-
-**Dokumentation**
-
-- echo
-- ein einzelnes Größer-als-Zeichen
-- cat
-
-**Server**
-
-- python3 -m http.server
-- --bind
-- 127.0.0.1
-- 9090
-- Hintergrundoperator
-- ss -ltn
-- curl
-
-Die vollständigen Pfade und Befehlszeilen musst du weiterhin selbst
-zusammensetzen.
+```bash
+ls -l steuerung
+cat steuerung/archivschluessel.txt
+```
 
 </details>
 
 <details>
-<summary>Hinweis 3 – Befehlsstrukturen anzeigen</summary>
+<summary>Hinweis 3 – Prozessstatus kontrollieren</summary>
 
-```text
-cp <QUELLE> <ZIEL>
+Prüfe erneut, ob der erzeugende Vorgang noch läuft und ob seine Datei
+fortgeblieben ist:
 
-rm <EINZELDATEI>
-
-rmdir <LEERES_VERZEICHNIS>
-
-rm -r <FREIGEGEBENES_NICHT_LEERES_VERZEICHNIS>
-
-chmod u+x <DATEI>
-
-./<DATEI>
-
-echo "CPU: <ANZAHL>, Schnittstelle: <NAME>" > <STATUSDATEI>
-
-python3 -m http.server --bind 127.0.0.1 <PORT> &
-
-ss -ltn
-
-curl http://localhost:<PORT>/
+```bash
+ps -eo user,pid,comm | grep altes_echo
+pgrep -a altes_echo
+ls erinnerungen
 ```
 
-Platzhalter werden nicht wörtlich eingegeben. Werte stammen aus dem Auftrag
-oder aus den beobachteten Ausgaben. Spitze Klammern werden nicht eingegeben.
-Der Schutzbereich gehört in keinen verändernden Befehl. Jeder Befehl steht
-einzeln.
+Beide Kontrollen sollen keine Instanz mit dem Namen `altes_echo` mehr zeigen.
 
 </details>
 
 <details>
-<summary>Hinweis 4 – vollständige mögliche Methode anzeigen</summary>
+<summary>Hinweis 4 – vollständiger Lernweg</summary>
 
-Öffne diese Methode erst nach einem eigenen Versuch. Sie zeigt nur eine
-fachlich gültige Reihenfolge.
+Dieser Ablauf fasst die vorherigen Steps zusammen. Ersetze
+`<GEPRÜFTE_PID>` und `GEFUNDENE_FLAG` durch die tatsächlich beobachteten
+Werte; spitze Klammern werden nicht eingegeben.
 
 ```bash
-cd /root/abschlusslabor
-pwd
-ls
-ls vorlage
-ls web
-ls pruefung
-ls dokumentation
-ls schutzbereich
-cat vorlage/startseite.txt
-cat schutzbereich/wichtig.txt
+cat stabilisierungsplan.txt
+./leuchtturm-stabilisieren
 
-cp vorlage/startseite.txt web/index.html
-cat web/index.html
+rm -r fragment_FFD700
+rm -r fragment_8B0000
+rm -r fragment_D6C84B
+rm -r fragment_7G00FF
+./leuchtturm-stabilisieren
 
-pwd
-ls web
-rm web/alt.txt
-ls web
-rmdir web/leeres-archiv
-ls web
-rm -r web/temp-build
-ls web
-ls schutzbereich
-cat schutzbereich/wichtig.txt
+cat erinnerungen/ERINNERUNG_KEHRT_ZURUECK.txt
+ps -eo user,pid,comm | grep altes_echo
+kill <GEPRÜFTE_PID>
+pgrep -a altes_echo
+rm erinnerungen/ERINNERUNG_KEHRT_ZURUECK.txt
+./leuchtturm-stabilisieren
 
-ls -l pruefung/systemcheck
-chmod u+x pruefung/systemcheck
-ls -l pruefung/systemcheck
-cd pruefung
-./systemcheck
-cd ..
+cat erinnerungen/archivschluessel.txt
+mv erinnerungen/archivschluessel.txt steuerung/
+./leuchtturm-stabilisieren
 
-nproc
-ip route
+whoami
+ls -l nachrichten
+cat nachrichten/letzte_nachricht_alt.txt
 
-echo "CPU: <ANZAHL>, Schnittstelle: <NAME>" > dokumentation/status.txt
-cat dokumentation/status.txt
+cat steuerung/archiv.conf
+cp steuerung/archiv.conf steuerung/archiv.conf.bak
+nano steuerung/archiv.conf
+cat steuerung/archiv.conf
+./steuerung/archiv-pruefen
 
-ls schutzbereich
-cat schutzbereich/wichtig.txt
-
-cd web
-python3 -m http.server --bind 127.0.0.1 9090 &
-ss -ltn
-curl http://localhost:9090/
+./leuchtturm-stabilisieren
+flag-einreichen 'GEFUNDENE_FLAG'
 ```
 
-Vor der Statuszeile müssen **nproc** und **ip route** ausgeführt worden sein.
-Ersetze `<ANZAHL>` und `<NAME>` durch die beobachteten Werte und gib keine
-spitzen Klammern ein.
+Starte nach der Meldung „Flag angenommen“ den CHECK.
 
 </details>
 
-## Troubleshooting: eigener Server wurde falsch gestartet
+## Abschluss
 
-Dieser Abschnitt gehört nicht zum normalen Lösungsweg.
-
-Verwende die Prozessbeendigung nur, wenn die beim unmittelbar vorherigen
-Hintergrundstart angezeigte PID eindeutig bekannt ist.
-
-1. Führe **ps** ohne zusätzliche Option aus.
-2. Prüfe, ob die bekannte PID zu deinem gerade gestarteten Python-Server
-   gehört.
-3. Beende ausschließlich diese eindeutige PID:
-
-```bash
-kill PID
-```
-
-4. Prüfe mit **ss -ltn**, dass Port `9090` nicht mehr lauscht.
-5. Wechsle in das richtige Webverzeichnis.
-6. Starte den verbindlichen Server erneut.
-7. Prüfe Listener und HTTP-Inhalt erneut.
-
-Ist die PID nicht eindeutig bekannt oder lassen sich mehrere Prozesse nicht
-sicher unterscheiden, beende keinen Prozess auf Verdacht. Starte stattdessen
-das vollständige Szenario neu.
+Die Erfolgsausgabe der Stabilisierung enthält alles, was du für die
+Flag-Abgabe benötigst. Übernimm den Wert exakt, ohne zusätzliche Zeichen oder
+Leerzeichen.

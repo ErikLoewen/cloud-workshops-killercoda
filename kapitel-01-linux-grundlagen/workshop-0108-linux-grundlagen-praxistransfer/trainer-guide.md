@@ -1,187 +1,222 @@
-# Trainerleitfaden
+# Trainerleitfaden – Workshop 8
 
-## Zweck
+## Rolle des Workshops
 
-Workshop 10 ist eine formative Transferaufgabe und keine benotete Prüfung.
-Der technische CHECK und die menschliche Beobachtung werden strikt getrennt.
+„Das fragmentierte Archiv“ ist die Abschlussmission des Kapitels
+„Linux-Grundlagen“. Sie ist eine Abschlussprüfung mit Hilfesystem und keine
+völlig offene Prüfung.
 
-## Beobachtungsskala
+Die Lernenden sollen bekannte Werkzeuge nicht nur wiedererkennen, sondern
+passend zu einem beobachteten Zustand auswählen und kombinieren. Bewertet wird
+deshalb nicht eine auswendig gelernte Befehlsfolge, sondern die Fähigkeit,
+eine Diagnose zu lesen, eine Ursache einzugrenzen, sicher zu handeln und den
+Zustand anschließend erneut zu kontrollieren.
 
-### Stufe A – selbstständig
+Die Hauptunterstützung stammt aus:
 
-- ohne inhaltlichen Hinweis geplant
-- Zielzustand erreicht
-- Schutzbereich beachtet
-- Wirkungskette erklärt
+- `stabilisierungsplan.txt` als dokumentiertem Sollzustand;
+- den priorisierten Fehlermeldungen von `./leuchtturm-stabilisieren`;
+- den gestuften Dropdowns der einzelnen Lernschritte;
+- bereits bekannten Arbeitsroutinen für Navigation, Dateiarbeit, Prozesse und
+  Konfigurationen.
 
-### Stufe B – geringer Hinweisbedarf
+Der technische CHECK bestätigt ausschließlich die korrekte Flag-Abgabe. Er
+beweist weder selbstständige Werkzeugwahl noch eine bestimmte
+Befehlsreihenfolge.
 
-- höchstens Hinweisstufe 1 verwendet
-- Sicherheits- und Rechteprinzipien überwiegend selbstständig angewendet
+## Didaktische Progression
 
-### Stufe C – Werkzeughinweise erforderlich
+### Beginn – moderate Führung
 
-- Hinweisstufe 2 verwendet
-- Endzustand anschließend selbstständig hergestellt
+In den ersten Schritten ist die Arbeitsrichtung noch klar erkennbar:
 
-### Stufe D – Strukturhilfe erforderlich
+- Plan vollständig lesen;
+- Diagnose starten;
+- dokumentierten Sollzustand und beobachteten Istzustand vergleichen;
+- Fehlermeldung als nächsten Untersuchungsauftrag verstehen.
 
-- Hinweisstufe 3 verwendet
-- deutliche Strukturierung notwendig
+Trainer dürfen hier auf die Existenz des Plans und auf die vollständige
+Diagnoseausgabe hinweisen. Eine fertige Löschfolge wird noch nicht genannt.
 
-### Stufe E – nahezu vollständige Methode erforderlich
+### Mitte – abnehmende Führung
 
-- Hinweisstufe 4 verwendet
-- technische Durchführung abgeschlossen
-- Transferleistung noch nicht ausreichend selbstständig
+Die Lernenden müssen zunehmend selbst entscheiden:
 
-Keine Punkte, Noten oder Bestehensgrenzen ableiten.
+- welche `fragment_`-Bereiche durch den Plan ausgeschlossen sind;
+- welche Inhalte vor einer Löschung kontrolliert werden;
+- ob eine entfernte Datei dauerhaft fehlt oder zurückkehrt;
+- welcher Prozess für die Rückkehr verantwortlich ist;
+- wie Pipe und `grep` die Prozessliste eingrenzen;
+- welche Prozesszeile anhand von Benutzer, PID und Prozessname sicher
+  ausgewählt werden darf.
 
-## Menschlich zu prüfende Transferleistungen
+Trainer lenken hier auf Beobachtungen und Identitätsmerkmale, nicht direkt auf
+den nächsten verändernden Befehl.
 
-Beobachte, ob die Teilnehmenden:
+### Ende – hohe Selbstständigkeit
 
-- Quelle, Arbeitsbereiche und Schutzbereich unterscheiden
-- ihre Prüfreihenfolge begründen
-- Kopieren und Verschieben fachlich unterscheiden
-- Objektarten den drei bekannten Löschhandlungen zuordnen
-- vor destruktiven Handlungen Standort und Ziel prüfen
-- nur `temp-build` als rekursives Ziel verwenden
-- das fehlende Besitzer-Ausführungsrecht erkennen
-- die Bedeutung von `u+x` und `./` erklären
-- CPU-Anzahl und primäre Schnittstelle korrekt aus Ausgaben auswählen
-- Listener und HTTP-Inhalt als unterschiedliche Nachweise erklären
-- mindestens vier Glieder der Wirkungskette frei verbinden
-- Grenzen des technischen CHECKs benennen
+Im letzten Drittel wählen und verbinden die Lernenden die bekannten Routinen
+weitgehend selbstständig:
 
-## Freigabe der Hinweisstufen
+- Archivschlüssel anhand seines Inhalts verschieben;
+- Besitzer der fünf Nachrichten vergleichen;
+- die richtige Nachricht über das dokumentierte Metadatenkriterium auswählen;
+- Konfiguration lesen, sichern, bearbeiten und prüfen;
+- Gesamtzustand erneut stabilisieren;
+- Flag exakt einreichen und CHECK starten.
 
-- Hinweis 1 erst nach einem erkennbaren eigenen Planungsversuch
-- Hinweis 2 bei fehlender Werkzeugzuordnung
-- Hinweis 3 bei fehlender Befehlsstruktur
-- Hinweis 4 erst nach einem eigenen technischen Versuch oder bei
-  festgefahrenem Lernprozess
+Hilfen sollten nun erst nach einem eigenen begründeten Versuch freigegeben
+werden.
 
-Dokumentiere nur die höchste benötigte Stufe und wichtige Beobachtungen.
+## Pipe und `grep`
 
-## Eingriffskriterien vor destruktiven Handlungen
+Pipe und `grep` sind das einzige neue kleine Syntaxkonzept dieses Workshops.
+`grep` zeigt nur Zeilen mit einem Suchtext; `|` leitet die Ausgabe des linken
+Befehls an den rechten Befehl weiter.
 
-Sofort stoppen, bevor Enter gedrückt wird, wenn:
+Verwenden Sie für die Erklärung die Grafik
+`assets/0108-pipe-und-grep.png`. Sie visualisiert ausschließlich:
 
-- der Zielpfad über `temp-build` hinausgeht
-- der Schutzbereich im verändernden Befehl erscheint
-- der Teilnehmerstamm, das Webverzeichnis oder ein Elternpfad Ziel der
-  rekursiven Löschung ist
-- der Zielpfad nicht vollständig gelesen wurde
-- die erwartete Wirkung nicht benannt werden kann
+```bash
+ps -eo user,pid,comm | grep altes_echo
+```
 
-Danach nur die bekannte Sicherheitsroutine abrufen. Keine vollständige
-Lösung vorsagen.
+Die Lernenden prüfen an der gefilterten Zeile weiterhin `USER`, dynamische
+`PID` und `COMMAND=altes_echo`, bevor sie den Prozess beenden.
 
-## Zu hoher Löschpfad
+Reguläre Ausdrücke, grep-Optionen, mehrere Pipes und weitere Textwerkzeuge
+gehören nicht zu diesem Workshop.
 
-Lass den Zielpfad Segment für Segment lesen und frage:
+## Beobachtung und Trainerfragen
 
-- Welches einzelne Altobjekt soll verschwinden?
-- Welche Bestandteile des Pfads müssen erhalten bleiben?
-- Ist das Ziel eine Datei, ein leeres oder ein nicht leeres Verzeichnis?
+Fragen Sie möglichst nach einer Beobachtung oder Begründung, bevor Sie einen
+Befehlshinweis geben:
 
-Das einzige rekursive Ziel ist
-`/root/abschlusslabor/web/temp-build`.
+1. Was meldet der Stabilisierungsprozess konkret?
+2. Welcher Sollzustand steht im Plan?
+3. Ist die Datei wirklich gelöscht oder kehrt sie zurück?
+4. Welcher Vorgang nennt sich in der Datei selbst?
+5. Welche drei Angaben identifizieren `altes_echo` eindeutig?
+6. Hast du Benutzer, PID und Prozessname geprüft?
+7. Nennt das Dokument einen Zielbereich?
+8. Beweist „final“ die Echtheit?
+9. Welche Metadaten zeigt `ls -l`?
+10. Ist die Konfiguration nur gespeichert oder auch geprüft?
 
-## Zu weitreichende Rechte
+Geeignete Anschlussfragen sind:
 
-Lass die drei Rechteblöcke erneut lesen. Frage:
+- Welche Ausgabe belegt deine Aussage?
+- Was erwartest du nach diesem Befehl?
+- Welchen vollständigen Pfad willst du verändern?
+- Wie kontrollierst du anschließend die Wirkung?
 
-- Welcher Bereich steht für den Besitzer?
-- Welches einzelne Recht fehlt?
-- Welche Rechte sollen Gruppe und andere behalten?
+## Fehlermanagement
 
-Keine numerische Berechtigungsform als Teilnehmerlösung nennen.
+### Grundregel
 
-## Falscher Serverstart
+Lassen Sie die Lernenden die aktuelle Fehlermeldung zuerst vollständig laut
+lesen. Fragen Sie anschließend nach beobachtetem Zustand, erwartetem Zustand
+und betroffenem Bereich. Nennen Sie nicht sofort den nächsten Befehl.
 
-Der normale Kernpfad enthält keine Prozessbeendigung.
+### Nach Problemtyp
 
-Nur bei eindeutig bekannter PID:
+- Bei einem Löschproblem zurück zum Stabilisierungsplan führen. Ein
+  auffälliger Name allein legitimiert keine Löschung.
+- Bei einem Prozessproblem zuerst Benutzer, PID und Prozessname prüfen lassen.
+  Kein `kill`, solange die Identität nicht eindeutig begründet wurde.
+- Bei einer weiterhin auftauchenden Datei zwischen sichtbarem Symptom und
+  erzeugendem Vorgang unterscheiden lassen.
+- Bei einem Schlüsselproblem Dateiinhalt, tatsächlichen Ort und genannten
+  Zielbereich vergleichen lassen.
+- Bei einem Nachrichtenproblem von Dateinamen und Stil weg zu den Metadaten
+  lenken.
+- Bei einem Konfigurationsproblem zuerst Sicherung und gespeicherten Inhalt
+  kontrollieren lassen, danach `archiv-pruefen`.
+- Bei Nano nur die Kurzhilfe für Speichern, Bestätigen und Schließen geben;
+  die Bedienung nicht erneut vollständig unterrichten.
 
-1. `ps` ohne neue Option ausführen lassen.
-2. PID und eigener Python-Server müssen eindeutig zusammengehören.
-3. ausschließlich diese PID mit `kill PID` beenden lassen.
-4. Port mit `ss -ltn` erneut prüfen lassen.
+### Hilfestufen
 
-Bei unklarer PID oder mehreren nicht sicher unterscheidbaren Prozessen:
-keine Beendigung raten, vollständigen Szenarioneustart verwenden.
+1. Diagnose oder Plan erneut lesen lassen.
+2. Passenden Beobachtungsbereich nennen, aber kein Werkzeug.
+3. Auf das bekannte Werkzeug beziehungsweise das passende Dropdown verweisen.
+4. Erst nach eigenem Versuch den vollständigen Ablauf im letzten Dropdown
+   öffnen lassen.
 
-## Technische Szenariofehler
+Dokumentieren Sie bei einer Durchführung die höchste benötigte Hilfestufe.
 
-Nicht als Teilnehmerfehler behandeln:
+## Sicherheitsinterventionen
 
-- technische Referenzen fehlen oder sind beschädigt
-- keine genau eine verwendbare Standardroute
-- direkte Ausführung durch Dateisystem verhindert
-- Eigentümer- oder Markerrechte sind technisch inkompatibel
-- Port 9090 ist beim Setup durch einen fremden Prozess belegt
-- Socket und Prozess lassen sich nicht eindeutig zuordnen
-- plain `localhost` erreicht den IPv4-Loopbackserver nicht zuverlässig
+Unterbrechen Sie vor dem Absenden, wenn:
 
-Befund dokumentieren und Veröffentlichung beziehungsweise Pilot anhalten.
+- ein Löschziel nicht vollständig gelesen und mit dem Plan verglichen wurde;
+- eine Wildcard oder ein Elternverzeichnis rekursiv gelöscht werden soll;
+- ein Nicht-Fragmentbereich in einem Löschbefehl steht;
+- eine PID ohne gleichzeitige Prüfung von Benutzer und Prozessname beendet
+  werden soll;
+- die `grep`-Zeile statt `altes_echo` ausgewählt wurde;
+- mehrere Schlüsselkopien absichtlich als Endzustand bestehen bleiben sollen;
+- eine Konfiguration ohne vorherige Sicherung verändert werden soll.
 
-## Typische Lernfehler
+Nach der Intervention nur die Sicherheitsprüfung abrufen. Die eigentliche
+Lösung soll weiterhin von den Lernenden kommen.
 
-- Quelle und Ziel beim Kopieren vertauscht
-- passende Löschhandlung nicht aus dem Objekttyp abgeleitet
-- Schutzkontrolle nach einer Löschung ausgelassen
-- Ausführungsrecht auch Gruppe oder anderen gegeben
-- Prüfdatei nicht aus ihrem Verzeichnis gestartet
-- Platzhalter in der Statusdatei stehen gelassen
-- Schnittstellenname nicht direkt hinter `dev` gelesen
-- Server aus dem falschen Verzeichnis gestartet
-- Listener mit richtigem Inhalt gleichgesetzt
-- Servermeldungen als neu einzugebende Befehle interpretiert
+## Zeitplanung – ungefähr 60 Minuten
 
-Feedback nennt Beobachtung, Ziel und einen bekannten nächsten Prüfschritt.
+| Phase | Richtwert | Beobachtungsschwerpunkt |
+|---|---:|---|
+| Intro, Plan und erste Diagnose | 8 Minuten | Soll-/Istvergleich und vollständiges Lesen |
+| Fragmente untersuchen und bereinigen | 10 Minuten | begründete Löschziele und Pfadkontrolle |
+| Wiederkehrende Datei und Prozess | 15 Minuten | Pipe, Filterergebnis und sichere PID |
+| Schlüssel und Nachrichtenquelle | 10 Minuten | Dateiort, Besitzer und Metadaten |
+| Konfiguration bearbeiten und prüfen | 12 Minuten | Sicherung, Nano, Inhalts- und Syntaxkontrolle |
+| Finale Stabilisierung, Flag und Reflexion | 5 Minuten | Gesamtzustand und Wirkungskette |
 
-## Zeitmessung
+Die Summe von 60 Minuten ist ein Richtwert. Lernende, die Werkzeuge noch nicht
+sicher selbst auswählen, benötigen möglicherweise zusätzliche Zeit. Kürzen
+Sie dann nicht die Sicherheitskontrollen; verwenden Sie stattdessen die
+gestuften Hinweise.
 
-Erfasse getrennt:
+## Trainer-/Testweg: Speedrun
 
-- Orientierung und Schutzgrenzen
-- Lösungsplanung
-- Dateioperationen
-- Rechte und Systemcheck
-- Statusdatei
-- Server und Sichtkontrolle
-- CHECK und Korrektur
-- Gesamtzeit
-- höchste Hinweisstufe
+Dieser Abschnitt ist ausschließlich für Dozenten, Entwickler, Browsertests
+und schnelle CHECK-Prüfungen bestimmt. Er gehört nicht in normale Lerntexte,
+sichtbare Dropdowns oder mündliche Hilfen während des regulären Wegs.
 
-Zielkorridore:
+Nach einem frischen Reset im Archivstamm:
 
-- geübt 36 bis 40 Minuten
-- absolute Anfänger 45 bis 50 Minuten
-- mindestens 10 Minuten Puffer
+```bash
+printf '%s\n' 'ERINNERUNG=klar' > steuerung/archiv.conf
+./leuchtturm-stabilisieren
+```
 
-## Schutzverletzungen
+Die Konfigurationsdatei enthält damit genau einen erlaubten Schlüssel, einen
+stabilen Wert und einen abschließenden Zeilenumbruch. Die Stabilisierung muss
+unmittelbar erfolgreich sein und die Flag ausgeben, obwohl die vorherigen
+Missionszustände noch bestehen.
 
-Dokumentiere:
+Für den vollständigen CHECK-Test wird die ausgegebene Flag exakt eingereicht:
 
-- Art der geplanten oder ausgeführten Schutzverletzung
-- ob ein Trainerstopp nötig war
-- höchster geplanter Löschpfad
-- ob die Sicherheitsroutine ohne Erinnerung angewendet wurde
+```bash
+flag-einreichen 'FLAG{du_warst_schon_immer_der_waerter}'
+```
 
-## Wirkungskettenfragen
+Danach muss der CHECK sofort und bei Wiederholung erfolgreich sein. Zusätzlich
+werden eine falsche Flag sowie führende und nachgestellte Leerzeichen
+abgelehnt.
 
-- Warum reicht die Vorlagendatei allein nicht als HTTP-Antwort?
-- Welche Rolle besitzt das Arbeitsverzeichnis des Servers?
-- Was weist der Listener nach?
-- Was weist die HTTP-Anfrage zusätzlich nach?
-- Warum ist `127.0.0.1` eine lokale Bindung?
-- Warum müssen Adresse und Port in den drei Beobachtungen übereinstimmen?
+Dieser priorisierte Testpfad ist absichtlich kein Produktionsmuster. Ein
+frischer Workshopreset muss anschließend die normale Ausgangslage samt genau
+einer neuen `altes_echo`-Instanz wiederherstellen.
 
-## Technikcheck und Verständnis
+## Abschlussbeobachtung
 
-Ein erfolgreicher CHECK bedeutet nur, dass der technische Endzustand
-beobachtet wurde. Selbstständige Planung, Sicherheitsverhalten und Verständnis
-werden ausschließlich durch Aufgabenbearbeitung und Erklärung eingeschätzt.
+Nach dem Workshop sollten Lernende erklären können:
+
+- warum die Diagnosefolge immer nur das nächste Problem meldet;
+- warum Löschung und Prozessbeendigung unterschiedliche Ursachen behandeln;
+- warum eine PID ohne Identitätsprüfung kein ausreichendes Ziel ist;
+- warum Ort und Besitzer relevante Dateimetadaten sein können;
+- warum eine gespeicherte Konfiguration zusätzlich geprüft werden muss;
+- warum der CHECK nur die Flag-Abgabe und nicht die selbstständige
+  Transferleistung bestätigt.
