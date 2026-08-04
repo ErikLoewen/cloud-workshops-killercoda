@@ -1,6 +1,6 @@
 {
-  "title": "Kapitel 01 – Moin Linux!",
-  "description": "Terminal bedienen, Pfade lesen, Dateien verwalten und Prozesse im Blick behalten.\n\n![Testbild Kapitelübersicht](./assets/0101-einstieg-leuchtturm.png)",
+  "title": "Kapitel 01 – Der Ruf des Leuchtturms: Linux-Grundlagen in 8 Workshops",
+  "description": "Die Insel war seltsam, die Stadt verdächtig still und die Kirche noch merkwürdiger. Nun zieht ein Sturm auf – und ausgerechnet der alte Leuchtturm scheint bereits auf dich gewartet zu haben. In acht aufeinander aufbauenden Workshops lernst du dort die Grundlagen von Linux praktisch kennen: Du bedienst das Terminal, navigierst durch das Dateisystem, verwaltest Dateien und Verzeichnisse, prüfst Berechtigungen, untersuchst Prozesse, passt Konfigurationen an und filterst Ausgaben mit grep.",
   "items": [
     {
       "path": "workshop-0101-terminal-sicher-bedienen"
