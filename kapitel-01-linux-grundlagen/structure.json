@@ -1,6 +1,6 @@
 {
   "title": "Kapitel 01 – Moin Linux!",
-  "description": "Terminal bedienen, Pfade lesen, Dateien verwalten und Prozesse im Blick behalten.",
+  "description": "Terminal bedienen, Pfade lesen, Dateien verwalten und Prozesse im Blick behalten.\n\n![Testbild Kapitelübersicht](./assets/0101-einstieg-leuchtturm.png)",
   "items": [
     {
       "path": "workshop-0101-terminal-sicher-bedienen"
