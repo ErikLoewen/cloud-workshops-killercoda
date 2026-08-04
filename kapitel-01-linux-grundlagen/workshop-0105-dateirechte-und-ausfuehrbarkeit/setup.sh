@@ -61,6 +61,8 @@ clear 2>/dev/null || printf '\\033[2J\\033[H'
 PROFILE
 cat >"${lab_home}/.bashrc" <<'BASHRC'
 PS1='\u@\h:\w\$ '
+eval "$(dircolors -b)"
+alias ls='ls --color=auto'
 BASHRC
 for account in nachtwache mrs_ah; do
   cat >"/home/${account}/.bash_profile" <<'PROFILE'
@@ -69,6 +71,8 @@ cd "${HOME}"
 PROFILE
   cat >"/home/${account}/.bashrc" <<'BASHRC'
 PS1='\u@\h:\w\$ '
+eval "$(dircolors -b)"
+alias ls='ls --color=auto'
 BASHRC
 done
 chown waerter:waerter "${lab_home}/.bash_profile" "${lab_home}/.bashrc"

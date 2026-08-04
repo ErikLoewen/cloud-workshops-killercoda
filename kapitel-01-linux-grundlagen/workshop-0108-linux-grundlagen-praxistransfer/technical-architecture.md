@@ -47,7 +47,8 @@ Das Setup übernimmt das nachweislich funktionierende Muster aus Workshop 7:
 3. Hostname bestmöglich auf `leuchtturm` setzen.
 4. Arbeitsbaum reproduzierbar als `waerter:waerter` anlegen.
 5. `.bash_profile` erzeugen, `.bashrc` laden und in das Archiv wechseln.
-6. `.bashrc` mit `PS1='\u@\h:\w\$ '` ausstatten.
+6. `.bashrc` mit dem Workshop-Prompt sowie der üblichen farbigen
+   `ls`-Ausgabe ausstatten.
 7. Setupausgabe vor dem Benutzerwechsel leeren.
 8. Mit `exec su - waerter` in die Teilnehmer-Shell wechseln.
 

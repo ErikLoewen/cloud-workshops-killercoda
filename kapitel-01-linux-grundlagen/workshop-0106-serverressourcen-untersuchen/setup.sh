@@ -57,6 +57,8 @@ clear 2>/dev/null || printf '\\033[2J\\033[H'
 PROFILE
 cat >"$lab_home/.bashrc" <<'BASHRC'
 PS1='\u@\h:\w\$ '
+eval "$(dircolors -b)"
+alias ls='ls --color=auto'
 BASHRC
 chown "$lab_user:$lab_user" "$lab_home/.bash_profile" "$lab_home/.bashrc"
 chmod 0644 "$lab_home/.bash_profile" "$lab_home/.bashrc"

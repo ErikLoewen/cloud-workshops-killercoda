@@ -85,6 +85,8 @@ PROFILE
 
 cat >"${lab_home}/.bashrc" <<'BASHRC'
 PS1='\u@\h:\w\$ '
+eval "$(dircolors -b)"
+alias ls='ls --color=auto'
 bind 'set echo-control-characters off'
 
 workshop_0103_notification() {
