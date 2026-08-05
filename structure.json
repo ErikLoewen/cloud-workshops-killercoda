@@ -4,6 +4,9 @@
   "items": [
     {
       "path": "kapitel-01-linux-grundlagen"
+    },
+    {
+      "path": "kapitel-02-killercoda-pilot"
     }
   ]
 }

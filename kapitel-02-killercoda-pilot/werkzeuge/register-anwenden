@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+if [[ "${PILOT_TEST_MODE:-0}" == "1" ]]; then
+  install_dir="${PILOT_INSTALL_DIR:?PILOT_INSTALL_DIR fehlt im Testmodus}"
+  workdir="${PILOT_WORKDIR:?PILOT_WORKDIR fehlt im Testmodus}"
+  expected_uid="${PILOT_EXPECTED_UID:?PILOT_EXPECTED_UID fehlt im Testmodus}"
+  hosts_file="${PILOT_HOSTS_FILE:?PILOT_HOSTS_FILE fehlt im Testmodus}"
+
+  exec /usr/bin/python3 -I \
+    "$install_dir/interne-skripte/hosts_tool.py" apply \
+    --staging "$workdir/register/xebico.hosts" \
+    --expected-owner-uid "$expected_uid" \
+    --hosts "$hosts_file"
+fi
+
+exec /usr/bin/sudo -n /usr/local/sbin/labforge-xebico-hosts-apply

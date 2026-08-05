@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+if (($# != 0)); then
+  echo "Dieses Hilfsprogramm akzeptiert keine Argumente." >&2
+  exit 2
+fi
+
+if [[ "$(id -u)" != "0" ]]; then
+  echo "Dieses Hilfsprogramm muss privilegiert ausgeführt werden." >&2
+  exit 1
+fi
+
+install_dir="/opt/labforge/kapitel-02-killercoda-pilot"
+workdir="/home/telegrafist/nachtstation"
+staging="$workdir/register/xebico.hosts"
+helper="$install_dir/interne-skripte/hosts_tool.py"
+expected_uid="$(id -u telegrafist)"
+
+exec /usr/bin/env -i \
+  PATH=/usr/sbin:/usr/bin:/sbin:/bin \
+  /usr/bin/python3 -I "$helper" apply \
+    --staging "$staging" \
+    --expected-owner-uid "$expected_uid" \
+    --hosts /etc/hosts \
+    --allow-inplace-fallback

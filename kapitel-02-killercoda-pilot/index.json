@@ -1,0 +1,50 @@
+{
+  "title": "Kapitel 02 – Killercoda-Technikpilot",
+  "description": "Prüft Hostprozess, Ports, Bindung, HTTP, Namensauflösung, Traffic-Link und interaktive Markdown-Demonstrationen.",
+  "details": {
+    "intro": {
+      "title": "Technikpilot vorbereiten",
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Interaktive Markdown-Demonstrationen",
+        "text": "step1-markdown.md",
+        "verify": "verify-01-markdown.sh"
+      },
+      {
+        "title": "Prozessname und TCP-Ports",
+        "text": "step2-prozess-port.md",
+        "verify": "verify-02-prozess-port.sh"
+      },
+      {
+        "title": "Bind-Adresse und Traffic-Pfad",
+        "text": "step3-bindung-traffic.md",
+        "verify": "verify-03-bindung.sh"
+      },
+      {
+        "title": "HTTP 200, 404 und 500",
+        "text": "step4-http.md",
+        "verify": "verify-04-http.sh"
+      },
+      {
+        "title": "Namensauflösung und Hosts-Wrapper",
+        "text": "step5-register.md",
+        "verify": "verify-05-register.sh"
+      },
+      {
+        "title": "Vollständiger Endzustand",
+        "text": "step6-gesamtcheck.md",
+        "verify": "verify-06-gesamt.sh"
+      }
+    ],
+    "finish": {
+      "title": "Pilot abgeschlossen",
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
