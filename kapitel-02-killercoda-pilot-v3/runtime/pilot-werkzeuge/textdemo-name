@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+if [[ "${PILOT_TEST_MODE:-0}" == "1" ]]; then
+  install_dir="${PILOT_INSTALL_DIR:?PILOT_INSTALL_DIR fehlt im Testmodus}"
+else
+  install_dir="/opt/labforge/kapitel-02-killercoda-pilot"
+fi
+
+exec /usr/bin/python3 -I               "$install_dir/interne-skripte/pilot_state.py" demo-name

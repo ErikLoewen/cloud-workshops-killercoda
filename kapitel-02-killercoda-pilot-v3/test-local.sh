@@ -95,30 +95,36 @@ curl_headers() {
 }
 
 "$root/validate-package.sh"
-pass "Asset-Index, HTML/CSS/JS-Proben und statische Paketvalidierung"
+pass "Killercoda-Assetindex und statische Paketvalidierung"
 
-export PILOT_RUNTIME_ARCHIVE="$root/kapitel-02-killercoda-runtime.tar.gz"
-"$root/killercoda-entry.sh" --sandbox "$sandbox" >/tmp/labforge-setup.out
+export PILOT_RUNTIME_ARCHIVE="$root/assets/kapitel-02-killercoda-runtime.tar.gz"
+"$root/assets/killercoda-entry.sh" --sandbox "$sandbox" >/tmp/labforge-setup.out
 pass "Asset-Entry entpackt und installiert die Runtime"
 
 expect_success "wiederholtes isoliertes Setup ohne Doppelinstanz" \
   "$runtime_root/setup.sh" --sandbox "$system_root"
 
-for result in html css js iframe; do
-  printf 'supported\n' >"$PILOT_WORKDIR/status/ui-${result}.result"
-done
+expect_success "interaktive Textdemo Name" \
+  "$PILOT_WORKDIR/pilot-werkzeuge/textdemo-name"
+expect_success "interaktive Textdemo Dienst" \
+  "$PILOT_WORKDIR/pilot-werkzeuge/textdemo-dienst"
+expect_success "interaktive Textdemo Bindung" \
+  "$PILOT_WORKDIR/pilot-werkzeuge/textdemo-bindung"
+expect_success "interaktive Textdemo HTTP" \
+  "$PILOT_WORKDIR/pilot-werkzeuge/textdemo-http"
 
 response="$(curl_headers "http://127.0.0.1:${runtime_port}/architektur")"
 if grep -q '^HTTP/1.1 200' <<<"$response" &&
    grep -qi '^Content-Type: text/html' <<<"$response" &&
    grep -q 'Interaktive Netzwerkarchitektur' <<<"$response" &&
-   grep -q 'JavaScript aktiv' <<<"$response"; then
-  pass "HTML/CSS/JS-Demo-Endpunkt"
+   grep -q 'JavaScript aktiv' <<<"$response" &&
+   grep -q 'Nächste Diagnoseebene' <<<"$response"; then
+  pass "HTML/CSS/JS-Web-App unter /architektur"
 else
-  fail "HTML/CSS/JS-Demo-Endpunkt unvollständig"
+  fail "HTML/CSS/JS-Web-App unvollständig"
 fi
 
-expect_success "Verify-Logik für dokumentierte UI-Befunde" \
+expect_success "Verify-Logik für Textdemos und Web-App" \
   /usr/bin/python3 -I "$PILOT_INSTALL_DIR/interne-skripte/verify_step.py" 1
 
 config_tool="$PILOT_WORKDIR/werkzeuge/konfiguration-pruefen"

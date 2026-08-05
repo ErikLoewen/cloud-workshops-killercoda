@@ -1,18 +1,18 @@
 {
-  "title": "Kapitel 02 – Killercoda-Technikpilot V2",
-  "description": "Prüft Asset-Setup, Hostprozess, Ports, Bindung, HTTP, Namensauflösung sowie HTML/CSS/JS-Demonstrationen.",
+  "title": "Kapitel 02 – Killercoda-Technikpilot V3",
+  "description": "Prüft Asset-Setup, interaktive Textdemonstrationen, HTML/CSS/JS-Web-App und die Nachtleitungsarchitektur.",
   "details": {
     "intro": {
-      "title": "Technikpilot sicher vorbereiten",
+      "title": "Technikpilot vorbereiten",
       "text": "intro.md",
       "background": "intro-background.sh",
       "foreground": "intro-foreground.sh"
     },
     "steps": [
       {
-        "title": "HTML, CSS und JavaScript im Text",
-        "text": "step1-html-css-js.md",
-        "verify": "verify-01-html-css-js.sh"
+        "title": "Interaktive Demonstrationen",
+        "text": "step1-interaktive-demonstrationen.md",
+        "verify": "verify-01-interaktive-demonstrationen.sh"
       },
       {
         "title": "Prozessname und TCP-Ports",

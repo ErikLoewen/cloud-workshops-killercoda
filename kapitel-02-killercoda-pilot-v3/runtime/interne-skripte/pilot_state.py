@@ -143,6 +143,10 @@ def main() -> int:
             "http-200",
             "register-stationsadresse",
             "demo-gesamtkette",
+            "demo-name",
+            "demo-dienst",
+            "demo-bindung",
+            "demo-http",
         ),
     )
     args = parser.parse_args()
@@ -236,6 +240,52 @@ def main() -> int:
         )
         marker(workdir, "register-stationsadresse")
         print(f"Staging vorbereitet: {address} xebico")
+        return 0
+
+    if args.action == "demo-name":
+        address = run(["getent", "hosts", "xebico"], check=False).stdout.strip()
+        print("┌─ 1 · NAME UND ADRESSE")
+        print(f"│ {address or 'xebico ist noch nicht aufgelöst'}")
+        print("└─ Die Systemauflösung verbindet den Namen mit einer Adresse.")
+        marker(workdir, "textdemo-name")
+        return 0
+
+    if args.action == "demo-dienst":
+        process = run(["pgrep", "-a", "xebico-dienst"], check=False).stdout.strip()
+        print("┌─ 2 · PROZESS UND PORT")
+        print(f"│ {process or 'xebico-dienst wurde nicht gefunden'}")
+        print("│ Sollport: 8080/tcp")
+        print("└─ Der Prozess stellt den Dienst bereit.")
+        marker(workdir, "textdemo-dienst")
+        return 0
+
+    if args.action == "demo-bindung":
+        output = run(["ss", "-ltnp"], check=False).stdout
+        listener = next(
+            (line.strip() for line in output.splitlines() if "xebico-dienst" in line),
+            "keine passende Listenerzeile",
+        )
+        print("┌─ 3 · LISTENER UND BIND-ADRESSE")
+        print(f"│ {listener}")
+        print("└─ Die lokale Adresse bestimmt, an welchen Adressen der Socket lauscht.")
+        marker(workdir, "textdemo-bindung")
+        return 0
+
+    if args.action == "demo-http":
+        response = curl_response("http://127.0.0.1:8080/meldung")
+        status = next(
+            (line for line in response.splitlines() if line.startswith("HTTP/")),
+            "keine HTTP-Statuszeile",
+        )
+        header = next(
+            (line for line in response.splitlines() if line.lower().startswith("x-xebico-status:")),
+            "X-Xebico-Status fehlt",
+        )
+        print("┌─ 4 · HTTP-ANTWORT")
+        print(f"│ {status}")
+        print(f"│ {header}")
+        print("└─ Status, ausgewählter Header und Body werden getrennt gelesen.")
+        marker(workdir, "textdemo-http")
         return 0
 
     if args.action == "demo-gesamtkette":

@@ -132,30 +132,17 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.step == 1:
-        result_files = (
-            "ui-html.result",
-            "ui-css.result",
-            "ui-js.result",
-            "ui-iframe.result",
+        required_markers = (
+            "textdemo-name",
+            "textdemo-dienst",
+            "textdemo-bindung",
+            "textdemo-http",
         )
-        missing = [
-            name for name in result_files
-            if not (WORKDIR / "status" / name).is_file()
-        ]
+        missing = [name for name in required_markers if not marker(name)]
         if missing:
             return fail(
-                "Manuelle UI-Ergebnisse fehlen: " + ", ".join(missing)
+                "Interaktive Textdemonstrationen fehlen: " + ", ".join(missing)
             )
-
-        allowed = {"supported", "blocked"}
-        for name in result_files:
-            value = (WORKDIR / "status" / name).read_text(
-                encoding="utf-8"
-            ).strip()
-            if value not in allowed:
-                return fail(
-                    f"Ungültiger UI-Testwert in {name}: {value!r}"
-                )
 
         port = config_value("PORT")
         response = http_response(
@@ -173,11 +160,11 @@ def main() -> int:
         ]
         if missing_http:
             return fail(
-                "HTML-Demo-Endpunkt unvollständig: "
+                "HTML/CSS/JS-Web-App unvollständig: "
                 + ", ".join(missing_http)
             )
 
-        print("HTML/CSS/JS-Kompatibilitätsbefunde dokumentiert.")
+        print("Textdemonstrationen und interaktive Web-App bestätigt.")
         return 0
 
     if args.step == 2:
