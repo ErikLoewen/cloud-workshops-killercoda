@@ -1,1 +1,0 @@
-fix(killercoda): align chapter 02 pilot setup with working chapter 01 scenarios
