@@ -72,6 +72,144 @@ def read_message(path: Path) -> bytes:
         os.close(fd)
 
 
+def architecture_page() -> bytes:
+    """Eigenständige, lokale HTML/CSS/JS-Demonstration ohne externe Ressourcen."""
+    html = r"""<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nachtleitung – interaktive Netzwerkarchitektur</title>
+<style>
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  --panel: #111827;
+  --line: #64748b;
+  --active: #22d3ee;
+  --ok: #86efac;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 1rem;
+  background: #020617;
+  color: #e2e8f0;
+}
+main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+h1 { font-size: 1.35rem; }
+.architecture {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  align-items: center;
+  gap: .65rem;
+  margin: 1.25rem 0;
+}
+.node {
+  min-height: 7rem;
+  padding: .8rem;
+  border: 2px solid #334155;
+  border-radius: .8rem;
+  background: var(--panel);
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.node strong { display: block; color: #f8fafc; }
+.node small { display: block; margin-top: .35rem; color: #94a3b8; }
+.node.active {
+  border-color: var(--active);
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 3px rgb(34 211 238 / .18);
+}
+.arrow {
+  display: none;
+  color: var(--line);
+  text-align: center;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+button {
+  border: 0;
+  border-radius: .55rem;
+  padding: .65rem .9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+#status {
+  margin-top: 1rem;
+  padding: .75rem;
+  border-left: .35rem solid var(--ok);
+  background: #052e16;
+}
+@media (max-width: 720px) {
+  .architecture { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>Interaktive Netzwerkarchitektur der Nachtleitung</h1>
+  <p>Die Schaltfläche hebt nacheinander die bekannten Diagnoseebenen hervor.</p>
+
+  <section class="architecture" aria-label="Netzwerkarchitektur">
+    <article class="node active" data-label="Name und Adresse">
+      <strong>1 · Name</strong>
+      <small>xebico → Stationsadresse</small>
+    </article>
+    <article class="node" data-label="Prozess und Listener">
+      <strong>2 · Dienst</strong>
+      <small>xebico-dienst → TCP 8080</small>
+    </article>
+    <article class="node" data-label="Bind-Adresse">
+      <strong>3 · Bindung</strong>
+      <small>0.0.0.0:8080</small>
+    </article>
+    <article class="node" data-label="HTTP-Antwort">
+      <strong>4 · HTTP</strong>
+      <small>200 · Header · Body</small>
+    </article>
+  </section>
+
+  <div class="controls">
+    <button id="next" type="button">Nächste Diagnoseebene</button>
+    <button id="reset" type="button">Zurücksetzen</button>
+  </div>
+
+  <p id="status" role="status">JavaScript aktiv · Ebene: Name und Adresse</p>
+</main>
+<script>
+(() => {
+  const nodes = [...document.querySelectorAll('.node')];
+  const status = document.getElementById('status');
+  let current = 0;
+
+  function render() {
+    nodes.forEach((node, index) => node.classList.toggle('active', index === current));
+    status.textContent = `JavaScript aktiv · Ebene: ${nodes[current].dataset.label}`;
+  }
+
+  document.getElementById('next').addEventListener('click', () => {
+    current = (current + 1) % nodes.length;
+    render();
+  });
+
+  document.getElementById('reset').addEventListener('click', () => {
+    current = 0;
+    render();
+  });
+})();
+</script>
+</body>
+</html>
+"""
+    return html.encode("utf-8")
+
 class PilotServer(ThreadingHTTPServer):
     daemon_threads = True
     allow_reuse_address = True
@@ -86,9 +224,15 @@ class Handler(BaseHTTPRequestHandler):
         # Keine Anfrageprotokolle: Der Pilot erzeugt kein unkontrolliertes Logwachstum.
         return
 
-    def _respond(self, status: int, body: bytes, x_status: str) -> None:
+    def _respond(
+        self,
+        status: int,
+        body: bytes,
+        x_status: str,
+        content_type: str = "text/plain; charset=utf-8",
+    ) -> None:
         self.send_response(status)
-        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
         self.send_header("X-Xebico-Status", x_status)
         self.send_header("Connection", "close")
@@ -99,6 +243,15 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
         if self.path == "/healthz":
             self._respond(200, b"bereit\n", "BEREIT")
+            return
+
+        if self.path == "/architektur":
+            self._respond(
+                200,
+                architecture_page(),
+                "DEMO",
+                "text/html; charset=utf-8",
+            )
             return
 
         if self.path != "/meldung":

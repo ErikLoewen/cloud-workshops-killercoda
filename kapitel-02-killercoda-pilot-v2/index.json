@@ -1,17 +1,18 @@
 {
-  "title": "Kapitel 02 – Killercoda-Technikpilot",
-  "description": "Prüft Hostprozess, Ports, Bindung, HTTP, Namensauflösung, Traffic-Link und interaktive Markdown-Demonstrationen.",
+  "title": "Kapitel 02 – Killercoda-Technikpilot V2",
+  "description": "Prüft Asset-Setup, Hostprozess, Ports, Bindung, HTTP, Namensauflösung sowie HTML/CSS/JS-Demonstrationen.",
   "details": {
     "intro": {
-      "title": "Technikpilot vorbereiten",
+      "title": "Technikpilot sicher vorbereiten",
       "text": "intro.md",
-      "foreground": "setup.sh"
+      "background": "intro-background.sh",
+      "foreground": "intro-foreground.sh"
     },
     "steps": [
       {
-        "title": "Interaktive Markdown-Demonstrationen",
-        "text": "step1-markdown.md",
-        "verify": "verify-01-markdown.sh"
+        "title": "HTML, CSS und JavaScript im Text",
+        "text": "step1-html-css-js.md",
+        "verify": "verify-01-html-css-js.sh"
       },
       {
         "title": "Prozessname und TCP-Ports",
@@ -42,6 +43,24 @@
     "finish": {
       "title": "Pilot abgeschlossen",
       "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "kapitel-02-killercoda-runtime.tar.gz",
+          "target": "/tmp"
+        },
+        {
+          "file": "killercoda-entry.sh",
+          "target": "/tmp",
+          "chmod": "+x"
+        },
+        {
+          "file": "killercoda-wait.sh",
+          "target": "/tmp",
+          "chmod": "+x"
+        }
+      ]
     }
   },
   "backend": {

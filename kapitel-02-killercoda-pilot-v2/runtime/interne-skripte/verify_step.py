@@ -132,17 +132,52 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.step == 1:
-        required = (
-            "markdown-inline",
-            "markdown-multiline",
-            "markdown-copy",
-            "markdown-details",
-            "markdown-interrupt",
+        result_files = (
+            "ui-html.result",
+            "ui-css.result",
+            "ui-js.result",
+            "ui-iframe.result",
         )
-        missing = [name for name in required if not marker(name)]
+        missing = [
+            name for name in result_files
+            if not (WORKDIR / "status" / name).is_file()
+        ]
         if missing:
-            return fail("Markdown-Aktionen fehlen: " + ", ".join(missing))
-        print("Interaktive Markdown-Aktionen bestätigt.")
+            return fail(
+                "Manuelle UI-Ergebnisse fehlen: " + ", ".join(missing)
+            )
+
+        allowed = {"supported", "blocked"}
+        for name in result_files:
+            value = (WORKDIR / "status" / name).read_text(
+                encoding="utf-8"
+            ).strip()
+            if value not in allowed:
+                return fail(
+                    f"Ungültiger UI-Testwert in {name}: {value!r}"
+                )
+
+        port = config_value("PORT")
+        response = http_response(
+            f"http://127.0.0.1:{port}/architektur"
+        )
+        required = (
+            "HTTP/1.1 200",
+            "text/html",
+            "Interaktive Netzwerkarchitektur",
+            "JavaScript aktiv",
+            "Nächste Diagnoseebene",
+        )
+        missing_http = [
+            value for value in required if value not in response
+        ]
+        if missing_http:
+            return fail(
+                "HTML-Demo-Endpunkt unvollständig: "
+                + ", ".join(missing_http)
+            )
+
+        print("HTML/CSS/JS-Kompatibilitätsbefunde dokumentiert.")
         return 0
 
     if args.step == 2:

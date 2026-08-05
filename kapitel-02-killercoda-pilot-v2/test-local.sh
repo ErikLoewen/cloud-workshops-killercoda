@@ -3,6 +3,7 @@ set -Eeuo pipefail
 
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 sandbox="$(mktemp -d)"
+runtime_root="$sandbox/source"
 tests=0
 failures=0
 skipped=0
@@ -28,10 +29,11 @@ fi
 export PILOT_SANDBOX_INITIAL_PORT="$runtime_port"
 
 export PILOT_TEST_MODE=1
-export PILOT_INSTALL_DIR="$sandbox/opt/labforge/kapitel-02-killercoda-pilot"
-export PILOT_WORKDIR="$sandbox/home/telegrafist/nachtstation"
-export PILOT_STATE_DIR="$sandbox/var/lib/labforge/nachtleitung-killercoda-pilot"
-export PILOT_HOSTS_FILE="$sandbox/etc/hosts"
+system_root="$sandbox/system"
+export PILOT_INSTALL_DIR="$system_root/opt/labforge/kapitel-02-killercoda-pilot"
+export PILOT_WORKDIR="$system_root/home/telegrafist/nachtstation"
+export PILOT_STATE_DIR="$system_root/var/lib/labforge/nachtleitung-killercoda-pilot"
+export PILOT_HOSTS_FILE="$system_root/etc/hosts"
 export PILOT_EXPECTED_UID="$(id -u)"
 
 cleanup() {
@@ -93,24 +95,30 @@ curl_headers() {
 }
 
 "$root/validate-package.sh"
-pass "Killercoda-Index, Markdown-Aktionen und statische Paketvalidierung"
+pass "Asset-Index, HTML/CSS/JS-Proben und statische Paketvalidierung"
 
-"$root/setup.sh" --sandbox "$sandbox" >/tmp/labforge-setup.out
-pass "isoliertes Setup"
+export PILOT_RUNTIME_ARCHIVE="$root/kapitel-02-killercoda-runtime.tar.gz"
+"$root/killercoda-entry.sh" --sandbox "$sandbox" >/tmp/labforge-setup.out
+pass "Asset-Entry entpackt und installiert die Runtime"
+
 expect_success "wiederholtes isoliertes Setup ohne Doppelinstanz" \
-  "$root/setup.sh" --sandbox "$sandbox"
+  "$runtime_root/setup.sh" --sandbox "$system_root"
 
-expect_success "Backend der Markdown-Einzelaktion" \
-  "$PILOT_WORKDIR/pilot-werkzeuge/markdown-inline-demo"
-expect_success "Backend der ausklappbaren Live-Demonstration" \
-  "$PILOT_WORKDIR/pilot-werkzeuge/markdown-details-demo"
-expect_success "Backend der Interrupt-Abschlussaktion" \
-  "$PILOT_WORKDIR/pilot-werkzeuge/markdown-interrupt-demo"
-expect_success "Backend der dynamischen Architekturansicht" \
-  "$PILOT_WORKDIR/pilot-werkzeuge/demo-architektur"
-printf 'ok\n' >"$PILOT_WORKDIR/status/markdown-multiline.ok"
-printf 'copy-ok\n' >"$PILOT_WORKDIR/status/markdown-copy.ok"
-expect_success "Verify-Logik für Markdown-Aktionsmarker" \
+for result in html css js iframe; do
+  printf 'supported\n' >"$PILOT_WORKDIR/status/ui-${result}.result"
+done
+
+response="$(curl_headers "http://127.0.0.1:${runtime_port}/architektur")"
+if grep -q '^HTTP/1.1 200' <<<"$response" &&
+   grep -qi '^Content-Type: text/html' <<<"$response" &&
+   grep -q 'Interaktive Netzwerkarchitektur' <<<"$response" &&
+   grep -q 'JavaScript aktiv' <<<"$response"; then
+  pass "HTML/CSS/JS-Demo-Endpunkt"
+else
+  fail "HTML/CSS/JS-Demo-Endpunkt unvollständig"
+fi
+
+expect_success "Verify-Logik für dokumentierte UI-Befunde" \
   /usr/bin/python3 -I "$PILOT_INSTALL_DIR/interne-skripte/verify_step.py" 1
 
 config_tool="$PILOT_WORKDIR/werkzeuge/konfiguration-pruefen"
@@ -320,8 +328,8 @@ else
 fi
 
 mv "$staging.valid" "$staging"
-expect_success "Reset in Sandbox" "$root/reset.sh" --sandbox "$sandbox"
-expect_success "wiederholter Reset bleibt idempotent" "$root/reset.sh" --sandbox "$sandbox"
+expect_success "Reset in Sandbox" "$runtime_root/reset.sh" --sandbox "$system_root"
+expect_success "wiederholter Reset bleibt idempotent" "$runtime_root/reset.sh" --sandbox "$system_root"
 
 if grep -q '^192.0.2.10 xebico$' "$PILOT_HOSTS_FILE" &&
    ss -ltnp 2>/dev/null | grep 'xebico-dienst' | grep -q "127.0.0.1:${runtime_port}"; then
