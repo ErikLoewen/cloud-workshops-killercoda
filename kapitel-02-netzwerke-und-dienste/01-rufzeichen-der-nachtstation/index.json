@@ -1,0 +1,43 @@
+{
+  "title": "02.01 – Das Rufzeichen der Nachtstation",
+  "description": "Die Nachtschicht dokumentiert Hostname, Netzwerkschnittstellen, IPv4-Adressen und Loopback einer frischen Ubuntu-Station.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "setup.sh"
+    },
+    "steps": [
+      {
+        "title": "Nachtschicht übernehmen",
+        "text": "step1-orientierung.md"
+      },
+      {
+        "title": "Das Rufzeichen anzeigen: hostname",
+        "text": "step2-hostname.md"
+      },
+      {
+        "title": "Die Anschlüsse der Station: ip address",
+        "text": "step3-ip-address.md"
+      },
+      {
+        "title": "Der Weg zurück zur eigenen Station: Loopback",
+        "text": "step4-loopback.md"
+      },
+      {
+        "title": "Eine weitere Schnittstelle bestimmen",
+        "text": "step5-weitere-schnittstelle.md"
+      },
+      {
+        "title": "Das Stationsprotokoll abschließen",
+        "text": "challenge.md",
+        "verify": "verify.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
